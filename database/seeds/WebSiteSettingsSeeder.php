@@ -69,6 +69,8 @@ class WebSiteSettingsSeeder extends Seeder
         Website::createSetting($parent->id, 'showTaxonomies', 1, 'boolean', null);
         Website::createSetting($parent->id, 'showFeaturedImage', 1, 'boolean', null);
         Website::createSetting($parent->id, 'showContentDates', 0, 'boolean', null);
+        Website::createSetting($parent->id, 'shortcutNotifications', 1, 'boolean', null);
+        Website::createSetting($parent->id, 'editorNotifications', 1, 'boolean', null);
 
         $parent = Website::createSetting(null, 'contentIndex', 'Content Index', 'section', null);
         Website::createSetting($parent->id, 'indexPageDisplay', 'list', 'string', null);
