@@ -32,6 +32,7 @@ class ThemeService
         $return = array();
         $return['message'] = '';
         $return['code'] = 422;
+        $return['id'] = null;
         $return = json_decode(json_encode($return));
 
         if ($zip->open($themePath) === TRUE) {
@@ -70,6 +71,9 @@ class ThemeService
                         }
                         $return->message = "Theme " . $themeData->name . " installed successfully!";
                         $return->code = 200;
+                        if(isset($theme)) {
+                            $return->id = $theme->id;
+                        }
                     } else {
                         $return->message = "It seems that the themes folder is locked by another program. Close the editor and try again.";
                     }
@@ -77,23 +81,23 @@ class ThemeService
                     $return->message = "Unpacking of theme failed. It's possible that folder is locked.";
                 }
             } else {
-                $return->message = "Failed to extract theme data."; 
+                $return->message = "Failed to extract theme data.";
             }
         } else {
-            $return->message = "Theme zip failed to open."; 
+            $return->message = "Theme zip failed to open.";
         }
 
         return $return;
     }
 
-    public function getTheme($themeID) 
+    public function getTheme($themeID)
     {
         $theme = Theme::find($themeID);
 
         return $theme;
     }
 
-    public function getSettings($themeID) 
+    public function getSettings($themeID)
     {
         $theme = Theme::with('sections.settings')->find($themeID);
         $themeSettings = optional($theme)->sections;

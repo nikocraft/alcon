@@ -64,6 +64,9 @@ class ThemeController extends Controller
 
                 return response()->json([
                     'message' => $return->message,
+                    'data' => [
+                        'id' => $return->id
+                    ]
                 ], $return->code);
             }
         }
