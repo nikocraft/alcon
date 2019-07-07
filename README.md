@@ -1,2 +1,2 @@
-# phoenix
+# Phoenix
 Backend for Laraone CMS.
