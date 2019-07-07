@@ -20,10 +20,11 @@ class UsersSeeder extends Seeder
         $admin = Role::find(2);
         $member = Role::find(3);
 
+        $username = str_replace(".","",$faker->unique()->username);
         $user = User::create([
             'firstname' => $faker->firstName(),
             'lastname' => $faker->lastName(),
-            'username' => 'testuser',
+            'username' => $username,
             'email' => 'first@gmail.com',
             'password' => bcrypt('123456'),
             'timezone' => 'Europe/Amsterdam',
