@@ -2,18 +2,17 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class InstallSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * This seeder seeds Faker user data, used for local development
+     * This seeder should not be called manually, it's used by the installer
      *
      * @return void
      */
     public function run()
     {
         $this->call(LaratrustSeeder::class);
-        $this->call(UsersSeeder::class);
         $this->call(AdminMenuSeeder::class);
         $this->call(WebSiteSettingsSeeder::class);
         $this->call(ContentTypeSeeder::class);

@@ -102,6 +102,7 @@ class InstallerController extends Controller
                 '--force' => true,
             ]);
             Artisan::call('db:seed', [
+                '--class' => 'InstallSeeder',
                 '--force' => true,
             ]);
             $this->saveSiteSettings($request);
