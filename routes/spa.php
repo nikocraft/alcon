@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::group(['namespace' => 'Backend\Spa', 'as' => 'api.', 'middleware' => ['ability:super,access-admin']], function () {
+Route::group(['namespace' => 'Backend\Spa', 'as' => 'api.', 'middleware' => ['auth', 'ability:super,access-admin']], function () {
 
     Route::group(['namespace' => 'Content', 'as' => 'content-type.', 'prefix' => 'content-type'], function () {
         Route::get('list', 'ContentTypeController@list')->name('list');
