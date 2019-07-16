@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="{{ mix('css/app.css', 'themes/admin_one') }}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('css/app.css', 'install') }}" rel="stylesheet" type="text/css">
 
     <!-- Scripts -->
     <script>
@@ -27,7 +27,7 @@
     </div>
 
     @routes
-    <script src="{{ mix('js/install.js', 'themes/admin_one') }}"></script>
+    <script src="{{ mix('js/index.js', 'install') }}"></script>
     @stack('scripts')
 </body>
 </html>
