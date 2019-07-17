@@ -105,7 +105,8 @@ Route::group(['namespace' => 'Backend\Spa', 'as' => 'api.', 'middleware' => ['au
     /** SETTINGS */
     Route::group(['namespace' => 'Settings', 'as' => 'settings.', 'prefix' => 'settings', 'middleware' => ['ability:super,access-settings']], function () {
         Route::resource('website', 'WebsiteController')->only(['index', 'store']);
-        Route::resource('backend', 'AdminController')->only(['index', 'store']);
+        Route::resource('mail', 'MailController')->only(['index', 'store']);
+        Route::resource('admin', 'AdminController')->only(['index', 'store']);
         Route::resource('login', 'LoginController')->only(['index', 'store']);
         Route::resource('members', 'MembersController')->only(['index', 'store']);
         Route::resource('comments', 'CommentsController')->only(['index', 'store']);
