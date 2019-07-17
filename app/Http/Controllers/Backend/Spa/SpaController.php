@@ -12,7 +12,7 @@ class SpaController extends Controller
 
     public function index()
     {
-        $adminMenu = AdminMenu::where('visible', 1)->orderBy('order')->get();
+        $adminMenu = AdminMenu::orderBy('order')->get();
         $contentTypesList = ContentType::all()->toArray();
         $adminMenuArray = $adminMenu->toArray();
         $menuTree = $this->buildMenuTree($adminMenuArray);

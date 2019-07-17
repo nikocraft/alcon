@@ -78,15 +78,16 @@ class AdminMenuSeeder extends Seeder
             'route' => 'acl.roles',
         ]);
 
-        //Comments
-        // AdminMenu::create([
-        //     'name' => 'Comments',
-        //     'unique_id' =>'core.comments',
-        //     'icon' => 'fa fa-comments',
-        //     'permission' => 'list-comments',
-        //     'route' => 'comments',
-        //     // 'order' => 30,
-        // ]);
+        // Comments
+        AdminMenu::create([
+            'name' => 'Comments',
+            'unique_id' =>'core.comments',
+            'icon' => 'fa fa-comments',
+            'permission' => 'list-comments',
+            'route' => 'comments',
+            // 'order' => 30,
+            'visible' => 0
+        ]);
 
         // DESIGN
         AdminMenu::create([
@@ -135,50 +136,55 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         // Types
-        // AdminMenu::create([
-        //     'name' => 'Content Types',
-        //     'unique_id' =>'core.settings.types.index',
-        //     'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-        //     'permission' => 'all',
-        //     'route' => 'content-types.list',
-        // ]);
+        AdminMenu::create([
+            'name' => 'Content Types',
+            'unique_id' =>'core.settings.types.index',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'permission' => 'all',
+            'route' => 'content-types.list',
+            'visible' => 0
+        ]);
 
         AdminMenu::create([
             'name' => 'Website',
             'unique_id' =>'core.settings.website',
-            'route' => 'backend.settings.website',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.website',
         ]);
 
-        // AdminMenu::create([
-        //     'name' => 'Admin',
-        //     'unique_id' =>'core.settings.admin',
-        //     'route' => 'backend.settings.admin',
-        //     'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-        //     'route' => 'settings.backend',
-        // ]);
+        AdminMenu::create([
+            'name' => 'Admin',
+            'unique_id' =>'core.settings.admin',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.backend',
+            'visible' => 0
+        ]);
+
+        AdminMenu::create([
+            'name' => 'Mail',
+            'unique_id' =>'core.settings.mail',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.mail',
+        ]);
 
         AdminMenu::create([
             'name' => 'Login',
             'unique_id' =>'core.settings.login',
-            'route' => 'backend.settings.login',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.login',
         ]);
 
-        // AdminMenu::create([
-        //     'name' => 'Members',
-        //     'unique_id' =>'core.settings.members',
-        //     'route' => 'backend.settings.members',
-        //     'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-        //     'route' => 'settings.members',
-        // ]);
+        AdminMenu::create([
+            'name' => 'Members',
+            'unique_id' =>'core.settings.members',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.members',
+            'visible' => 0
+        ]);
 
         AdminMenu::create([
             'name' => 'Comments',
             'unique_id' =>'core.settings.comments',
-            'route' => 'backend.settings.comments',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.comments',
         ]);
@@ -189,6 +195,5 @@ class AdminMenuSeeder extends Seeder
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.urls',
         ]);
-
     }
 }
