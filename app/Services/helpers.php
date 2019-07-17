@@ -25,3 +25,15 @@ if (!function_exists('set_env_var')) {
         return fclose($file);
     }
 }
+
+
+if (!function_exists('set_env_vars')) {
+    function set_env_vars($data)
+    {
+        foreach($data as $key => $value) {
+            set_env_var($key, $value);
+        }
+
+        return true;
+    }
+}
