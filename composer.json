@@ -34,7 +34,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Database\\Seeds\\Updates\\": "database/seeds/updates"
         }
     },
     "autoload-dev": {
