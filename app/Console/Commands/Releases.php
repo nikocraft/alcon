@@ -26,7 +26,7 @@ class Releases extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'laraone:relases';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,6 @@ class Releases extends Command
 
         $this->releasesData = $this->getReleasesData();
     }
-
 
     /**
      * Load release json object for processing, sort it in asc order by index key
@@ -61,7 +60,7 @@ class Releases extends Command
      *
      * @return mixed
      */
-    protected function findCurrentIndex($version)
+    protected function getCurrentIndex($version)
     {
         $currentIndex = 0;
         foreach($this->releasesData as $key => $value) {
@@ -85,7 +84,6 @@ class Releases extends Command
         return $last['index'];
     }
 
-
     /**
      * Get last version
      *
@@ -96,7 +94,6 @@ class Releases extends Command
         $last = end($this->releasesData);
         return $last['version'];
     }
-
 
     /**
      * Get last version

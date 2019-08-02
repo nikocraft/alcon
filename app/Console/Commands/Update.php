@@ -20,14 +20,7 @@ class Update extends Releases
      *
      * @var string
      */
-    protected $description = 'Update CMS';
-
-    /**
-     * Release data, so we can install / update
-     *
-     * @var string
-     */
-    private $releasesData;
+    protected $description = 'Update Laraone. New code should either be pulled by git or fetch command before update is run.';
 
     /**
      * Create a new command instance.
@@ -52,40 +45,44 @@ class Update extends Releases
         $websiteSettings = $websiteService->getSettings();
         $currentVersion = '1.0.0-beta.1'; // data_get($websiteSettings, 'laraone.phoenix');
 
-        $currentIndex = $this->findCurrentIndex($currentVersion);
+        $currentIndex = $this->getCurrentIndex($currentVersion);
         $lastIndex = $this->getLastIndex();
 
-
-        $seed = 'Seed' . preg_replace("/[^a-zA-Z0-9]/", "", $currentVersion);
-
-        $this->info('res ' . $seed);
-
         if($currentIndex != $lastIndex) {
-            // $this->info('Update started, current version is ' . $currentVersion);
+            $this->info('Update started, current version is ' . $currentVersion);
 
-            // $updateArray = array_slice($this->releasesData, $currentIndex);
-            // $this->info('Seeding new data.');
-            // $seeded = 0;
+            $updatesData = array_slice($this->releasesData, $currentIndex);
+            $seeded = 0;
 
-            // foreach($updateArray as $key => $value) {
-            //     if(file_exists(base_path() . DIRECTORY_SEPARATOR . 'laraone.json' )) {
-            //         Artisan::call('db:seed', [
-            //             '--class' => '\Database\Seeds\Updates\\' . $value['class'],
-            //             '--force' => true,
-            //         ]);
-            //         $seeded += 1;
-            //     }
-            // }
-            // if($seeded) {
-            //     $this->info('Seeding completed.');
-            // } else {
-            //     $this->info('Nothing new to seed.');
-            // }
+            foreach($updatesData as $key => $value) {
+                $seedFile = $this->getSeedFileName($value['version']);
+                if(file_exists(base_path('database/seeds/updates/' . $seedFile . '.php'))) {
+                    Artisan::call('db:seed', [
+                        '--class' => '\Database\Seeds\Updates\\' . $seedFile,
+                        '--force' => true,
+                    ]);
+                    // $seeded += 1;
+                    $this->info('Seeded ' . $seedFile);
+                } else {
+                    $this->info('Seed file not found.');
+                }
+            }
+            if($seeded) {
+                $this->info('Seeding completed.');
+            } else {
+                $this->info('Nothing new to seed.');
+            }
             // exec('composer dump-autoload');
-            // $websiteService->updateSetting('laraone', 'phoenix', $this->getLastVersion());
-            // $this->info('Laraone has been updated successfully to ' . $this->getLastVersion());
+            $websiteService->updateSetting('laraone', 'phoenix', $this->getLastVersion());
+            $this->info('Laraone has been updated successfully to ' . $this->getLastVersion());
         } else {
             $this->info('Already up to date.');
         }
+    }
+
+    protected function getSeedFileName($version)
+    {
+        $seedFileName = 'Seed' . preg_replace("/[^a-zA-Z0-9]/", "", $version);
+        return $seedFileName;
     }
 }
