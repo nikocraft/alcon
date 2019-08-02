@@ -17,6 +17,7 @@
         "mews/purifier": "2.1.4",
         "santigarcor/laratrust": "5.0.*",
         "silber/page-cache": "^1.0",
+        "spatie/laravel-schemaless-attributes": "^1.4",
         "tightenco/ziggy": "0.6.9"
     },
     "require-dev": {
