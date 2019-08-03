@@ -3,6 +3,8 @@
 namespace App\Models\Core\Content;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
 
 use App\Models\Core\Settings\HasSettings;
 use Auth;
@@ -12,6 +14,20 @@ class ContentBlock extends Model
     use HasSettings;
 
     protected $table = "content_blocks";
+
+    public $casts = [
+        'extra_attributes' => 'array',
+    ];
+
+    public function getExtraAttributesAttribute(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'extra_attributes');
+    }
+
+    public function scopeWithExtraAttributes(): Builder
+    {
+        return SchemalessAttributes::scopeWithSchemalessAttributes('extra_attributes');
+    }
 
     public function content()
     {
@@ -41,24 +57,8 @@ class ContentBlock extends Model
     public function getSettings()
     {
         $settings = array();
-        if (isset($this->type)) {
-            $probablePaths = [
-                'App\\Models\\Core\\Content\\Block\\' . studly_case($this->type) . 'Block',
-                'App\\Models\\Core\\Content\\ThirdPartyBlocks\\' . studly_case($this->type) . 'Block'
-            ];
-
-            foreach ($probablePaths as $path) {
-                if (!class_exists($path)) continue;
-                $block = new $path;
-            }
-
-            if (method_exists($block, 'getDefaults')) {
-                $settings = $block->getDefaults();
-            }
-        }
-
-        foreach ($this->settings as $key => $setting) {
-            $settings[$setting['key']] = $setting['value'];
+        foreach ($this->extra_attributes->all() as $key => $setting) {
+            $settings[$key] = $setting['value'];
         }
 
         return (object)$settings;
@@ -74,6 +74,7 @@ class ContentBlock extends Model
             $block->order = $blockData->order;
             $block->unique_id = $blockData->uniqueId;
             $block->parent_id = $parentId;
+            $block->extra_attributes = $blockData->settings;
             $block->user_id = Auth::check() ? Auth::user()->id : 1;
 
             if(isset($blockData->content)) {
@@ -95,6 +96,7 @@ class ContentBlock extends Model
             $block->order = $blockData->order;
             $block->unique_id = $blockData->uniqueId;
             $block->parent_id = $parentId;
+            $block->extra_attributes = $blockData->settings;
 
             $block->user_id = Auth::check() ? Auth::user()->id : 1;
 

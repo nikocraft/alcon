@@ -241,7 +241,6 @@ class ContentController extends Controller
             $block->setSetting($key, $setting['value'], $setting['type'], $blockData->type);
         }
 
-
         // process sub blocks recursivly
         if(isset($blockData->subItems)) {
             for ($i=0; $i < count($blockData->subItems); $i++) {
