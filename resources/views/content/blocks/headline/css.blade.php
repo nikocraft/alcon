@@ -1,100 +1,97 @@
 @push('content-block-custom-css')
-    @if($settings->css){{ $settings->css }}@endif
+    @if($settings->get('css')){{ $settings->get('css') }}@endif
 @endpush
 
 @push('content-block-css')
-.headline-{{ $renderData->block->unique_id }} {
-    @if($settings->onClick == 'open-link')
-    cursor: pointer;
-    @endif
-    font-size: {{ $settings->fontSize }};
-    font-weight: {{ $settings->fontWeight }};
-    color: {{ $settings->textColor }};
-    text-shadow: {{ $settings->textShadow }};
-    margin: {{ $settings->margin }};
-    padding: {{ $settings->padding }};
-    background-color: {{ $settings->backgroundColor }};
-    line-height: {{ $settings->fontLineHeight }};
-    {{-- display: {{ $settings->display }}; --}}
-    font-family: "{{ $settings->fontFamily }}";
+.headline-{{ $block->unique_id }} {
+    @if($settings->get('onClick') == 'open-link')cursor: pointer;@endif
+    font-size: {{ $settings->get('fontSize') }};
+    font-weight: {{ $settings->get('fontWeight') }};
+    color: {{ $settings->get('textColor') }};
+    text-shadow: {{ $settings->get('textShadow') }};
+    margin: {{ $settings->get('margin') }};
+    padding: {{ $settings->get('padding') }};
+    background-color: {{ $settings->get('backgroundColor') }};
+    line-height: {{ $settings->get('fontLineHeight') }};
+    font-family: "{{ $settings->get('fontFamily') }}";
 
     @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->flex }};
-        width: {{ $settings->width }};
-        align-self: {{ $settings->alignSelf }};
+        flex: {{ $settings->get('flex') }};
+        width: {{ $settings->get('width') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
         width: 100%;
     @endif
 }
-.headline-{{ $renderData->block->unique_id }}:hover {
-    @if($settings->textColorAdvanced)color: {{ $settings->textColorHover }};@endif
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorHover }};@endif
-    @if($settings->textShadowAdvanced)text-shadow: {{ $settings->textShadowHover }};@endif
+.headline-{{ $block->unique_id }}:hover {
+    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorHover') }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
+    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowHover') }};@endif
 }
 
-.headline-{{ $renderData->block->unique_id }}:active {
-    @if($settings->textColorAdvanced)color: {{ $settings->textColorActive }};@endif
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorActive }};@endif
-    @if($settings->textShadowAdvanced)text-shadow: {{ $settings->textShadowActive }};@endif
+.headline-{{ $block->unique_id }}:active {
+    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorActive') }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
+    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowActive') }};@endif
 }
 @endpush
 
 @push('content-block-css-large')
-.headline-{{ $renderData->block->unique_id }} {
-    font-size: {{ $settings->fontSizeLarge }};
-    line-height: {{ $settings->fontLineHeightLarge }};
-    padding: {{ $settings->paddingLarge }};
-    margin: {{ $settings->marginLarge }};
+.headline-{{ $block->unique_id }} {
+    font-size: {{ $settings->get('fontSizeLarge') }};
+    line-height: {{ $settings->get('fontLineHeightLarge') }};
+    padding: {{ $settings->get('paddingLarge') }};
+    margin: {{ $settings->get('marginLarge') }};
 
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->flexLarge }};
-        align-self: {{ $settings->alignSelfLarge }};
+        flex: {{ $settings->get('flexLarge') }};
+        align-self: {{ $settings->get('alignSelfLarge') }};
     @endif
-    width: {{ $settings->widthLarge }};
+    width: {{ $settings->get('widthLarge') }};
 }
 @endpush
 
 @push('content-block-css-medium')
-.headline-{{ $renderData->block->unique_id }} {
-    font-size: {{ $settings->fontSizeMedium }};
-    line-height: {{ $settings->fontLineHeightMedium }};
-    padding: {{ $settings->paddingMedium }};
-    margin: {{ $settings->marginMedium }};
+.headline-{{ $block->unique_id }} {
+    font-size: {{ $settings->get('fontSizeMedium') }};
+    line-height: {{ $settings->get('fontLineHeightMedium') }};
+    padding: {{ $settings->get('paddingMedium') }};
+    margin: {{ $settings->get('marginMedium') }};
 
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->flexMedium }};
-        align-self: {{ $settings->alignSelfMedium }};
+        flex: {{ $settings->get('flexMedium') }};
+        align-self: {{ $settings->get('alignSelfMedium') }};
     @endif
-    width: {{ $settings->widthMedium }};
+    width: {{ $settings->get('widthMedium') }};
 }
 @endpush
 
 @push('content-block-css-small')
-.headline-{{ $renderData->block->unique_id }} {
-    font-size: {{ $settings->fontSizeSmall }};
-    line-height: {{ $settings->fontLineHeightSmall }};
-    padding: {{ $settings->paddingSmall }};
-    margin: {{ $settings->marginSmall }};
+.headline-{{ $block->unique_id }} {
+    font-size: {{ $settings->get('fontSizeSmall') }};
+    line-height: {{ $settings->get('fontLineHeightSmall') }};
+    padding: {{ $settings->get('paddingSmall') }};
+    margin: {{ $settings->get('marginSmall') }};
 
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->flexSmall }};
-        align-self: {{ $settings->alignSelfSmall }};
+        flex: {{ $settings->get('flexSmall') }};
+        align-self: {{ $settings->get('alignSelfSmall') }};
     @endif
-    width: {{ $settings->widthSmall }};
+    width: {{ $settings->get('widthSmall') }};
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.headline-{{ $renderData->block->unique_id }} {
-    font-size: {{ $settings->fontSizeExtraSmall }};
-    line-height: {{ $settings->fontLineHeightExtraSmall }};
-    padding: {{ $settings->paddingExtraSmall }};
-    margin: {{ $settings->marginExtraSmall }};
+.headline-{{ $block->unique_id }} {
+    font-size: {{ $settings->get('fontSizeExtraSmall') }};
+    line-height: {{ $settings->get('fontLineHeightExtraSmall') }};
+    padding: {{ $settings->get('paddingExtraSmall') }};
+    margin: {{ $settings->get('marginExtraSmall') }};
 
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->flexExtraSmall }};
-        align-self: {{ $settings->alignSelfExtraSmall }};
+        flex: {{ $settings->get('flexExtraSmall') }};
+        align-self: {{ $settings->get('alignSelfExtraSmall') }};
     @endif
-    width: {{ $settings->widthExtraSmall }};
+    width: {{ $settings->get('widthExtraSmall') }};
 }
 @endpush

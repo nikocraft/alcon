@@ -1,7 +1,11 @@
 @php
-    $settings = $renderData->block->getSettings();
+    $block = $renderData->block;
+    $settings = $block->settings;
 @endphp
 
 @includeIf('content.blocks.headline.css')
 
-<{{$settings->headlineTag}} class="headline-block {{$settings->customClass}} headline-{{$renderData->block->unique_id}}" @if($settings->onClick == 'open-link')onclick="window.open('{{ $settings->link }}', '{{ $settings->target }}');"@endif>{!!$renderData->block->content!!}</{{$settings->headlineTag}}>
+<{{$settings->get('headlineTag', 'h2')}} @if($settings->get('onClick') == 'open-link')onclick="window.open('{{ $settings->get('link') }}', '{{ $settings->get('target') }}');"@endif
+    class="headline-block {{$settings->get('customClass')}} headline-{{$block->unique_id}}">
+    {!!$block->content!!}
+</{{$settings->get('headlineTag', 'h2')}}>
