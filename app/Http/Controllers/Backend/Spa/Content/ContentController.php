@@ -94,7 +94,7 @@ class ContentController extends Controller
     {
         $contentType = ContentType::whereId($contentTypeId)->first();
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
-        
+
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
         $editorSettings = data_get($websiteSettings, 'contentEditor');
@@ -111,7 +111,7 @@ class ContentController extends Controller
         $content = Content::with('blocks')->with('terms')->with('author')->with('featuredimage')->find($contentId);
         $contentType = ContentType::whereId($contentTypeId)->first();
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
-        
+
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
         $editorSettings = data_get($websiteSettings, 'contentEditor');
@@ -234,11 +234,6 @@ class ContentController extends Controller
             if(!array_key_exists($baseKey, $blockData->settings)) {
                 $block->removeSetting($block->type, $baseKey);
             }
-        }
-
-        // only save settings that have been customized by user
-        foreach ($blockData->settings as $key => $setting) {
-            $block->setSetting($key, $setting['value'], $setting['type'], $blockData->type);
         }
 
         // process sub blocks recursivly
