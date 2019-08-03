@@ -58,7 +58,7 @@ class ContentBlock extends Model
     {
         $settings = array();
         foreach ($this->extra_attributes->all() as $key => $setting) {
-            $settings[$key] = $setting['value'];
+            $settings[$key] = $setting;
         }
 
         return (object)$settings;
