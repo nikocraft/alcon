@@ -22,7 +22,7 @@ class CreateContentBlocksTable extends Migration
             $table->unsignedBigInteger('unique_id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->schemalessAttributes('extra_attributes')->nullable();
+            $table->schemalessAttributes('settings')->nullable();
             $table->json('meta')->nullable();
 
             $table->softDeletes();

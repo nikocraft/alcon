@@ -4,9 +4,6 @@ namespace App\Models\Core\Content\Block;
 
 use Illuminate\Database\Eloquent\Model;
 
-
-use App\Models\Core\Settings\HasSettings;
-
 class SectionBlock extends Model
 {
     private $settings = array();

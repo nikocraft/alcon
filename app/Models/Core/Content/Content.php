@@ -13,14 +13,11 @@ use App\Models\Core\Taxonomies\Term;
 use App\Models\Core\Media\Image;
 use App\Models\Core\Comments\Comment;
 use App\Models\Core\Settings\Website;
-
 use App\Models\Traits\Sluggable;
-// use App\Models\Core\Settings\HasSettings;
 
 class Content extends Model
 {
     use Sluggable;
-    // use HasSettings;
 
     protected $table = "content";
 
@@ -101,20 +98,10 @@ class Content extends Model
 
     public function processBlocks($rawBlocks)
     {
-        foreach ($rawBlocks as $key => $block) {
-            $title = $block->settings;
-            foreach ($block->settings as $key => $setting) {
-                if($setting['key'] == 'order') {
-                    $block->order = (int)$setting['value'];
-                    break;
-                }
-            }
-        }
-
         // sort the blocks
         $rawBlocks = $rawBlocks->sortBy('order');
 
-        // reset keys
+        // process blocks and return processed array
         $blocks = [];
         foreach ($rawBlocks as $key => $block) {
             if($this->isJson($block['content']))

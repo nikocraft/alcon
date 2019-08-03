@@ -82,9 +82,7 @@ class ContentController extends Controller
             ->where('content_type_id', $contentTypeId)
             ->firstOrFail();
         
-        $blocks = ContentBlock::with(array('settings'=>function($query) {
-            $query->select('id','key', 'value', 'type');
-        }))->where('content_id', $content->id)->orderBy('parent_id')->orderBy('order')->get();
+        $blocks = ContentBlock::where('content_id', $content->id)->orderBy('parent_id')->orderBy('order')->get();
 
         $widgets = Widget::with(['blocks' => function ($query) {
             $query->with('settings')->orderBy('order', 'asc');
