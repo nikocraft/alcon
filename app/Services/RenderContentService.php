@@ -35,47 +35,35 @@ class RenderContentService
             }
         }
 
-        $templateBasePath = 'content.template';
-        $templatePathObj = $contentType->getSetting(null, 'templatePath');
-        $templatePath = ($templatePathObj) ? $templatePathObj->value : '';
-        $rendered = view()->first([
-            $templateBasePath.'.'.$templatePath.'.render',
-            $templateBasePath.'.default.render'
-        ], compact(
-            'pageType',
-            'contentType',
-            'content',
-            'rootBlocksIds',
-            'allBlocks',
-            'widgets',
-            'css')
+        $rendered = view()->first([ 'content.template.' . $contentType->slug . '.render', 'content.template.default.render'],
+            compact(
+                'pageType',
+                'contentType',
+                'content',
+                'rootBlocksIds',
+                'allBlocks',
+                'widgets',
+                'css'
+            )
         )->render();
 
         $rendered = $this->beautifyCss($rendered);
-
         return $rendered;
     }
 
     public function renderIndex($contentType, $posts, $widgets)
     {
         $pageType = 'index';
-        $templateBasePath = 'content.template';
-        $templatePathObj = $contentType->getSetting(null, 'templatePath');
-        $templatePath = ($templatePathObj)
-            ? $templatePathObj->value
-            : '';
-        $rendered = view()->first([
-            $templateBasePath.'.'.$templatePath.'.render',
-            $templateBasePath.'.default.render'
-        ], compact(
-            'pageType',
-            'contentType',
-            'posts',
-            'widgets'
-        ));
-
+        $rendered = view()->first([ 'content.template.' . $contentType->slug . '.render', 'content.template.default.render'],
+            compact(
+                'pageType',
+                'contentType',
+                'posts',
+                'widgets'
+            )
+        )->render();
+        
         $rendered = $this->beautifyCss($rendered);
-
         return $rendered;
     }
 

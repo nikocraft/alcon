@@ -1,6 +1,6 @@
 @php
     $column = $renderData->block;
-    $content = json_decode($renderData->block->content);
+    $content = $renderData->block->content;
     $settings = $column->getSettings();
 @endphp
 

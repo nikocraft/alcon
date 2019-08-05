@@ -17,7 +17,7 @@ class CreateContentTable extends Migration
             $table->bigincrements('id');
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->integer('content_type_id')->unsigned()->nullable();
+            $table->unsignedInteger('content_type_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('featured_image_id')->nullable();
@@ -33,13 +33,22 @@ class CreateContentTable extends Migration
             $table->json('resources')->nullable();
             $table->json('settings')->nullable();
             
-            $table->dateTime('published_at')->nullable();
             $table->softDeletes();
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('content_type_id')->references('id')->on('content_types');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('content');
+    }
 }

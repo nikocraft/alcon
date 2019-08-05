@@ -2,7 +2,7 @@
     $block = $renderData->block;
     $settings = $block->settings;
     $parentDisplay = isset($renderData->display) ? $renderData->display : 'block';
-    $images = json_decode($block->content);
+    $images = $block->content;
 @endphp
 
 @includeIf('content.blocks.images.css')

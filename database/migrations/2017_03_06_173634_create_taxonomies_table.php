@@ -15,16 +15,26 @@ class CreateTaxonomiesTable extends Migration
     {
         Schema::create('taxonomies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('content_type_id')->unsigned();
+            $table->unsignedInteger('content_type_id');
             $table->string('name');
             $table->string('name_singular');
             $table->string('placeholder')->default('Select');
             $table->string('slug')->nullable();
-            $table->integer('order')->unsigned()->default(0);
-            $table->json('settings')->nullable();
+            $table->unsignedInteger('order')->default(0);
+            $table->schemalessAttributes('settings')->nullable();
             $table->timestamps();
 
             $table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade')->onUpdate('cascade');
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('taxonomies');
     }
 }

@@ -16,7 +16,7 @@ class ContentTypeController extends Controller
 {
     public function index(Request $request)
     {
-        $contentType = ContentType::latest()->with(['taxonomies', 'settings'])->paginate(10);
+        $contentType = ContentType::latest()->with(['taxonomies'])->paginate(10);
         return ContentTypeResource::collection($contentType);
     }
 
@@ -42,9 +42,9 @@ class ContentTypeController extends Controller
         $contentType->save();
 
         // Save Content Type Settings
-        foreach ($request->typeSettings as $key => $setting) {
-            $contentType->setSetting($key, $setting['value'], $setting['type']);
-        }
+        // foreach ($request->typeSettings as $key => $setting) {
+        //     $contentType->setSetting($key, $setting['value'], $setting['type']);
+        // }
 
         $taxonomies = $request->taxonomies;
         for ($i=0; $i < count($taxonomies); $i++) {
@@ -53,14 +53,14 @@ class ContentTypeController extends Controller
             $data = $t['data'];
             $settings = $t['settings'];
 
-            $this->createTaxonomy($contentType->id, $data, $settings);
+            $taxonomy = Taxonomy::createOrUpdate($contentType->id, $data, $settings);
         }
 
         foreach ($request->removedTaxonomies as $id) {
             Taxonomy::destroy($id);
         }
 
-        $contentType = ContentType::where('id', $contentType->id)->with('settings')->first();
+        $contentType = ContentType::where('id', $contentType->id)->first();
         $contentType->taxonomies = $contentType->taxonomies()->orderBy('order')->get();
 
         foreach ($contentType->taxonomies as $key => $taxonomy) {
@@ -76,7 +76,7 @@ class ContentTypeController extends Controller
 
     public function show($id)
     {
-        $contentType = ContentType::where('id', $id)->with('settings', 'taxonomies', 'taxonomies.settings')->first();
+        $contentType = ContentType::where('id', $id)->with('taxonomies')->first();
 
         return response()->json([
             'data' => $contentType
@@ -87,10 +87,6 @@ class ContentTypeController extends Controller
     {
         $contentType = ContentType::where('id', $id)->first();
         $contentType->taxonomies = $contentType->taxonomies()->orderBy('order')->get();
-
-        foreach ($contentType->taxonomies as $key => $taxonomy) {
-            $taxonomy->settings;
-        }
 
         return response()->json([
             'taxonomies' => $contentType->taxonomies
@@ -104,14 +100,5 @@ class ContentTypeController extends Controller
         $contentTypeBlock->delete();
 
         return response()->json(null, 204);
-    }
-
-    protected function createTaxonomy($content_type_id, $taxonomyData, $taxonomySettings)
-    {
-        $taxonomy = Taxonomy::createOrUpdate($content_type_id, $taxonomyData);
-
-        foreach ($taxonomySettings as $key => $setting) {
-            $taxonomy->setSetting($key, $setting['value'], $setting['type']);
-        }
     }
 }

@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Frontend\Core', 'middleware'=>'setTheme:'.$activeT
         /*--------------------------------------------------------------------------
         | Repeatable content type routes, for example Posts, Projects, etc
         |--------------------------------------------------------------------------*/
-        $contentTypes = ContentType::whereType(2)->with('settings')->with('taxonomies')->get();
+        $contentTypes = ContentType::whereType(2)->with('taxonomies')->get();
         foreach ($contentTypes as $contentType) {
             foreach ($contentType->taxonomies as $taxonomy) {
                 Route::get($taxonomy->slug.'/{term}', ['as' => 'frontend.'.$contentType->front_slug.'.'.$taxonomy->slug.'.category','uses' => 'ContentController@taxonomy'])->defaults('taxonomyId', $taxonomy->id);
@@ -67,7 +67,7 @@ Route::group(['namespace' => 'Frontend\Core', 'middleware'=>'setTheme:'.$activeT
         /*--------------------------------------------------------------------------
         | Non-repeatable content type routes, Pages
         |--------------------------------------------------------------------------*/
-        $pagesContentTypes = ContentType::whereType(1)->with('settings')->with('taxonomies')->first();
+        $pagesContentTypes = ContentType::whereType(1)->with('taxonomies')->first();
         if ($pagesContentTypes) {
             Route::get('/', 'ContentController@frontPage');
             Route::get('{slug}', ['as' => 'frontend.page.show', 'uses' => 'ContentController@show'])->defaults('contentTypeId', $pagesContentTypes->id);

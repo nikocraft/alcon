@@ -5,9 +5,7 @@ namespace App\Services;
 use App\Models\Core\Design\ThemeSetting;
 
 use App\Models\Core\Design\Widget;
-use App\Models\Core\Design\WidgetBlock;
-
-use App\Services\WidgetBlockService;
+use App\Models\Core\Content\Block;
 
 class WidgetService
 {
@@ -17,13 +15,12 @@ class WidgetService
      */
     public function save($request)
     {
-        // Remove user deleted widgets first
+        // Remove deleted widgets
         foreach ($request->removedItems as $key => $itemId) {
-            $widgetBlock = WidgetBlock::where('unique_id', $itemId)->first();
-            $widgetBlock ? $widgetBlock->delete() : null;
+            $block = Block::where('unique_id', $itemId)->first();
+            $block ? $block->delete() : null;
         }
 
-        // First or New Widget
         $widget = Widget::firstOrNew(['id' => $request->id]);
         $widget->title = $request->title;
         $widget->theme_area = $request->themeArea;
@@ -33,13 +30,26 @@ class WidgetService
         $widget->save();
 
         // save Widget Blocks
-        foreach($request->widgetsData as $key => $widgetData) {
-            $widgetData = (object) $widgetData;
-            $this->saveWidgetBlock($widget->id, $widgetData);
+        foreach($request->widgetsData as $key => $blockData) {
+            $blockData = (object) $blockData;
+            $this->updateOrCreateBlock($widget, $blockData);
         }
         $widget = $widget->fresh();
         $widget->load('blocks');
         return $widget;
+    }
+
+    protected function updateOrCreateBlock($widget, $blockData, $parentId = null)
+    {
+        $blockData = (object) $blockData;
+        $block = $widget->saveBlock($blockData, $parentId);
+
+        // save child blocks recursivly
+        if(isset($blockData->subItems)) {
+            for ($i=0; $i < count($blockData->subItems); $i++) {
+                $this->updateOrCreateBlock($widget, $blockData->subItems[$i], $block->unique_id);
+            }
+        }
     }
 
     public function isVisible($widget, $contentType, $contentId = null) 
@@ -63,37 +73,6 @@ class WidgetService
         }
 
         return false;
-    }
-
-    /** 
-     * Recursivly save all nested widget blocks 
-     * */
-    private function saveWidgetBlock($widgetId, $widgetData, $parentId = null)
-    {
-        $widgetBlockService = new WidgetBlockService();
-        $widgetData = (object) $widgetData;
-
-        // create or update the widget in database
-        $widgetBlock = $widgetBlockService->save($widgetId, $widgetData, $parentId);
-
-        // remove settings
-        foreach ($widgetBlock->getSettings() as $baseKey => $value) {
-            if(!array_key_exists($baseKey, $widgetData->settings)) {
-                $widgetBlock->removeSetting($widgetBlock->type, $baseKey);
-            }
-        }
-
-        // only save settings that have been customized by user
-        foreach ($widgetData->settings as $key => $setting) {
-            $widgetBlock->setSetting($key, $setting['value'], $setting['type'], $widgetData->type);
-        }
-
-        // process sub widgets recursivly
-        if(isset($widgetData->subItems)) {
-            for ($i=0; $i < count($widgetData->subItems); $i++) {
-                $this->saveWidgetBlock($widgetId, $widgetData->subItems[$i], $widgetBlock->unique_id);
-            }
-        }
     }
 
 }

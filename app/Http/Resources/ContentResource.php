@@ -30,8 +30,8 @@ class ContentResource extends JsonResource
             'seo' => $this->seo,
             'css' => $this->css,
             'js' => $this->js,
-            'settings' => $this->settings,
-            'blocks' => $this->processBlocks($this->blocks)
+            'settings' => $this->settings->all(),
+            'blocks' => BlockResource::collection($this->whenLoaded('blocks')),
         ];
     }
 }

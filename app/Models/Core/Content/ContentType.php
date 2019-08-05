@@ -4,15 +4,20 @@ namespace App\Models\Core\Content;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Core\Settings\HasSettings;
 use App\Models\Core\Taxonomies\Taxonomy;
 use App\Models\Core\Settings\AdminMenu;
+
+use App\Models\Traits\HasSettings;
 
 class ContentType extends Model
 {
     use HasSettings;
+    
+    protected $fillable = ['name', 'name_singular', 'slug', 'front_slug', 'type', 'settings', 'locked'];
 
-    protected $fillable = ['name', 'name_singular', 'slug', 'front_slug', 'type'];
+    public $casts = [
+        'settings' => 'array',
+    ];
 
     public function taxonomies()
     {

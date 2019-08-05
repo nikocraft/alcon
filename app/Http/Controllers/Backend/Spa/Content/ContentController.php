@@ -10,6 +10,7 @@ use App\Models\Core\Content\Template;
 use App\Models\Core\Content\TemplateBlock;
 use App\Models\Core\Content\Content;
 use App\Models\Core\Content\ContentBlock;
+use App\Models\Core\Content\Block;
 use App\Models\Core\Settings\Website;
 
 use App\Models\Core\Settings\Setting;
@@ -117,12 +118,12 @@ class ContentController extends Controller
         $editorSettings = data_get($websiteSettings, 'contentEditor');
 
         $themeSettings = $this->themeservice->getSettings($activeThemeId);
-        $themeContentSettings = data_get($themeSettings, 'content.' . lcfirst($contentType->slug));
+        $themeContentSettings = data_get($themeSettings, 'content.' . lcfirst($contentType->slug), null);
 
         // merge content settings with global theme settings
-        $content->settings = $content->settings ? array_merge($themeContentSettings->toArray(), $content->settings) : $themeContentSettings->toArray();
+        // $content->settings = $content->settings ? array_merge($themeContentSettings->toArray(), $content->settings->all()) : $themeContentSettings->toArray();
 
-        $defaultContentLayout = data_get($themeSettings, 'content.' . lcfirst($contentType->slug) . '.layout');
+        $defaultContentLayout = data_get($themeSettings, 'content.' . lcfirst($contentType->slug) . '.layout', null);
 
         return (new ContentResource($content))->additional(compact('themeContentSettings', 'contentTaxonomies', 'editorSettings', 'defaultContentLayout'));
     }
@@ -147,9 +148,8 @@ class ContentController extends Controller
         $themeSettings = $this->themeservice->getSettings($activeThemeId);
 
         // delete user removed blocks
-        // $block = ContentBlock::whereIn('unique_id', $request->removedItems)->delete();
         foreach ($request->removedItems as $key => $itemId) {
-            $block = ContentBlock::where('unique_id', $itemId)->first();
+            $block = Block::where('unique_id', $itemId)->first();
             $block ? $block->delete() : null;
         }
 
@@ -175,19 +175,25 @@ class ContentController extends Controller
 
         foreach($request->blocksData as $key => $blockData) {
             $blockData = (object) $blockData;
-            $this->saveBlock($content->id, $blockData);
+            $this->updateOrCreateBlock($content, $blockData);
         }
 
         $content = Content::with('blocks')->where('id', $content->id)->first();
 
-        if($content) {
-            // Artisan::call('page-cache:clear', ['slug' => $content->slug]);
-            // return new ContentResource($content);
-        }
-
-        // $content->save();
-
         return $content;
+    }
+
+    protected function updateOrCreateBlock($content, $blockData, $parentId = null)
+    {
+        $blockData = (object) $blockData;
+        $block = $content->saveBlock($blockData, $parentId);
+
+        // process sub blocks recursivly
+        if(isset($blockData->subItems)) {
+            for ($i=0; $i < count($blockData->subItems); $i++) {
+                $this->updateOrCreateBlock($content, $blockData->subItems[$i], $block->unique_id);
+            }
+        }
     }
 
     public function destroy($contentTypeId, $contentId)
@@ -221,58 +227,5 @@ class ContentController extends Controller
         return response()->json([
             'status' => 'success'
         ], 200);
-    }
-
-    protected function saveBlock($contentId, $blockData, $parentId = null)
-    {
-        $blockData = (object) $blockData;
-        // create or update the block in database
-        $block = ContentBlock::set($contentId, $blockData, $parentId);
-
-        // create or update block settings
-        foreach ($block->getSettings() as $baseKey => $value) {
-            if(!array_key_exists($baseKey, $blockData->settings)) {
-                $block->removeSetting($block->type, $baseKey);
-            }
-        }
-
-        // process sub blocks recursivly
-        if(isset($blockData->subItems)) {
-            for ($i=0; $i < count($blockData->subItems); $i++) {
-                $this->saveBlock($contentId, $blockData->subItems[$i], $block->unique_id);
-            }
-        }
-    }
-
-    protected function processBlocks($rawBlocks)
-    {
-        foreach ($rawBlocks as $key => $block) {
-            $title = $block->settings;
-            foreach ($block->settings as $key => $setting) {
-                if($setting['key'] == 'order') {
-                    $block->order = (int)$setting['value'];
-                    break;
-                }
-            }
-        }
-
-        // sort the blocks
-        $rawBlocks = $rawBlocks->sortBy('order');
-
-        // reset keys
-        $blocks = [];
-        foreach ($rawBlocks as $key => $block) {
-            if($this->isJson($block['content']))
-                $block['content'] = json_decode($block['content'], true);
-
-            array_push($blocks, $block);
-        }
-
-        return $blocks;
-    }
-
-    function isJson($string) {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Core\Content\ContentType;
 use App\Models\Core\Content\Template;
-use App\Models\Core\Content\TemplateBlock;
+use App\Models\Core\Content\Block;
 use App\Models\Core\Base\Tag;
 use App\Models\Core\Settings\Website;
 
@@ -43,11 +43,11 @@ class TemplateController extends Controller
 
     public function show($id)
     {
-        $tmpBlocks = TemplateBlock::with('settings')->where('template_id', $id)->get();
+        $tmpBlocks = TemplateBlock::where('template_id', $id)->get();
 
         // json decode string to json
         foreach ($tmpBlocks as $key => $block) {
-            if($this->isJson($block['content']))
+            if(is_json($block['content']))
                 $block['content'] = json_decode($block['content'], true);
         }
 
@@ -66,10 +66,9 @@ class TemplateController extends Controller
 
         $template->tag($request->input('tags', []));
 
-        $blocksData = $request->blocksData;
-
-        for ($i=0; $i < count($blocksData); $i++) {
-            $this->createOrUpdateBlock($template->id, $blocksData[$i]);
+        foreach($request->blocksData as $key => $blockData) {
+            $blockData = (object) $blockData;
+            $this->updateOrCreateBlock($template, $blockData);
         }
 
         $template = Template::where('id', $template->id)->first();
@@ -79,39 +78,15 @@ class TemplateController extends Controller
         }
     }
 
-    protected function createOrUpdateBlock($template_id, $blockData, $parentId = null)
+    protected function updateOrCreateBlock($template, $blockData, $parentId = null)
     {
         $blockData = (object) $blockData;
-        $tBlock = TemplateBlock::set($template_id, $blockData, $parentId);
+        $block = $template->saveBlock($blockData, $parentId);
 
-        // remove settings from db that have default values
-        foreach ($tBlock->getSettings() as $baseKey => $value) {
-            if(!array_key_exists($baseKey, $blockData->settings)) {
-                $tBlock->removeSetting($baseKey);
-            }
-        }
-
-        // only save settings that have been customized by user
-        foreach ($blockData->settings as $key => $setting) {
-            $tBlock->setSetting($key, $setting['value'], $setting['type']);
-        }
-
-        // refresh the block so we get latest settings
-        $tBlock->load('settings', 'contentBlocks');
-
-        foreach ($tBlock->contentBlocks as $block) {
-            $settingIds = array();
-            foreach ($tBlock->settings as $key => $value) {
-                array_push($settingIds, $value['pivot']['setting_id']);
-            }
-
-            $block->settings()->sync($settingIds);
-        }
-
-        // process child blocks
+        // save child blocks recursivly
         if(isset($blockData->subItems)) {
             for ($i=0; $i < count($blockData->subItems); $i++) {
-                $this->createOrUpdateBlock($template_id, $blockData->subItems[$i], $tBlock->unique_id);
+                $this->updateOrCreateBlock($template, $blockData->subItems[$i], $block->unique_id);
             }
         }
     }
@@ -151,10 +126,5 @@ class TemplateController extends Controller
     public function tags()
     {
         return TagResource::collection(Tag::has('templates')->get());
-    }
-
-    protected function isJson($string) {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

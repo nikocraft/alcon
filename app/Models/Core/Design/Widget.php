@@ -4,10 +4,12 @@ namespace App\Models\Core\Design;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Core\Settings\HasSettings;
+use App\Models\Traits\HasBlocks;
+use App\Models\Traits\HasSettings;
 
 class Widget extends Model
 {
+    use HasBlocks;
     use HasSettings;
 
     protected $table = "widgets";
@@ -16,6 +18,7 @@ class Widget extends Model
 
     protected $casts = [
         'filter_data' => 'array',
+        'settings' => 'array',
     ];
 
     protected $dates = [
@@ -23,11 +26,6 @@ class Widget extends Model
         'deleted_at',
         'updated_at'
     ];
-
-    public function blocks()
-    {
-        return $this->hasMany(WidgetBlock::class, 'widget_id', 'id');
-    }
 
     public function isVisibleOn($contentType, $contentId = null) 
     {

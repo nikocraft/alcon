@@ -57,28 +57,16 @@ class WidgetController extends Controller
         return response()->json(['data' => $types]);
     }
 
-    function isJson($string) {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
-    }
-
     public function show($id)
     {
         $areas = $this->themeservice->getActiveThemeSection('widgetAreas');
 
-        $widget = Widget::with('blocks.settings')->where('id', $id)->first();
+        $widget = Widget::with('blocks')->where('id', $id)->first();
 
         // sort the widgets
-        $widget->blocks = $widget->blocks->sortBy('order');
+        // $widget->blocks = $widget->blocks->sortBy('order');
 
-        // reset keys
-        foreach ($widget->blocks as $key => $widgetBlock) {
-            if($this->isJson($widgetBlock['content']))
-                $widgetBlock['content'] = json_decode($widgetBlock['content'], true);
-        }
-
-        return (new WidgetResource($widget))
-            ->additional(compact('areas'));
+        return (new WidgetResource($widget))->additional(compact('areas'));
     }
 
     public function getAreas()
@@ -93,9 +81,8 @@ class WidgetController extends Controller
     {
         $widget = $this->widgetService->save($request);
 
-        $widget = Widget::with('blocks', 'settings')->where('id', $widget->id)->first();
+        $widget = Widget::with('blocks')->where('id', $widget->id)->first();
 
-        // Artisan::call('page-cache:clear', ['slug' => $widget->slug]);
         return new WidgetResource($widget);
     }
 

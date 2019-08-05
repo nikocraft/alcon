@@ -20,8 +20,18 @@ class CreateCommentsSubscribersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email');
             $table->tinyInteger('subscribe')->default(0);
-            $table->json('meta')->nullable();
+            $table->schemalessAttributes('settings')->nullable();
             $table->timestamps();
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('comments_subscribers');
     }
 }

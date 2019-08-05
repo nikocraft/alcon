@@ -40,7 +40,7 @@ if (!function_exists('get_seo_image')) {
         $blocks = $content->blocks;
         $imageBlock = $blocks->firstWhere('type', 'Image');
         if(!is_null($imageBlock)) {
-            $content = json_decode($imageBlock->content);
+            $content = $imageBlock->content;
             $image = $content && $content->path .  $content->filename . '.' .  $content->extension;
         }
 

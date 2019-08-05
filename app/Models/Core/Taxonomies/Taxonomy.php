@@ -3,20 +3,27 @@
 namespace App\Models\Core\Taxonomies;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Core\Settings\HasSettings;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
+
 use App\Models\Core\Content\ContentType;
 use App\Models\Traits\Sluggable;
+use App\Models\Traits\HasSettings;
 
 class Taxonomy extends Model
 {
     use Sluggable;
     use HasSettings;
 
-    protected $fillable = ['content_type_id', 'name', 'name_singular', 'slug', 'order'];
+    protected $fillable = ['content_type_id', 'name', 'name_singular', 'placeholder', 'slug', 'order', 'settings'];
 
     protected $dates = [
         'created_at',
         'updated_at',
+    ];
+
+    public $casts = [
+        'settings' => 'array',
     ];
 
     public function terms()
@@ -34,12 +41,7 @@ class Taxonomy extends Model
         return $this->belongsTo(ContentType::class, 'content_type_id');
     }
 
-    public function getSettingsAttribute()
-    {
-        return $this->getPreparedSettings();
-    }
-
-    static public function createOrUpdate($content_type_id, $taxonomyData)
+    static public function createOrUpdate($content_type_id, $taxonomyData, $taxonomySettings)
     {
         $taxonomy = Taxonomy::where('id', isset($taxonomyData['id']) ? $taxonomyData['id'] : 0)
             ->where('content_type_id', $content_type_id)
@@ -50,6 +52,7 @@ class Taxonomy extends Model
             $taxonomy->name = $taxonomyData['name'];
             $taxonomy->name_singular = $taxonomyData['name_singular'];
             $taxonomy->order = $taxonomyData['order'];
+            $taxonomy->settings = $taxonomySettings;
             // $taxonomy->update( array_add($taxonomyData, 'content_type_id', $content_type_id) );
             $taxonomy->update();
         } else {
@@ -58,6 +61,7 @@ class Taxonomy extends Model
             $taxonomy->name = $taxonomyData['name'];
             $taxonomy->name_singular = $taxonomyData['name_singular'];
             $taxonomy->order = $taxonomyData['order'];
+            $taxonomy->settings = $taxonomySettings;
             // $taxonomy->save( array_add($taxonomyData, 'content_type_id', $content_type_id) );
             $taxonomy->save();
         }

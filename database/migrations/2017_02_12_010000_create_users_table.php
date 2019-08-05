@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_activated')->default(false);
             $table->string('timezone')->nullable();
-            $table->json('meta')->nullable();
+            $table->schemalessAttributes('settings')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

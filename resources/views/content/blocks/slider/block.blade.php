@@ -1,5 +1,5 @@
 @php
-    $content = json_decode($renderData->block->content);
+    $content = $renderData->block->content;
     $parentDisplay = isset($renderData->display) ? $renderData->display : 'block';
     $currentBlock = $renderData->block;
     $settings = $renderData->block->getSettings();

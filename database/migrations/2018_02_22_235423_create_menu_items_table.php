@@ -18,17 +18,16 @@ class CreateMenuItemsTable extends Migration
             $table->integer('menu_id')->unsigned()->nullable();
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->unsignedBigInteger('unique_id');
-            $table->string('title', 30)->nullable();
+            $table->string('title')->nullable();
             $table->string('subtitle')->nullable(); // short text displayed under label for some menus...
             $table->string('url')->nullable();
-            $table->string('type', 50); // page menu-item, custom url menu-item, mega menu-item
+            $table->string('type'); // page menu-item, custom url menu-item, mega menu-item
             $table->string('icon')->nullable();
             $table->integer('order')->nullable();
-            $table->json('meta')->nullable();
+            $table->schemalessAttributes('settings')->nullable();
             $table->timestamps();
 
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreign('parent_id')->references('unique_id')->on('menu_items')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->onUpdate('cascade');
         });
     }
 

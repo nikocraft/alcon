@@ -26,7 +26,6 @@ if (!function_exists('set_env_var')) {
     }
 }
 
-
 if (!function_exists('set_env_vars')) {
     function set_env_vars($data)
     {
@@ -35,5 +34,13 @@ if (!function_exists('set_env_vars')) {
         }
 
         return true;
+    }
+}
+
+if (!function_exists('is_json')) {
+    function is_json($string)
+    {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

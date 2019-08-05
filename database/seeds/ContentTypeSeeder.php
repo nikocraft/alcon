@@ -17,7 +17,8 @@ class ContentTypeSeeder extends Seeder
             'name_singular' => 'Page',
             'slug' => 'pages',
             'front_slug' => 'pages',
-            'locked' => true
+            'locked' => true,
+            'type' => 1
         ]);
 
         App\Models\Core\Content\ContentType::create([

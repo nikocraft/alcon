@@ -62,12 +62,12 @@ class ContentController extends Controller
 
     public function index(Request $request, $contentTypeId)
     {
-        $contentType = ContentType::with('settings')->findOrFail($contentTypeId);
+        $contentType = ContentType::findOrFail($contentTypeId);
         $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->latest()
             ->simplePaginate(5);
 
         $widgets = Widget::with(['blocks' => function ($query) {
-            $query->with('settings')->orderBy('order', 'asc');
+            $query->orderBy('order', 'asc');
         }])->get();
 
         return $this->renderService->renderIndex($contentType, $posts, $widgets);
@@ -75,17 +75,17 @@ class ContentController extends Controller
 
     public function show($slug, $contentTypeId)
     {
-        $contentType = ContentType::with('settings')->findOrFail($contentTypeId);
+        $contentType = ContentType::findOrFail($contentTypeId);
         $content = Content::with(['featuredimage', 'type', 'author'])
             ->with('terms.taxonomies')
             ->where('slug', $slug)
             ->where('content_type_id', $contentTypeId)
             ->firstOrFail();
         
-        $blocks = ContentBlock::where('content_id', $content->id)->orderBy('parent_id')->orderBy('order')->get();
+        $blocks = $content->blocks()->orderBy('parent_id')->orderBy('order')->get();
 
         $widgets = Widget::with(['blocks' => function ($query) {
-            $query->with('settings')->orderBy('order', 'asc');
+            $query->orderBy('order', 'asc');
         }])->get();
 
         return $this->renderService->renderSingle($content, $blocks, $widgets);
@@ -104,7 +104,7 @@ class ContentController extends Controller
             ->simplePaginate(5);
 
         $widgets = Widget::with(['blocks' => function ($query) {
-            $query->with('settings')->orderBy('order', 'asc');
+            $query->orderBy('order', 'asc');
         }])->get();
 
         return $this->renderService->renderIndex($contentType, $posts, $widgets);

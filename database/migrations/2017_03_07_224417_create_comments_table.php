@@ -33,4 +33,14 @@ class CreateCommentsTable extends Migration
             $table->foreign('content_id')->references('id')->on('content')->onDelete('cascade')->onUpdate('cascade');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('comments');
+    }
 }

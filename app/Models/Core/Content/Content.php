@@ -14,10 +14,12 @@ use App\Models\Core\Media\Image;
 use App\Models\Core\Comments\Comment;
 use App\Models\Core\Settings\Website;
 use App\Models\Traits\Sluggable;
+use App\Models\Traits\HasBlocks;
+use App\Models\Traits\HasSettings;
 
 class Content extends Model
 {
-    use Sluggable;
+    use Sluggable, HasBlocks, HasSettings;
 
     protected $table = "content";
 
@@ -27,11 +29,6 @@ class Content extends Model
     const PUBLISH = 1;
     const DRAFT = 2;
     const SCHEDULE = 3;
-
-    // content access
-    const EVERYONE = 1; // accessable by public
-    const MEMBERS = 2; // anyone that is a member on the site
-    const PREMIUM_MEMBERS = 3; // accessable only be premium members, can be different types of premium members
 
     protected $dates = [
         'created_at',
@@ -54,11 +51,6 @@ class Content extends Model
     public function type()
     {
         return $this->belongsTo(ContentType::class, 'content_type_id');
-    }
-
-    public function blocks()
-    {
-        return $this->hasMany(ContentBlock::class, 'content_id', 'id');
     }
 
     public function author()
@@ -111,11 +103,6 @@ class Content extends Model
         }
 
         return $blocks;
-    }
-
-    public function getSettingsAsJsonAttribute($value)
-    {
-        return json_decode($this->attributes['settings']);
     }
 
     function isJson($string) {

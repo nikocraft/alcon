@@ -27,4 +27,14 @@ class CreateThemeSettingsTable extends Migration
             $table->foreign('parent_id')->references('id')->on('theme_settings');
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('theme_settings');
+    }
 }

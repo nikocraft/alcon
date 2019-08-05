@@ -14,7 +14,7 @@ class UrlsController extends Controller
 {
     public function index(Request $request)
     {
-        return ContentTypeResource::collection(ContentType::with('settings')->with('taxonomies')->whereType(2)->get());
+        return ContentTypeResource::collection(ContentType::with('taxonomies')->whereType(2)->get());
     }
 
     public function store(Request $request)

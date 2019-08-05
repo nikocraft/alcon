@@ -19,13 +19,6 @@ trait HasTerms {
         return $this->taxonomies()->where('id', $id)->first();
     }
 
-    public function addTerm($title)
-    {
-        echo "title: " . $this->title;
-        $taxonomy = $this->terms()->create([$title]);
-        return $taxonomy;
-    }
-
     public function addTerm($title, $taxonomy, $parent = null)
     {
         $term = new Term();

@@ -13,65 +13,21 @@ class TaxonomiesTableSeeder extends Seeder
     public function run()
     {
         $categoriesSettings = [
-            'allowCreate' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'allowFilterable' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'allowMultiple' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'canHaveChildren' => [
-                'type' => 'boolean',
-                'value' => false
-            ],
-            'maxAllowed' => [
-                'type' => 'number',
-                'value' => 2
-            ],
-            'required' => [
-                'type' => 'boolean',
-                'value' => false
-            ],
-            'visibleOnIndexPage' => [
-                'type' => 'boolean',
-                'value' => false
-            ]
+            'allowCreate'=> true,
+            'allowFilterable' => true,
+            'allowMultiple' => true,
+            'canHaveChildren' => false,
+            'maxAllowed' => 2,
+            'required' => false
         ];
 
         $tagsSettings = [
-            'allowCreate' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'allowFilterable' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'allowMultiple' => [
-                'type' => 'boolean',
-                'value' => true
-            ],
-            'canHaveChildren' => [
-                'type' => 'boolean',
-                'value' => false
-            ],
-            'maxAllowed' => [
-                'type' => 'number',
-                'value' => 12
-            ],
-            'required' => [
-                'type' => 'boolean',
-                'value' => false
-            ],
-            'visibleOnIndexPage' => [
-                'type' => 'boolean',
-                'value' => false
-            ]
+            'allowCreate' => true,
+            'allowFilterable' => true,
+            'allowMultiple' => true,
+            'canHaveChildren' => false,
+            'maxAllowed' => 4,
+            'required' => false
         ];
 
         $categoriesTaxonomy = App\Models\Core\Taxonomies\Taxonomy::create([
@@ -79,6 +35,7 @@ class TaxonomiesTableSeeder extends Seeder
             'name_singular' => 'Category',
             'slug' => 'categories',
             'content_type_id' => 2,
+            'settings' => $categoriesSettings
         ]);
 
         $tagsTaxonomy = App\Models\Core\Taxonomies\Taxonomy::create([
@@ -86,14 +43,8 @@ class TaxonomiesTableSeeder extends Seeder
             'name_singular' => 'Tag',
             'slug' => 'tags',
             'content_type_id' => 2,
+            'settings' => $tagsSettings
         ]);
 
-        foreach ($categoriesSettings as $key => $setting) {
-            $categoriesTaxonomy->setSetting($key, $setting['value'], $setting['type']);
-        }
-
-        foreach ($tagsSettings as $key => $setting) {
-            $tagsTaxonomy->setSetting($key, $setting['value'], $setting['type']);
-        }
     }
 }

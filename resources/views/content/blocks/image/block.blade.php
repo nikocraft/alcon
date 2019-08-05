@@ -1,5 +1,5 @@
 @php
-    $content = json_decode($renderData->block->content);
+    $content = $renderData->block->content;
     $settings = $renderData->block->getSettings();
     if(isset($content->filename)) {
         switch ($settings->imageSize) {

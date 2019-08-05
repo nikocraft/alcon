@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Blade;
 use Laravel\Dusk\DuskServiceProvider;
 use App\Services\SettingsService;
 use App\Services\GlobalSettingsService;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('helpers.taxonomy');
         Blade::include('helpers.style-renderer', 'style');
         Blade::include('helpers.css-value-renderer', 'css_value');
+
+        Relation::morphMap([
+            'content' => 'App\Models\Core\Content\Content',
+            'widgets' => 'App\Models\Core\Design\Widget',
+            'templates' => 'App\Models\Core\Content\Template',
+        ]);
     }
 
     /**

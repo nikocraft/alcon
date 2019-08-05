@@ -3,9 +3,9 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\TermResource;
+use App\Http\Resources\SettingResource;
 
-class TaxonomyResource extends JsonResource
+class BlockResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,15 @@ class TaxonomyResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'name_singular' => $this->name_singular,
-            'slug' => $this->slug,
+            'unique_id' => $this->unique_id,
+            'parent_id' => $this->parent_id,
             'order' => $this->order,
+            'type' => $this->type,
+            'content' => $this->content,
+            'user_id' => $this->user_id,
             'settings' => $this->settings->all(),
-            'terms' => TermResource::collection($this->whenLoaded('terms')),
+            'created_at' => (string) $this->created_at,
+            'updated_at' => (string) $this->updated_at
         ];
     }
 }

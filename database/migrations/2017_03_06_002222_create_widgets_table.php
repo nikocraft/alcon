@@ -20,7 +20,7 @@ class CreateWidgetsTable extends Migration
             $table->string('theme_area')->nullable();
             $table->string('filter_mode')->default('show');
             $table->mediumText('filter_data')->nullable();
-            $table->json('meta')->nullable();
+            $table->schemalessAttributes('settings')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

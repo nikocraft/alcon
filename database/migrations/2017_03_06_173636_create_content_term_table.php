@@ -15,11 +15,11 @@ class CreateContentTermTable extends Migration
     {
         Schema::create('content_term', function (Blueprint $table) {
             $table->increments('id');
-            $table->biginteger('content_id')->unsigned();
-            $table->integer('term_id')->unsigned();
+            $table->unsignedBigInteger('content_id')->unsigned();
+            $table->unsignedInteger('term_id');
 
-            $table->foreign('content_id')->references('id')->on('content')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('content_id')->references('id')->on('content')->onUpdate('cascade');
+            $table->foreign('term_id')->references('id')->on('terms')->onUpdate('cascade');
         });
     }
 
