@@ -67,6 +67,8 @@ if (!function_exists('process_widget_blocks')) {
         $blockIdsList = array();
         $widgetBlockList = array();
 
+        $blocks = $blocks->sortBy('parent_id');
+
         foreach ($blocks as $key => $block) {
             $block->subItems = array();
         }
