@@ -19,7 +19,7 @@ class CreateWebsiteSettingsTable extends Migration
             $table->string('key', 60);
             $table->text('value')->nullable();
             $table->string('type', 15)->default('string');
-            $table->schemalessAttributes('settings')->nullable();
+            $table->schemalessAttributes('meta')->nullable();
             $table->timestamps();
         });
     }
