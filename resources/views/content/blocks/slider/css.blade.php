@@ -3,7 +3,7 @@
 @endpush
 
 @push('content-block-css')
-.slider-{{ $currentBlock->unique_id }} {
+.slider-{{ $block->unique_id }} {
     height: {{ $settings->height }};
     margin: {{ $settings->margin }};
     {{-- padding: {{ $settings->padding }}; --}}
@@ -19,7 +19,7 @@
 
 
 @push('content-block-css-large')
-.slider-{{ $currentBlock->unique_id }} {
+.slider-{{ $block->unique_id }} {
     @if($settings->heightResponsive)height: {{$settings->heightLarge}};@endif
     {{-- @if($settings->paddingResponsive)padding: {{$settings->paddingLarge}};@endif --}}
     @if($settings->marginResponsive)margin: {{$settings->marginLarge}};@endif
@@ -33,7 +33,7 @@
 @endpush
 
 @push('content-block-css-medium')
-.slider-{{ $currentBlock->unique_id }} {
+.slider-{{ $block->unique_id }} {
     @if($settings->heightResponsive)height: {{$settings->heightMedium}};@endif
     {{-- @if($settings->paddingResponsive)padding: {{$settings->paddingMedium}}; --}}
     @if($settings->marginResponsive)margin: {{$settings->marginMedium}};@endif
@@ -47,7 +47,7 @@
 @endpush
 
 @push('content-block-css-small')
-.slider-{{ $currentBlock->unique_id }} {
+.slider-{{ $block->unique_id }} {
     @if($settings->heightResponsive)height: {{$settings->heightSmall}};@endif
     {{-- @if($settings->paddingResponsive)padding: {{$settings->paddingSmall}}; --}}
     @if($settings->marginResponsive)margin: {{$settings->marginSmall}};@endif
@@ -61,7 +61,7 @@
 @endpush
 
 @push('content-block-css-extra-small')
-.slider-{{ $currentBlock->unique_id }} {
+.slider-{{ $block->unique_id }} {
     @if($settings->heightResponsive)height: {{$settings->heightExtraSmall}};@endif
     {{-- @if($settings->paddingResponsive)padding: {{$settings->paddingExtraSmall}}; --}}
     @if($settings->marginResponsive)margin: {{$settings->marginExtraSmall}};@endif

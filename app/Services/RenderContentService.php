@@ -67,6 +67,20 @@ class RenderContentService
         return $rendered;
     }
 
+    public function prepareSlides($allBlocks, $subBlocksIds, $block = null) 
+    {
+        $blocks = [];
+        foreach ($subBlocksIds as $key => $blockId) {
+            $block = $allBlocks[$blockId];
+
+            if(isset($block->subItems)) {
+                $block->subBlocks = $this->prepareSlides($allBlocks, $block->subItems);
+            }
+            $blocks[$key] = $block->toArray();
+        }
+        return $blocks;
+    }
+
     private function beautifyCss($rendered)
     {
         $selectStyles = '~<style\b[^>]*>\s*\r?\n\K.*?(?=</style>)~s';
