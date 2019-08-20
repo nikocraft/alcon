@@ -8,7 +8,6 @@
     cursor: pointer;
     @endif
     font-size: {{ $settings->fontSize }};
-    @if($settings->fontWeight)font-weight: {{ $settings->fontWeight }};@endif
     @if($settings->textColor)color: {{ $settings->textColor }};@endif
     @if($settings->textShadow != '0px 0px 0px transparent')text-shadow: {{ $settings->textShadow }};@endif
     @if($settings->margin)margin: {{ $settings->margin }};@endif
