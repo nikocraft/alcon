@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use Artisan;
+
 class Releases extends Command
 {
 
@@ -12,7 +14,7 @@ class Releases extends Command
      *
      * @var string
      */
-    private $releasesData;
+    protected $releasesData;
 
     /**
      * Progressbar to show while downloading files
@@ -37,7 +39,7 @@ class Releases extends Command
     {
         parent::__construct();
 
-        $this->releasesData = $this->getReleasesData();
+        $this->releasesData = $this->loadReleasesData();
     }
 
     /**
@@ -45,14 +47,54 @@ class Releases extends Command
      *
      * @return array
      */
-    protected function getReleasesData()
+    protected function loadReleasesData()
     {
         $json = json_decode(file_get_contents(base_path() . DIRECTORY_SEPARATOR . 'laraone.json'), true);
-
         $releaseList = $json['releasesData'];
-
         usort($releaseList, [$this, 'ascSort']);
+
         return $releaseList;
+    }
+
+    protected function fetchLatestReleaseData()
+    {
+        $releasesUrl = config('laraone.releases_data_url');
+        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
+
+        if($this->urlExists($releasesUrl)) {
+            $this->info('Fetching latest release data.');
+            $releasesDownload = fopen($releasesUrl, 'r', null, $context);
+            $releasesPath = base_path('laraone.json');
+            file_put_contents($releasesPath, $releasesDownload);
+            fclose($releasesDownload);
+            $this->progressBar->finish();
+            $this->output->newLine(1);
+            $this->info('Downloaded latest release data.');
+            $this->releasesData = $this->loadReleasesData();
+        }
+    }
+
+    protected function fetchRelease($version)
+    {
+        $releaseUrl = config('laraone.releases_archive_url') . $version . '.zip';
+        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
+
+        if($this->urlExists($releaseUrl)) {
+            $this->info('Fetching release: ' . $releaseUrl);
+            $releaseDownload = fopen($releaseUrl, 'r', null, $context);
+            $releasesPath = storage_path('releases' . DIRECTORY_SEPARATOR . $version . '.zip');
+            file_put_contents($releasesPath, $releaseDownload);
+            fclose($releaseDownload);
+            $this->progressBar->finish();
+            $this->output->newLine(1);
+            $this->info('Downloaded release ' . $version);
+
+        }
+    }
+
+    protected function fetchDefaultTheme()
+    {
+        return 1;
     }
 
     /**
@@ -60,17 +102,17 @@ class Releases extends Command
      *
      * @return mixed
      */
-    protected function getCurrentIndex($version)
+    protected function getReleaseIndex($version)
     {
-        $currentIndex = 0;
+        $index = 0;
         foreach($this->releasesData as $key => $value) {
             if ($value['version'] == $version) {
-                $currentIndex = $value['index'];
+                $index = $value['index'];
                 break;
             }
         }
 
-        return $currentIndex;
+        return $index;
     }
 
     /**
@@ -114,7 +156,7 @@ class Releases extends Command
     protected function getLastRelease()
     {
         $last = end($this->releasesData);
-        return $last['version'];
+        return $last;
     }
 
     /**

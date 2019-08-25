@@ -1,14 +1,8 @@
 {
     "releasesData": [
       {
-        "index": 2,
-        "version": "1.0.0-beta.2",
-        "default_theme": "ikigai.zip",
-        "meta": {}
-      },
-      {
         "index": 1,
-        "version": "1.0.0-beta.1",
+        "version": "1.0.0",
         "default_theme": "ikigai.zip",
         "meta": {}
       }

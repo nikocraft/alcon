@@ -13,21 +13,14 @@ class Fetch extends Releases
      *
      * @var string
      */
-    protected $signature = 'laraone:fetch {--latest} {--next}';
+    protected $signature = 'laraone:fetch';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Fetch Laraone zip files, used by update command to update the CMS.';
-
-    /**
-     * Release data, so we can install / update
-     *
-     * @var string
-     */
-    private $releasesData;
+    protected $description = 'Fetch Laraone Release from Github.';
 
     /**
      * Create a new command instance.
@@ -37,8 +30,6 @@ class Fetch extends Releases
     public function __construct()
     {
         parent::__construct();
-
-        $this->releasesData = $this->getReleasesData();
     }
 
     /**
@@ -48,10 +39,18 @@ class Fetch extends Releases
      */
     public function handle()
     {
-        $websiteService = new WebsiteService();
-        $websiteSettings = $websiteService->getSettings();
-        $currentVersion = '1.0.0-beta.1'; // data_get($websiteSettings, 'laraone.phoenix');
+        $this->fetchLatestReleaseData();
+        
+        $currentVersion = get_website_setting('laraone.phoenix');
+        $lastVersion = $this->getLastVersion();
 
-        $this->info('version: ' . $currentVersion);
+        if($currentVersion != $lastVersion) {
+            $this->fetchRelease($lastVersion);
+            $this->fetchDefaultTheme($lastVersion);
+        } else {
+            $this->info('Already up to latest release.');
+        }
+
+        return $lastVersion;
     }
 }

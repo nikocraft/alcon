@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Artisan;
 use Illuminate\Console\Command;
 use App\Services\WebsiteService;
+use App\Services\Zip\ZipArchive;
 
 class Update extends Releases
 {
@@ -13,7 +14,7 @@ class Update extends Releases
      *
      * @var string
      */
-    protected $signature = 'laraone:update';
+    protected $signature = 'laraone:update {--fetch-latest}';
 
     /**
      * The console command description.
@@ -30,8 +31,6 @@ class Update extends Releases
     public function __construct()
     {
         parent::__construct();
-
-        $this->releasesData = $this->getReleasesData();
     }
 
     /**
@@ -41,30 +40,54 @@ class Update extends Releases
      */
     public function handle()
     {
-        $websiteService = new WebsiteService();
-        $websiteSettings = $websiteService->getSettings();
-        $currentVersion = '1.0.0-beta.1'; // data_get($websiteSettings, 'laraone.phoenix');
+        $websiteService = new WebsiteService;
+        $currentVersion = get_website_setting('laraone.phoenix');
 
-        $currentIndex = $this->getCurrentIndex($currentVersion);
-        $lastIndex = $this->getLastIndex();
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
+        
+        if($this->option('fetch-latest')) {
+            $this->fetchLatestRelease();
+            // exec('composer dump-autoload');
+            $zip = new ZipArchive;
+            $lastVersion = $this->getLastVersion();
 
-        if($currentIndex != $lastIndex) {
+            if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $lastVersion . '.zip')) === TRUE) {
+                $base = 'phoenix-' . $lastVersion . DIRECTORY_SEPARATOR;
+                $this->info('Unpacking latest release.');
+                $zip->extractSubdirTo($base .'app', base_path('app'));
+                $zip->extractSubdirTo($base .'database', base_path('database'));
+                $zip->extractSubdirTo($base .'resources', base_path('resources'));
+                $zip->extractSubdirTo($base .'routes', base_path('routes'));
+                $zip->extractSubdirTo($base .'config', base_path('config'));
+                $zip->extractSubdirTo($base .'public' . DIRECTORY_SEPARATOR . 'install', base_path('public' . DIRECTORY_SEPARATOR . 'install'));
+            } else {
+                $this->info('Not able to open release zip and proceed with the update. Please report this problem.');
+            }
+        }
+
+        $currentReleaseIndex = $this->getReleaseIndex($currentVersion);
+        $lastReleaseIndex = $this->getLastIndex();
+
+        if($currentReleaseIndex != $lastReleaseIndex) {
             $this->info('Update started, current version is ' . $currentVersion);
 
-            $updatesData = array_slice($this->releasesData, $currentIndex);
+            $updatesData = array_slice($this->releasesData, $currentReleaseIndex);
             $seeded = 0;
 
             foreach($updatesData as $key => $value) {
+                Artisan::call('migrate', [
+                    '--force' => true,
+                ]);
+                $this->info(Artisan::output());
                 $seedFile = $this->getSeedFileName($value['version']);
                 if(file_exists(base_path('database/seeds/updates/' . $seedFile . '.php'))) {
                     Artisan::call('db:seed', [
                         '--class' => '\Database\Seeds\Updates\\' . $seedFile,
                         '--force' => true,
                     ]);
-                    // $seeded += 1;
+                    $seeded += 1;
                     $this->info('Seeded ' . $seedFile);
-                } else {
-                    $this->info('Seed file not found.');
                 }
             }
             if($seeded) {
@@ -78,6 +101,11 @@ class Update extends Releases
         } else {
             $this->info('Already up to date.');
         }
+    }
+
+    protected function fetchLatestRelease()
+    {
+        $this->call('laraone:fetch');
     }
 
     protected function getSeedFileName($version)

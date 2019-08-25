@@ -13,22 +13,14 @@ class Install extends Releases
      *
      * @var string
      */
-    protected $signature = 'laraone:install {--debug-output}';
+    protected $signature = 'laraone:install {--artisan-output}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install CMS';
-
-    /**
-     * Release data, so we can install / update
-     *
-     * @var string
-     */
-    private $releasesData;
-
+    protected $description = 'Install Laraone CMS';
 
     /**
      * Create a new command instance.
@@ -38,8 +30,6 @@ class Install extends Releases
     public function __construct()
     {
         parent::__construct();
-
-        $this->releasesData = $this->getReleasesData();
     }
 
     /**
@@ -52,14 +42,20 @@ class Install extends Releases
         $themesPath = 'themes';
         $adminThemeFileName = 'admin_one.zip';
         $defaultThemeFileName = $this->getDefaultTheme();
-        $release = $this->getLastRelease();
-        
-        $downloadsUrl = config('laraone.downloads_url');
-        $adminThemeUrl = $downloadsUrl . '/' . $release . '/' . $adminThemeFileName;
-        $defaultThemeUrl = $downloadsUrl . '/' . $release . '/' . $defaultThemeFileName;
+        $release = $this->getLastVersion();
+
+        $this->info('last version: ' . $release);
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
+
+        $downloadsUrl = config('laraone.release_attachments_url');
+        $adminThemeUrl = $downloadsUrl . '/' . $release . '/' . $adminThemeFileName;
+        $defaultThemeUrl = $downloadsUrl . '/' . $release . '/' . $defaultThemeFileName;
+
+        $this->info('admin theme: ' . $adminThemeUrl);
+        $this->info('default theme: ' . $defaultThemeUrl);
+
 
         $this->info('About to download admin and default frontend theme.');
 
@@ -100,7 +96,7 @@ class Install extends Releases
             '--force' => true,
         ], null, null);
 
-        if($this->option('debug-output'))
+        if($this->option('artisan-output'))
             $this->info(Artisan::output());
 
         $this->info('Running seeds.');
@@ -110,12 +106,9 @@ class Install extends Releases
             '--force' => true,
         ]);
 
-        if($this->option('debug-output'))
+        if($this->option('artisan-output'))
             $this->info(Artisan::output());
 
         $this->info('Laraone v' . $release . ' installed successfully!');
-
-
     }
-
 }
