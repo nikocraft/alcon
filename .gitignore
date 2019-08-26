@@ -5,6 +5,7 @@
 Homestead.json
 Homestead.yaml
 .env
+.env.dusk.local
 .DS_Store
 .vscode/launch.json
 yarn-error.log
