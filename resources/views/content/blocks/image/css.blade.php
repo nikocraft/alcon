@@ -1,21 +1,21 @@
 @push('content-block-custom-css')
-    @if($settings->css){{ $settings->css }}@endif
+    {{ $settings->get('css') }}
 @endpush
 
 @push('content-block-css')
-.image-{{ $renderData->block->unique_id }} {
+.image-{{ $block->unique_id }} {
     display: flex;
-    justify-content: {{ $settings->imagePosition }};
+    justify-content: {{ $settings->get('imagePosition') }};
     align-items: center;
-    padding: {{ $settings->padding }};
-    margin: {{ $settings->margin }};
-    width: {{ $settings->width }};
-    background-color: {{ $settings->backgroundColor }};
+    padding: {{ $settings->get('padding') }};
+    margin: {{ $settings->get('margin') }};
+    width: {{ $settings->get('width') }};
+    background-color: {{ $settings->get('backgroundColor') }};
 
-    @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->flex }};
-        width: {{ $settings->width }};
-        align-self: {{ $settings->alignSelf }};
+    @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
+        flex: {{ $settings->get('flex') }};
+        width: {{ $settings->get('width') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
         width: 100%;
     @endif
@@ -23,53 +23,53 @@
 @endpush
 
 @push('content-block-css-large')
-.image-{{ $renderData->block->unique_id }} {
-    padding: {{ $settings->paddingLarge }};
-    margin: {{ $settings->marginLarge }};
+.image-{{ $block->unique_id }} {
+    padding: {{ $settings->get('paddingLarge') }};
+    margin: {{ $settings->get('marginLarge') }};
 
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->flexLarge }};
-        width: {{ $settings->widthLarge }};
-        align-self: {{ $settings->alignSelfLarge }};
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayLarge') == 'flex'))
+        flex: {{ $settings->get('flexLarge') }};
+        width: {{ $settings->get('widthLarge') }};
+        align-self: {{ $settings->get('alignSelfLarge') }};
     @endif
 }
 @endpush
 
 @push('content-block-css-medium')
-.image-{{ $renderData->block->unique_id }} {
-    padding: {{ $settings->paddingMedium }};
-    margin: {{ $settings->marginMedium }};
+.image-{{ $block->unique_id }} {
+    padding: {{ $settings->get('paddingMedium') }};
+    margin: {{ $settings->get('marginMedium') }};
 
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->flexMedium }};
-        width: {{ $settings->widthMedium }};
-        align-self: {{ $settings->alignSelfMedium }};
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayMedium') == 'flex'))
+        flex: {{ $settings->get('flexMedium') }};
+        width: {{ $settings->get('widthMedium') }};
+        align-self: {{ $settings->get('alignSelfMedium') }};
     @endif
 }
 @endpush
 
 @push('content-block-css-small')
-.image-{{ $renderData->block->unique_id }} {
-    padding: {{ $settings->paddingSmall }};
-    margin: {{ $settings->marginSmall }};
+.image-{{ $block->unique_id }} {
+    padding: {{ $settings->get('paddingSmall') }};
+    margin: {{ $settings->get('marginSmall') }};
 
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->flexSmall }};
-        width: {{ $settings->widthSmall }};
-        align-self: {{ $settings->alignSelfSmall }};
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displaySmall') == 'flex'))
+        flex: {{ $settings->get('flexSmall') }};
+        width: {{ $settings->get('widthSmall') }};
+        align-self: {{ $settings->get('alignSelfSmall') }};
     @endif
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.image-{{ $renderData->block->unique_id }} {
-    padding: {{ $settings->paddingExtraSmall }};
-    margin: {{ $settings->marginExtraSmall }};
+.image-{{ $block->unique_id }} {
+    padding: {{ $settings->get('paddingExtraSmall') }};
+    margin: {{ $settings->get('marginExtraSmall') }};
 
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->flexExtraSmall }};
-        width: {{ $settings->widthExtraSmall }};
-        align-self: {{ $settings->alignSelfExtraSmall }};
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayExtraSmall') == 'flex'))
+        flex: {{ $settings->get('flexExtraSmall') }};
+        width: {{ $settings->get('widthExtraSmall') }};
+        align-self: {{ $settings->get('alignSelfExtraSmall') }};
     @endif
 }
 @endpush

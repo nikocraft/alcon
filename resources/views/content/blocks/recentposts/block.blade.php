@@ -1,10 +1,11 @@
 @php
-    $settings = $renderData->block->getSettings();
-    $posts = Content::where('content_type_id', $settings->postsType)->latest()->take($settings->numberOfPosts)->get();
+    $block = $renderData->block;
+    $settings = $block->settings;
+    $posts = Content::where('content_type_id', $settings->get('postsType'))->latest()->take($settings->get('numberOfPosts'))->get();
 @endphp
 
 @foreach ($posts as $post)
-    @if($settings->renderFeaturedImage)
+    @if($settings->get('renderFeaturedImage'))
         <div class="widget-post">
             @if($post->featuredimage)
             <div class="widget-post-thumbnail" style="flex: 0.5; margin-right: 12px;">

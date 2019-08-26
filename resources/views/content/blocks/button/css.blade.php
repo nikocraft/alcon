@@ -1,115 +1,117 @@
 @push('content-block-custom-css')
-    @if($settings->css){{ $settings->css }}@endif
+    @if($settings->get('css')){{ $settings->get('css') }}@endif
 @endpush
 
 @push('content-block-css')
-.button-{{ $renderData->block->unique_id }} {
-    line-height: {{ $settings->fontLineHeight }};
-    font-size: {{ $settings->fontSize }};
-    font-weight: {{ $settings->fontWeight }};
-    color: {{ $settings->textColor }};
-    background-color: {{ $settings->backgroundColor }};
-    text-shadow: {{ $settings->textShadow }};
-    box-shadow: {{ $settings->boxShadow }};
-    border: {{ $settings->border }};
-    border-radius: {{ $settings->borderRadius }};
-    margin: {{ $settings->margin }};
-    padding: {{ $settings->padding }};
+.button-{{ $block->unique_id }} {
+    line-height: {{ $settings->get('fontLineHeight') }};
+    font-size: {{ $settings->get('fontSize') }};
+    font-weight: {{ $settings->get('fontWeight') }};
+    color: {{ $settings->get('textColor') }};
+    background-color: {{ $settings->get('backgroundColor') }};
+    text-shadow: {{ $settings->get('textShadow') }};
+    box-shadow: {{ $settings->get('boxShadow') }};
+    border: {{ $settings->get('border') }};
+    border-radius: {{ $settings->get('borderRadius') }};
+    margin: {{ $settings->get('margin') }};
+    padding: {{ $settings->get('padding') }};
     @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->flex }};
-        width: {{ $settings->width }};
-        align-self: {{ $settings->alignSelf }};
+        flex: {{ $settings->get('flex') }};
+        width: {{ $settings->get('width') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
         width: 100%;
     @endif
 }
 
-.button-{{ $renderData->block->unique_id }}:hover a {
+.button-{{ $block->unique_id }}:hover a {
     text-decoration: none;
 }
 
-.button-{{ $renderData->block->unique_id }} > a {
+.button-{{ $block->unique_id }} > a {
     display: block;
     color: unset;
 }
 
-.button-{{ $renderData->block->unique_id }}.btn:hover {
-    @if($settings->textColorAdvanced)color: {{ $settings->textColorHover }};@endif
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorHover }};@endif
-    @if($settings->textShadowAdvanced)text-shadow: {{ $settings->textShadowHover }};@endif
-    @if($settings->boxShadowAdvanced)box-shadow: {{ $settings->boxShadowHover }};@endif
-    @if($settings->borderAdvanced)border: {{ $settings->borderHover }};@endif
+.button-{{ $block->unique_id }}.btn:hover {
+    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorHover') }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
+    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowHover') }};@endif
+    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowHover') }};@endif
+    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderHover') }};@endif
 }
 
-.button-{{ $renderData->block->unique_id }}.btn:active {
-    @if($settings->textColorAdvanced)color: {{ $settings->textColorActive }};@endif
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorActive }};@endif
-    @if($settings->textShadowAdvanced)text-shadow: {{ $settings->textShadowActive }};@endif
-    @if($settings->boxShadowAdvanced)box-shadow: {{ $settings->boxShadowActive }};@endif
-    @if($settings->borderAdvanced)border: {{ $settings->borderActive }};@endif
+.button-{{ $block->unique_id }}.btn:active {
+    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorActive') }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
+    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowActive') }};@endif
+    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowActive') }};@endif
+    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderActive') }};@endif
 }
 
-.button-{{ $renderData->block->unique_id }}.btn:focus {
-    @if($settings->textColorAdvanced)color: {{ $settings->textColorFocus }};@endif
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorFocus }};@endif
-    @if($settings->textShadowAdvanced)text-shadow: {{ $settings->textShadowFocus }};@endif
-    @if($settings->boxShadowAdvanced)box-shadow: {{ $settings->boxShadowFocus }};@endif
-    @if($settings->borderAdvanced)border: {{ $settings->borderFocus }};@endif
+.button-{{ $block->unique_id }}.btn:focus {
+    @if($settings->textColorAdvanced)color: {{ $settings->get('textColorFocus') }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorFocus') }};@endif
+    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowFocus') }};@endif
+    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowFocus') }};@endif
+    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderFocus') }};@endif
 }
 @endpush
 
 @push('content-block-css-large')
-.button-{{ $renderData->block->unique_id }} .btn {
-    font-size: {{ $settings->fontSizeLarge }};
-    line-height: {{ $settings->fontLineHeightLarge }};
-    padding: {{ $settings->paddingLarge }};
-    margin: {{ $settings->marginLarge }};
+.button-{{ $block->unique_id }} .btn {
+    font-size: {{ $settings->get('fontSizeLarge') }};
+    line-height: {{ $settings->get('fontLineHeightLarge') }};
+    padding: {{ $settings->get('paddingLarge') }};
+    margin: {{ $settings->get('marginLarge') }};
+
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->flexLarge }};
-        align-self: {{ $settings->alignSelfLarge }};
+        flex: {{ $settings->get('flexLarge') }};
+        align-self: {{ $settings->get('alignSelfLarge') }};
     @endif
-    width: {{ $settings->widthLarge }};
+    width: {{ $settings->get('widthLarge') }};
 }
 @endpush
 
 @push('content-block-css-medium')
-.button-{{ $renderData->block->unique_id }} .btn {
-    font-size: {{ $settings->fontSizeMedium }};
-    line-height: {{ $settings->fontLineHeightMedium }};
-    padding: {{ $settings->paddingMedium }};
-    margin: {{ $settings->marginMedium }};
+.button-{{ $block->unique_id }} .btn {
+    font-size: {{ $settings->get('fontSizeMedium') }};
+    line-height: {{ $settings->get('fontLineHeightMedium') }};
+    padding: {{ $settings->get('paddingMedium') }};
+    margin: {{ $settings->get('marginMedium') }};
+
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->flexMedium }};
-        align-self: {{ $settings->alignSelfMedium }};
+        flex: {{ $settings->get('flexMedium') }};
+        align-self: {{ $settings->get('alignSelfMedium') }};
     @endif
-    width: {{ $settings->widthMedium }};
+    width: {{ $settings->get('widthMedium') }};
 }
 @endpush
 
 @push('content-block-css-small')
-.button-{{ $renderData->block->unique_id }} .btn {
-    font-size: {{ $settings->fontSizeSmall }};
-    line-height: {{ $settings->fontLineHeightSmall }};
-    padding: {{ $settings->paddingSmall }};
-    margin: {{ $settings->marginSmall }};
+.button-{{ $block->unique_id }} .btn {
+    font-size: {{ $settings->get('fontSizeSmall') }};
+    line-height: {{ $settings->get('fontLineHeightSmall') }};
+    padding: {{ $settings->get('paddingSmall') }};
+    margin: {{ $settings->get('marginSmall') }};
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->flexSmall }};
-        align-self: {{ $settings->alignSelfSmall }};
+        flex: {{ $settings->get('flexSmall') }};
+        align-self: {{ $settings->get('alignSelfSmall') }};
     @endif
-    width: {{ $settings->widthSmall }};
+    width: {{ $settings->get('widthSmall') }};
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.button-{{ $renderData->block->unique_id }} .btn {
-    font-size: {{ $settings->fontSizeExtraSmall }};
-    line-height: {{ $settings->fontLineHeightExtraSmall }};
-    padding: {{ $settings->paddingExtraSmall }};
-    margin: {{ $settings->marginExtraSmall }};
+.button-{{ $block->unique_id }} .btn {
+    font-size: {{ $settings->get('fontSizeExtraSmall') }};
+    line-height: {{ $settings->get('fontLineHeightExtraSmall') }};
+    padding: {{ $settings->get('paddingExtraSmall') }};
+    margin: {{ $settings->get('marginExtraSmall') }};
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->flexExtraSmall }};
-        align-self: {{ $settings->alignSelfExtraSmall }};
+        flex: {{ $settings->get('flexExtraSmall') }};
+        align-self: {{ $settings->get('alignSelfExtraSmall') }};
     @endif
-    width: {{ $settings->widthExtraSmall }};
+    width: {{ $settings->get('widthExtraSmall') }};
 }
 @endpush

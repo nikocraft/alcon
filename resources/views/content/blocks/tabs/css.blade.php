@@ -1,15 +1,15 @@
 @push('content-block-custom-css')
-    @if($settings->css){{ $settings->css }}@endif
+    {{ $settings->get('css') }}
 @endpush
 
 @push('content-block-css')
-.tabs-{{ $renderData->block->unique_id }} {
-    height: {{$settings->heightLarge}};
-    padding: {{$settings->padding}};
-    margin: {{$settings->margin}};
+.tabs-{{ $block->unique_id }} {
+    height: {{ $settings->get('heightLarge') }};
+    padding: {{ $settings->get('padding') }};
+    margin: {{ $settings->get('margin') }};
     {{-- padding: 1px; --}}
 
-    @if($settings->tabNavPosition != 'top')
+    @if($settings->get('tabNavPosition') != 'top')
         display: -webkit-box;
         display: -moz-box;
         display: -ms-flexbox;
@@ -17,62 +17,62 @@
         display: flex;
     @endif
 
-    @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->flex }};
-        width: {{ $settings->width }};
-        align-self: {{ $settings->alignSelf }};
+    @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
+        flex: {{ $settings->get('flex') }};
+        width: {{ $settings->get('width') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
         width: 100%;
     @endif
 }
 
-.tabs-{{ $renderData->block->unique_id }} .tabsbar {
+.tabs-{{ $block->unique_id }} .tabsbar {
     flex: 0.2;
-    margin: {{$settings->tabNavMargin}};
-    @if($settings->tabNavPosition == 'right')
+    margin: {{ $settings->get('tabNavMargin') }};
+    @if($settings->get('tabNavPosition') == 'right')
     order: 2;
     @endif
 }
-@if($settings->tabNavPosition != 'top')
-.tabs-{{ $renderData->block->unique_id }} .tabsbar .tabsbar-item {
+@if($settings->get('tabNavPosition') != 'top')
+.tabs-{{ $block->unique_id }} .tabsbar .tabsbar-item {
     width: 100%;
     margin-bottom: 5px;
 }
 @endif
 
-.tabs-{{ $renderData->block->unique_id }} .tab-block {
+.tabs-{{ $block->unique_id }} .tab-block {
     flex: 0.8;
 }
 @endpush
 
 @push('content-block-css-large')
-.tabs-{{ $renderData->block->unique_id }} {
-    @if($settings->heightResponsive)height: {{$settings->heightLarge}};@endif
-    @if($settings->paddingResponsive)padding: {{$settings->paddingLarge}};@endif
-    @if($settings->marginResponsive)margin: {{$settings->marginLarge}};@endif
+.tabs-{{ $block->unique_id }} {
+    @if($settings->get('heightResponsive'))height: {{ $settings->get('heightLarge') }};@endif
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingLarge') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginLarge') }};@endif
 }
 @endpush
 
 @push('content-block-css-medium')
-.tabs-{{ $renderData->block->unique_id }} {
-    @if($settings->heightResponsive)height: {{$settings->heightMedium}};@endif
-    @if($settings->paddingResponsive)padding: {{$settings->paddingMedium}};@endif
-    @if($settings->marginResponsive)margin: {{$settings->marginMedium}};@endif
+.tabs-{{ $block->unique_id }} {
+    @if($settings->get('heightResponsive'))height: {{ $settings->get('heightMedium') }};@endif
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingMedium') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginMedium') }};@endif
 }
 @endpush
 
 @push('content-block-css-small')
-.tabs-{{ $renderData->block->unique_id }} {
-    @if($settings->heightResponsive)height: {{$settings->heightSmall}};@endif
-    @if($settings->paddingResponsive)padding: {{$settings->paddingSmall}};@endif
-    @if($settings->marginResponsive)margin: {{$settings->marginSmall}};@endif
+.tabs-{{ $block->unique_id }} {
+    @if($settings->get('heightResponsive'))height: {{ $settings->get('heightSmall') }};@endif
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingSmall') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginSmall') }};@endif
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.tabs-{{ $renderData->block->unique_id }} {
-    @if($settings->heightResponsive)height: {{$settings->heightExtraSmall}};@endif
-    @if($settings->paddingResponsive)padding: {{$settings->paddingExtraSmall}};@endif
-    @if($settings->marginResponsive)margin: {{$settings->marginExtraSmall}};@endif
+.tabs-{{ $block->unique_id }} {
+    @if($settings->get('heightResponsive'))height: {{ $settings->get('heightExtraSmall') }};@endif
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingExtraSmall') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginExtraSmall') }};@endif
 }
 @endpush

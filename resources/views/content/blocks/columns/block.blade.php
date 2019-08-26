@@ -1,15 +1,13 @@
 @php
-    $settings = $renderData->block->getSettings();
+    $block = $renderData->block;
+    $settings = $block->settings;
 @endphp
 
 @includeIf('content.blocks.columns.css')
 
-<div class="columns-block columns-{{ $renderData->block->unique_id }} {{ $settings->customClass }}">
-    @php
-        $renderData->columnSpacing = $settings->columnSpacing
-    @endphp
-
+<div class="columns-block columns-{{ $block->unique_id }} {{ $settings->get('customClass') }}">
     @component('content.render.blocks', [
         'renderData' => $renderData,
+        'parentSettings' => $settings
     ])@endcomponent
 </div>

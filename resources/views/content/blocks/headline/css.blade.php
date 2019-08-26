@@ -1,5 +1,5 @@
 @push('content-block-custom-css')
-    @if($settings->get('css')){{ $settings->get('css') }}@endif
+    {{ $settings->get('css') }}
 @endpush
 
 @push('content-block-css')
@@ -42,7 +42,6 @@
     line-height: {{ $settings->get('fontLineHeightLarge') }};
     padding: {{ $settings->get('paddingLarge') }};
     margin: {{ $settings->get('marginLarge') }};
-
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
         flex: {{ $settings->get('flexLarge') }};
         align-self: {{ $settings->get('alignSelfLarge') }};
@@ -57,7 +56,6 @@
     line-height: {{ $settings->get('fontLineHeightMedium') }};
     padding: {{ $settings->get('paddingMedium') }};
     margin: {{ $settings->get('marginMedium') }};
-
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
         flex: {{ $settings->get('flexMedium') }};
         align-self: {{ $settings->get('alignSelfMedium') }};
@@ -72,7 +70,6 @@
     line-height: {{ $settings->get('fontLineHeightSmall') }};
     padding: {{ $settings->get('paddingSmall') }};
     margin: {{ $settings->get('marginSmall') }};
-
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
         flex: {{ $settings->get('flexSmall') }};
         align-self: {{ $settings->get('alignSelfSmall') }};
@@ -87,7 +84,6 @@
     line-height: {{ $settings->get('fontLineHeightExtraSmall') }};
     padding: {{ $settings->get('paddingExtraSmall') }};
     margin: {{ $settings->get('marginExtraSmall') }};
-
     @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
         flex: {{ $settings->get('flexExtraSmall') }};
         align-self: {{ $settings->get('alignSelfExtraSmall') }};

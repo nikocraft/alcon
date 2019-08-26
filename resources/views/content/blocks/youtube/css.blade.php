@@ -1,65 +1,65 @@
 @push('content-block-css')
-.video-block-{{ $renderData->block->unique_id }} {
+.video-block-{{ $block->unique_id }} {
     {{-- display: flex;
     justify-content: {{ $settings->position }}; --}}
-    padding: {{ $settings->padding }};
-    margin: {{ $settings->margin }};
-    height: {{ $settings->height }};
-    @if($settings->backgroundColor != "")background-color: {{ $settings->backgroundColor }};@endif
-    @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->flex }};
-        align-self: {{ $settings->alignSelf }};
+    padding: {{ $settings->get('padding') }};
+    margin: {{ $settings->get('margin') }};
+    height: {{ $settings->get('height') }};
+    @if($settings->get('backgroundColor') != "")background-color: {{ $settings->get('backgroundColor') }};@endif
+    @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
+        flex: {{ $settings->get('flex') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
         width: 100%;
     @endif
-    width: {{ $settings->width }};
+    width: {{ $settings->get('width') }};
 }
 @endpush
 
 @push('content-block-css-large')
-.video-block-{{ $renderData->block->unique_id }} {
-    @if($settings->paddingResponsive)padding: {{ $settings->paddingLarge }};@endif
-    @if($settings->marginResponsive)margin: {{ $settings->marginLarge }};@endif
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->flexLarge }};
-        align-self: {{ $settings->alignSelfLarge }};
+.video-block-{{ $block->unique_id }} {
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingLarge') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginLarge') }};@endif
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayLarge') == 'flex'))
+        flex: {{ $settings->get('flexLarge') }};
+        align-self: {{ $settings->get('alignSelfLarge') }};
     @endif
-    width: {{ $settings->widthLarge }};
+    width: {{ $settings->get('widthLarge') }};
 }
 @endpush
 
 @push('content-block-css-medium')
-.video-block-{{ $renderData->block->unique_id }} {
-    @if($settings->paddingResponsive)padding: {{ $settings->paddingMedium }};@endif
-    @if($settings->marginResponsive)margin: {{ $settings->marginMedium }};@endif
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->flexMedium }};
-        align-self: {{ $settings->alignSelfMedium }};
+.video-block-{{ $block->unique_id }} {
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingMedium') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginMedium') }};@endif
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayMedium') == 'flex'))
+        flex: {{ $settings->get('flexMedium') }};
+        align-self: {{ $settings->get('alignSelfMedium') }};
     @endif
-    width: {{ $settings->widthMedium }};
+    width: {{ $settings->get('widthMedium') }};
 }
 @endpush
 
 @push('content-block-css-small')
-.video-block-{{ $renderData->block->unique_id }} {
-    @if($settings->paddingResponsive)padding: {{ $settings->paddingSmall }};@endif
-    @if($settings->marginResponsive)margin: {{ $settings->marginSmall }};@endif
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->flexSmall }};
-        align-self: {{ $settings->alignSelfSmall }};
+.video-block-{{ $block->unique_id }} {
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingSmall') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginSmall') }};@endif
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displaySmall') == 'flex'))
+        flex: {{ $settings->get('flexSmall') }};
+        align-self: {{ $settings->get('alignSelfSmall') }};
     @endif
-    width: {{ $settings->widthSmall }};
+    width: {{ $settings->get('widthSmall') }};
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.video-block-{{ $renderData->block->unique_id }} {
-    @if($settings->paddingResponsive)padding: {{ $settings->paddingExtraSmall }};@endif
-    @if($settings->marginResponsive)margin: {{ $settings->marginExtraSmall }};@endif
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->flexExtraSmall }};
-        align-self: {{ $settings->alignSelfExtraSmall }};
+.video-block-{{ $block->unique_id }} {
+    @if($settings->get('paddingResponsive'))padding: {{ $settings->get('paddingExtraSmall') }};@endif
+    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginExtraSmall') }};@endif
+    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayExtraSmall') == 'flex'))
+        flex: {{ $settings->get('flexExtraSmall') }};
+        align-self: {{ $settings->get('alignSelfExtraSmall') }};
     @endif
-    width: {{ $settings->widthExtraSmall }};
+    width: {{ $settings->get('widthExtraSmall') }};
 }
 @endpush

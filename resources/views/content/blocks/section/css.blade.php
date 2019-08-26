@@ -1,108 +1,110 @@
 @push('content-block-custom-css')
-    @if($settings->css){{ $settings->css }}@endif
+    {{ $settings->get('css') }}
 @endpush
 
 @push('content-block-css')
 .section-{{ $block->unique_id }} {
-    @if($settings->onClick == 'open-link')
+    @if($settings->get('onClick') == 'open-link')
     cursor: pointer;
     @endif
-    height: {{ $settings->height }};
-    padding: {{ $settings->padding }} !important;
-    margin: {{ $settings->margin }} !important;
+    height: {{ $settings->get('height') }};
+    padding: {{ $settings->get('padding') }} !important;
+    margin: {{ $settings->get('margin') }} !important;
     {{-- overflow-x: {{ $settings->overflowX }};
     overflow-y: {{ $settings->overflowY }}; --}}
 
-    @if($settings->display == 'flex')
+    @if($settings->get('display') == 'flex')
         display: -webkit-box;
         display: -moz-box;
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-        flex-direction: {{$settings->flexDirection}};
-        justify-content: {{$settings->justifyContent}};
-        align-items: {{$settings->alignItems}};
-        flex-wrap: {{$settings->flexWrap}};
-        align-content: {{$settings->alignContent}};
+        flex-direction: {{ $settings->get('flexDirection') }};
+        justify-content: {{ $settings->get('justifyContent') }};
+        align-items: {{ $settings->get('alignItems') }};
+        flex-wrap: {{ $settings->get('flexWrap') }};
+        align-content: {{ $settings->get('alignContent') }};
     @else
         display: {{$settings->display}};
     @endif
     @if($settings->backgroundImage)
-        background-image: url('{{$settings->backgroundImage}}');
-        background-attachment: {{$settings->backgroundStyle}};
-        background-position: {{$settings->backgroundPosition}};
-        background-size: {{$settings->backgroundSize}};
-        background-repeat: {{$settings->backgroundRepeat}};
+        background-image: url('{{ $settings->get('backgroundImage') }}');
+        background-attachment: {{ $settings->get('backgroundStyle') }};
+        background-position: {{ $settings->get('backgroundPosition') }};
+        background-size: {{ $settings->get('backgroundSize') }};
+        background-repeat: {{ $settings->get('backgroundRepeat') }};
         {{-- box-shadow: inset 0 0 0 2000px {{$settings->backgroundColor}}; --}}
     @else
-        background-color: {{$settings->backgroundColor}};
+        background-color: {{ $settings->get('backgroundColor') }}
     @endif
 
     @if($parentDisplay == 'flex')
-        flex: {{ $settings->flex }};
-        width: {{ $settings->width }};
-        align-self: {{ $settings->alignSelf }};
+        flex: {{ $settings->get('flex') }};
+        width: {{ $settings->get('width') }};
+        align-self: {{ $settings->get('alignSelf') }};
     @else
-        width: {{ $settings->width }};
+        width: {{ $settings->get('width') }};
     @endif
 }
 
 .section-{{ $block->unique_id }}:hover {
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorHover }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
 }
 
 .section-{{ $block->unique_id }}:active {
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorActive }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
 }
 
 .section-{{ $block->unique_id }}:focus {
-    @if($settings->backgroundColorAdvanced)background-color: {{ $settings->backgroundColorFocus }};@endif
+    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorFocus') }};@endif
 }
 @endpush
 
 @push('content-block-css-large')
 .section-{{ $block->unique_id }} {
-    height: {{$settings->heightLarge}};
-    padding: {{$settings->paddingLarge}};
-    margin: {{$settings->marginLarge}};
-    @if($settings->displayResponsive)
-        @if($settings->displayLarge == 'flex')
+    height: {{ $settings->get('heightLarge') }};
+    padding: {{ $settings->get('paddingLarge') }};
+    margin: {{ $settings->get('marginLarge') }};
+
+    @if($settings->get('displayResponsive'))
+        @if($settings->get('displayLarge') == 'flex')
             display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
             display: -webkit-flex;
             display: flex;
+            flex-direction: {{ $settings->get('flexDirectionLarge') }};
+            justify-content: {{ $settings->get('justifyContentLarge') }};
+            align-items: {{ $settings->get('alignItemsLarge') }};
+            flex-wrap: {{ $settings->get('flexWrapLarge') }};
+            align-content: {{ $settings->get('alignContentLarge') }};
         @else
-            display: {{$settings->displayLarge}};
+            display: {{$settings->get('displayLarge')}};
         @endif
     @endif
-    flex-direction: {{$settings->flexDirectionLarge}};
-    justify-content: {{$settings->justifyContentLarge}};
-    align-items: {{$settings->alignItemsLarge}};
-    flex-wrap: {{$settings->flexWrapLarge}};
-    align-content: {{$settings->alignContentLarge}};
 }
 @endpush
 
 @push('content-block-css-medium')
 .section-{{ $block->unique_id }} {
-    height: {{$settings->heightMedium}};
-    padding: {{$settings->paddingMedium}};
-    margin: {{$settings->marginMedium}};
-    @if($settings->displayResponsive)
-        @if($settings->displayMedium == 'flex')
+    height: {{ $settings->get('heightMedium') }};
+    padding: {{ $settings->get('paddingMedium') }};
+    margin: {{ $settings->get('marginMedium') }};
+
+    @if($settings->get('displayResponsive'))
+        @if($settings->get('displayMedium') == 'flex')
             display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
             display: -webkit-flex;
             display: flex;
-            flex-direction: {{$settings->flexDirectionMedium}};
-            justify-content: {{$settings->justifyContentMedium}};
-            align-items: {{$settings->alignItemsMedium}};
-            flex-wrap: {{$settings->flexWrapMedium}};
-            align-content: {{$settings->alignContentMedium}};
+            flex-direction: {{ $settings->get('flexDirectionMedium') }};
+            justify-content: {{ $settings->get('justifyContentMedium') }};
+            align-items: {{ $settings->get('alignItemsMedium') }};
+            flex-wrap: {{ $settings->get('flexWrapMedium') }};
+            align-content: {{ $settings->get('alignContentMedium') }};
         @else
-            display: {{$settings->displayMedium}};
+            display: {{ $settings->get('displayMedium') }};
         @endif
     @endif
 }
@@ -110,23 +112,24 @@
 
 @push('content-block-css-small')
 .section-{{ $block->unique_id }} {
-    height: {{$settings->heightSmall}};
-    padding: {{$settings->paddingSmall}};
-    margin: {{$settings->marginSmall}};
-    @if($settings->displayResponsive)
-        @if($settings->displaySmall == 'flex')
+    height: {{ $settings->get('heightSmall') }};
+    padding: {{ $settings->get('paddingSmall') }};
+    margin: {{ $settings->get('marginSmall') }};
+
+    @if($settings->get('displayResponsive'))
+        @if($settings->get('displaySmall') == 'flex')
             display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
             display: -webkit-flex;
             display: flex;
-            flex-direction: {{$settings->flexDirectionSmall}};
-            justify-content: {{$settings->justifyContentSmall}};
-            align-items: {{$settings->alignItemsSmall}};
-            flex-wrap: {{$settings->flexWrapSmall}};
-            align-content: {{$settings->alignContentSmall}};
+            flex-direction: {{ $settings->get('flexDirectionSmall') }};
+            justify-content: {{ $settings->get('justifyContentSmall') }};
+            align-items: {{ $settings->get('alignItemsSmall') }};
+            flex-wrap: {{ $settings->get('flexWrapSmall') }};
+            align-content: {{ $settings->get('alignContentSmall') }};
         @else
-            display: {{$settings->displaySmall}};
+            display: {{ $settings->get('displaySmall') }};
         @endif
     @endif
 }
@@ -134,9 +137,10 @@
 
 @push('content-block-css-extra-small')
 .section-{{ $block->unique_id }} {
-    height: {{$settings->heightExtraSmall}};
-    padding: {{$settings->paddingExtraSmall}};
-    margin: {{$settings->marginExtraSmall}};
+    height: {{ $settings->get('heightExtraSmall') }};
+    padding: {{ $settings->get('paddingExtraSmall') }};
+    margin: {{ $settings->get('marginExtraSmall') }};
+
     @if($settings->displayResponsive)
         @if($settings->displayExtraSmall == 'flex')
             display: -webkit-box;
@@ -144,13 +148,13 @@
             display: -ms-flexbox;
             display: -webkit-flex;
             display: flex;
-            flex-direction: {{$settings->flexDirectionExtraSmall}};
-            justify-content: {{$settings->justifyContentExtraSmall}};
-            align-items: {{$settings->alignItemsExtraSmall}};
-            flex-wrap: {{$settings->flexWrapExtraSmall}};
-            align-content: {{$settings->alignContentExtraSmall}};
+            flex-direction: {{ $settings->get('flexDirectionExtraSmall') }};
+            justify-content: {{ $settings->get('justifyContentExtraSmall') }};
+            align-items: {{ $settings->get('alignItemsExtraSmall') }};
+            flex-wrap: {{ $settings->get('flexWrapExtraSmall') }};
+            align-content: {{ $settings->get('alignContentExtraSmall') }};
         @else
-            display: {{$settings->displayExtraSmall}};
+            display: {{ $settings->get('displayExtraSmall') }};
         @endif
     @endif
 }
