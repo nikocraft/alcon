@@ -48,7 +48,6 @@ class Update extends Releases
         
         if($this->option('fetch-latest')) {
             $this->fetchLatestRelease();
-            // exec('composer dump-autoload');
             $zip = new ZipArchive;
             $lastVersion = $this->getLastVersion();
 
@@ -61,6 +60,7 @@ class Update extends Releases
                 $zip->extractSubdirTo($base .'routes', base_path('routes'));
                 $zip->extractSubdirTo($base .'config', base_path('config'));
                 $zip->extractSubdirTo($base .'public' . DIRECTORY_SEPARATOR . 'install', base_path('public' . DIRECTORY_SEPARATOR . 'install'));
+                exec('composer dump-autoload');
             } else {
                 $this->info('Not able to open release zip and proceed with the update. Please report this problem.');
             }

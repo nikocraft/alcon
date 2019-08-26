@@ -49,7 +49,7 @@ class Releases extends Command
      */
     protected function loadReleasesData()
     {
-        $json = json_decode(file_get_contents(base_path() . DIRECTORY_SEPARATOR . 'laraone.json'), true);
+        $json = json_decode(file_get_contents(base_path() . DIRECTORY_SEPARATOR . 'releases.json'), true);
         $releaseList = $json['releasesData'];
         usort($releaseList, [$this, 'ascSort']);
 
@@ -64,7 +64,7 @@ class Releases extends Command
         if($this->urlExists($releasesUrl)) {
             $this->info('Fetching latest release data.');
             $releasesDownload = fopen($releasesUrl, 'r', null, $context);
-            $releasesPath = base_path('laraone.json');
+            $releasesPath = base_path('releases.json');
             file_put_contents($releasesPath, $releasesDownload);
             fclose($releasesDownload);
             $this->progressBar->finish();

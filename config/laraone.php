@@ -9,7 +9,7 @@ return [
     |
     | Used by install and update...
     */
-    'releases_data_url' => 'https://github.com/laraone/phoenix/raw/master/laraone.json',
+    'releases_data_url' => 'https://github.com/laraone/phoenix/raw/master/releases.json',
 
     /*
     |--------------------------------------------------------------------------
