@@ -11,8 +11,6 @@ use App\Models\Core\Content\Content;
 use App\Models\Core\Content\ContentType;
 use App\Models\Core\Content\ContentBlock;
 use App\Models\Core\Taxonomies\Taxonomy;
-
-use App\Models\Core\Design\Widget;
 use App\Models\User;
 
 use App\Services\RenderContentService;
@@ -66,11 +64,7 @@ class ContentController extends Controller
         $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->latest()
             ->simplePaginate(5);
 
-        $widgets = Widget::with(['blocks' => function ($query) {
-            $query->orderBy('order', 'asc');
-        }])->get();
-
-        return $this->renderService->renderIndex($contentType, $posts, $widgets);
+        return $this->renderService->renderIndex($contentType, $posts);
     }
 
     public function show($slug, $contentTypeId)
@@ -84,11 +78,7 @@ class ContentController extends Controller
         
         $blocks = $content->blocks()->orderBy('parent_id')->orderBy('order')->get();
 
-        $widgets = Widget::with(['blocks' => function ($query) {
-            $query->orderBy('order', 'asc');
-        }])->get();
-
-        return $this->renderService->renderSingle($content, $blocks, $widgets);
+        return $this->renderService->renderSingle($content, $blocks);
     }
 
     public function taxonomy(Request $request, $term, $taxonomyId)
@@ -103,10 +93,6 @@ class ContentController extends Controller
             ->latest()
             ->simplePaginate(5);
 
-        $widgets = Widget::with(['blocks' => function ($query) {
-            $query->orderBy('order', 'asc');
-        }])->get();
-
-        return $this->renderService->renderIndex($contentType, $posts, $widgets);
+        return $this->renderService->renderIndex($contentType, $posts);
     }
 }

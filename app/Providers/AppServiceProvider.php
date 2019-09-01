@@ -22,12 +22,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('helpers.taxonomy');
         Blade::include('helpers.style-renderer', 'style');
         Blade::include('helpers.css-value-renderer', 'css_value');
-
-        Relation::morphMap([
-            'content' => 'App\Models\Core\Content\Content',
-            'widgets' => 'App\Models\Core\Design\Widget',
-            'templates' => 'App\Models\Core\Content\Template',
-        ]);
     }
 
     /**

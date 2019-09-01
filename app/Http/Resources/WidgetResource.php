@@ -18,13 +18,13 @@ class WidgetResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'layout' => $this->layout,
-            'theme_area' => $this->theme_area,
+            'location' => $this->location,
             'filter_mode' => $this->filter_mode,
             'filter_data' => $this->filter_data,
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
             'settings' => $this->settings,
-            'blocks' => BlockResource::collection($this->whenLoaded('blocks')),
+            'blocks' => BlockResource::collection($this->whenLoaded('widgets')),
         ];
     }
 }

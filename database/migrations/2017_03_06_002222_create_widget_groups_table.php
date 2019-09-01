@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWidgetsTable extends Migration
+class CreateWidgetGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateWidgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('widgets', function (Blueprint $table) {
+        Schema::create('widget_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('layout');
-            $table->string('theme_area')->nullable();
+            $table->string('location')->nullable();
             $table->string('filter_mode')->default('show');
             $table->mediumText('filter_data')->nullable();
             $table->schemalessAttributes('settings')->nullable();
@@ -33,6 +33,6 @@ class CreateWidgetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('widgets');
+        Schema::dropIfExists('widget_groups');
     }
 }

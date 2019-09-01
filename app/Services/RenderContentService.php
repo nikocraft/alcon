@@ -9,7 +9,7 @@ class RenderContentService
     private static $regex2 = '/(?:\{\K|(?<!^)\G) *\r?\n? *([^:\r\n]+?)\s*:\s*([^;\r\n]+;)/m';
 
 
-    public function renderSingle($content, $blocks, $widgets)
+    public function renderSingle($content, $blocks)
     {
         $pageType = 'single';
         $contentType = $content->type;
@@ -42,7 +42,6 @@ class RenderContentService
                 'content',
                 'rootBlocksIds',
                 'allBlocks',
-                'widgets',
                 'css'
             )
         )->render();
@@ -51,15 +50,14 @@ class RenderContentService
         return $rendered;
     }
 
-    public function renderIndex($contentType, $posts, $widgets)
+    public function renderIndex($contentType, $posts)
     {
         $pageType = 'index';
         $rendered = view()->first([ 'content.template.' . $contentType->slug . '.render', 'content.template.default.render'],
             compact(
                 'pageType',
                 'contentType',
-                'posts',
-                'widgets'
+                'posts'
             )
         )->render();
         

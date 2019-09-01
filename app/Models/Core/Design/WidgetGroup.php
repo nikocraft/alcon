@@ -4,15 +4,15 @@ namespace App\Models\Core\Design;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Traits\HasBlocks;
+use App\Models\Traits\HasWidgets;
 use App\Models\Traits\HasSettings;
 
-class Widget extends Model
+class WidgetGroup extends Model
 {
-    use HasBlocks;
+    use HasWidgets;
     use HasSettings;
 
-    protected $table = "widgets";
+    protected $table = "widget_groups";
 
     protected $fillable = ['id'];
 

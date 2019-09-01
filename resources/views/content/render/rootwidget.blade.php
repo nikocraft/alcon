@@ -1,10 +1,10 @@
     @php
         $renderData = array();
-        $block = $allWidgets[$blockId];
+        $block = $widgets[$widgetId];
 
         $renderData['block'] = $block;
         $renderData['subBlocksIds'] = $block->subItems;
-        $renderData['allBlocks'] = $allWidgets;
+        $renderData['allBlocks'] = $widgets;
         $renderData['blockRenderType'] = "widgets";
 
         $renderData = (object) $renderData;

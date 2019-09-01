@@ -59,60 +59,77 @@ if (!function_exists('get_seo_description')) {
 }
 
 /**
- * processes widget blocks for rendering
+ * Check if specific widget group is visible
  */
-if (!function_exists('process_widget_blocks')) {
-    function process_widget_blocks($blocks)
-    {
-        $blockIdsList = array();
-        $widgetBlockList = array();
-
-        $blocks = $blocks->sortBy('parent_id');
-
-        foreach ($blocks as $key => $block) {
-            $block->subItems = array();
-        }
-
-        foreach ($blocks as $key => $block) {
-            $widgetBlockList[$block->unique_id] = $block;
-            if ($block->parent_id) {
-                $parent = $widgetBlockList[$block->parent_id];
-                $subs = $parent->subItems;
-                array_push($subs, $block->unique_id);
-                $parent->subItems = $subs;
-            } else {
-                $blockIdsList[$block->unique_id] = $block->unique_id;
-            }
-        }
-
-        return array($widgetBlockList, $blockIdsList);
-    }
-}
-
-/**
- * Return multiple widgets registered with same theme area
- */
-// if (!function_exists('get_widgets_by_area')) {
-//     function get_widgets_by_area($widgets, $area)
-//     {
-//         return $widgets->where('theme_area', $area);
-//     }
-// }
-
-/**
- * Returns the first widget registered for theme area
- */
-if (!function_exists('get_widget_by_area')) {
-    function get_widget_by_area($widgets, $area, $contentTypeId, $contentId = null)
+if (!function_exists('is_widget_group_visible')) {
+    function is_widget_group_visible($widget, $contentTypeId, $contentId = null)
     {
         $widgetService = new \App\Services\WidgetService();
-        $widget = $widgets->firstWhere('theme_area', $area);
         if($widget && $widgetService->isVisible($widget, $contentTypeId, $contentId))
             return $widget;
         else
             return null;
     }
 }
+
+/**
+ * Returns the first widget registered for theme area
+ */
+if (!function_exists('get_widget_group')) {
+    function get_widget_group($location)
+    {
+        $widget = WidgetGroup::with(['widgets' => function ($query) {
+            $query->orderBy('order', 'asc');
+        }])->where('location', $location)->first();
+
+        return $widget;
+    }
+}
+
+
+/**
+ * Returns the first widget registered for theme area
+ */
+if (!function_exists('get_widgets')) {
+    function get_widgets($widgetGroup)
+    {
+        return process_widgets($widgetGroup->widgets);
+    }
+}
+
+
+/**
+ * processes widget blocks for rendering
+ */
+if (!function_exists('process_widgets')) {
+    function process_widgets($rawWidgets)
+    {
+        $widgetsIds = array();
+        $widgets = array();
+
+        $rawWidgets = $rawWidgets->sortBy('parent_id');
+
+        foreach ($rawWidgets as $key => $rawWidget) {
+            $rawWidget->subItems = array();
+        }
+
+        foreach ($rawWidgets as $key => $widget) {
+            $widgets[$widget->unique_id] = $widget;
+            if ($widget->parent_id) {
+                $parent = $widgets[$widget->parent_id];
+                $subs = $parent->subItems;
+                array_push($subs, $widget->unique_id);
+                $parent->subItems = $subs;
+            } else {
+                $widgetsIds[$widget->unique_id] = $widget->unique_id;
+            }
+        }
+
+        return array($widgets, $widgetsIds);
+    }
+}
+
+
 
 /**
  * returns user created menu by location

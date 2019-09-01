@@ -228,7 +228,6 @@ return [
         'Content' => App\Models\Core\Base\Content::class,
         // 'Image' => App\Models\Core\Media\Image::class,
         'WidgetGroup' => App\Models\Core\Design\WidgetGroup::class,
-        'Widget' => App\Models\Core\Design\Widget::class,
 
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Module' => Caffeinated\Modules\Facades\Module::class,

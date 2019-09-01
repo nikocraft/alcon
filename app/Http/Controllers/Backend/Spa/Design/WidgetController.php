@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Core\Settings\Website;
-use App\Models\Core\Design\Widget;
-use App\Models\Core\Design\WidgetBlock;
+use App\Models\Core\Design\WidgetGroup;
 use App\Models\Core\Content\ContentType;
 
 use App\Services\Themes\ThemeService;
@@ -29,7 +28,7 @@ class WidgetController extends Controller
     
     public function index()
     {
-        $widgets = Widget::all();
+        $widgets = WidgetGroup::all();
         return WidgetResource::collection($widgets);
     }
 
@@ -61,7 +60,7 @@ class WidgetController extends Controller
     {
         $areas = $this->themeservice->getActiveThemeSection('widgetAreas');
 
-        $widget = Widget::with('blocks')->where('id', $id)->first();
+        $widget = WidgetGroup::with('widgets')->where('id', $id)->first();
 
         // sort the widgets
         // $widget->blocks = $widget->blocks->sortBy('order');
@@ -81,14 +80,14 @@ class WidgetController extends Controller
     {
         $widget = $this->widgetService->save($request);
 
-        $widget = Widget::with('blocks')->where('id', $widget->id)->first();
+        // $widget = WidgetGroup::with('widgets')->where('id', $widget->id)->first();
 
-        return new WidgetResource($widget);
+        // return new WidgetResource($widget);
     }
 
     public function destroy($id)
     {
-        $content = Widget::find($id);
+        $content = WidgetGroup::find($id);
         $content->delete();
         return response()->json([], 200);
     }

@@ -4,14 +4,15 @@ namespace App\Services;
 
 use App\Models\Core\Design\ThemeSetting;
 
-use App\Models\Core\Design\Widget;
+use App\Models\Core\Design\WidgetGroup;
 use App\Models\Core\Content\Block;
 
 class WidgetService
 {
-
     /**
-     * Save Widget and the attached widget blocks
+     * Save WidgetGroup and widget blocks
+     * 
+     * @param request
      */
     public function save($request)
     {
@@ -21,45 +22,59 @@ class WidgetService
             $block ? $block->delete() : null;
         }
 
-        $widget = Widget::firstOrNew(['id' => $request->id]);
-        $widget->title = $request->title;
-        $widget->theme_area = $request->themeArea;
-        $widget->layout = $request->layout;
-        $widget->filter_mode = $request->filterMode;
-        $widget->filter_data = $request->filterData;
-        $widget->save();
+        $widgetGroup = WidgetGroup::firstOrNew(['id' => $request->id]);
+        $widgetGroup->title = $request->title;
+        $widgetGroup->location = $request->location;
+        $widgetGroup->layout = $request->layout;
+        $widgetGroup->filter_mode = $request->filterMode;
+        $widgetGroup->filter_data = $request->filterData;
+        $widgetGroup->save();
 
         // save Widget Blocks
-        foreach($request->widgetsData as $key => $blockData) {
-            $blockData = (object) $blockData;
-            $this->updateOrCreateBlock($widget, $blockData);
+        foreach($request->widgetsData as $key => $widgetData) {
+            $widgetData = (object) $widgetData;
+            $this->updateOrCreateWidget($widgetGroup, $widgetData);
         }
-        $widget = $widget->fresh();
-        $widget->load('blocks');
-        return $widget;
+        $widgetGroup = $widgetGroup->fresh();
+        $widgetGroup->load('widgets');
+        return $widgetGroup;
     }
 
-    protected function updateOrCreateBlock($widget, $blockData, $parentId = null)
+    /**
+     * Update or Create Widget and attach to widget group, this is recursive function since widget blocks can be nested
+     * 
+     * @param widgetGroup widget group to attach widget blocks to
+     * @param block to attach to the widget group
+     * @param parentId current widget block parent id
+     */
+    protected function updateOrCreateWidget($widgetGroup, $widgetData, $parentId = null)
     {
-        $blockData = (object) $blockData;
-        $block = $widget->saveBlock($blockData, $parentId);
+        $widgetData = (object) $widgetData;
+        $widget = $widgetGroup->saveWidget($widgetData, $parentId);
 
         // save child blocks recursivly
-        if(isset($blockData->subItems)) {
-            for ($i=0; $i < count($blockData->subItems); $i++) {
-                $this->updateOrCreateBlock($widget, $blockData->subItems[$i], $block->unique_id);
+        if(isset($widgetData->subItems)) {
+            for ($i=0; $i < count($widgetData->subItems); $i++) {
+                $this->updateOrCreateWidget($widgetGroup, $widgetData->subItems[$i], $widget->unique_id);
             }
         }
     }
 
-    public function isVisible($widget, $contentType, $contentId = null) 
+    /**
+     * Check if a specific widget group is allowed to render on a specific content type & content id
+     * 
+     * @param widgetGroup
+     * @param contentType
+     * @param contentId
+     */
+    public function isVisible($widgetGroup, $contentType, $contentId = null) 
     {
-        $filterMode = $widget->filter_mode;
+        $filterMode = $widgetGroup->filter_mode;
 
         if($filterMode == 'all')
             return true;
         
-        $filterData = $widget->filter_data;
+        $filterData = $widgetGroup->filter_data;
 
         $visible = array_key_exists($contentType, $filterData);
 
