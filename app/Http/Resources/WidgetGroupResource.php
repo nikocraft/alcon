@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WidgetResource extends JsonResource
+class WidgetGroupResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,7 +24,7 @@ class WidgetResource extends JsonResource
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
             'settings' => $this->settings,
-            'blocks' => BlockResource::collection($this->whenLoaded('widgets')),
+            'widgets' => BlockResource::collection($this->whenLoaded('widgets')),
         ];
     }
 }

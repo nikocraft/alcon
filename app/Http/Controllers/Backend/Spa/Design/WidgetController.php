@@ -12,7 +12,7 @@ use App\Models\Core\Content\ContentType;
 use App\Services\Themes\ThemeService;
 use App\Services\WidgetService;
 
-use App\Http\Resources\WidgetResource;
+use App\Http\Resources\WidgetGroupResource;
 use App\Http\Resources\ThemeSettingsResource;
 
 class WidgetController extends Controller
@@ -29,7 +29,7 @@ class WidgetController extends Controller
     public function index()
     {
         $widgets = WidgetGroup::all();
-        return WidgetResource::collection($widgets);
+        return WidgetGroupResource::collection($widgets);
     }
 
     public function getContentTree(Request $request)
@@ -60,12 +60,12 @@ class WidgetController extends Controller
     {
         $areas = $this->themeservice->getActiveThemeSection('widgetAreas');
 
-        $widget = WidgetGroup::with('widgets')->where('id', $id)->first();
+        $widgetGroup = WidgetGroup::with('widgets')->where('id', $id)->first();
 
         // sort the widgets
         // $widget->blocks = $widget->blocks->sortBy('order');
 
-        return (new WidgetResource($widget))->additional(compact('areas'));
+        return (new WidgetGroupResource($widgetGroup))->additional(compact('areas'));
     }
 
     public function getAreas()
@@ -78,11 +78,11 @@ class WidgetController extends Controller
 
     public function store(Request $request)
     {
-        $widget = $this->widgetService->save($request);
+        $widgetGroup = $this->widgetService->save($request);
 
-        $widget = WidgetGroup::with('widgets')->where('id', $widget->id)->first();
+        $widgetGroup = WidgetGroup::with('widgets')->where('id', $widgetGroup->id)->first();
 
-        return new WidgetResource($widget);
+        return new WidgetGroupResource($widgetGroup);
     }
 
     public function destroy($id)
