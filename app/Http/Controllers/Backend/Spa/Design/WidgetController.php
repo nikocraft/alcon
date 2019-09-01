@@ -80,9 +80,9 @@ class WidgetController extends Controller
     {
         $widget = $this->widgetService->save($request);
 
-        // $widget = WidgetGroup::with('widgets')->where('id', $widget->id)->first();
+        $widget = WidgetGroup::with('widgets')->where('id', $widget->id)->first();
 
-        // return new WidgetResource($widget);
+        return new WidgetResource($widget);
     }
 
     public function destroy($id)
