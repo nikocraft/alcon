@@ -181,13 +181,13 @@ if (!function_exists('get_theme_folder')) {
  * Returns specified theme setting
  */
 if (!function_exists('get_theme_setting')) {
-    function get_theme_setting($setting)
+    function get_theme_setting($setting, $default = null)
     {
         $globalSettings = App\Services\GlobalSettingsService::class;
         $settings = app($globalSettings)->get($globalSettings::THEME_SETTINGS);
         $data = data_get($settings, $setting);
 
-        return $data ? $data : null;
+        return $data ? $data : $default;
     }
 }
 
