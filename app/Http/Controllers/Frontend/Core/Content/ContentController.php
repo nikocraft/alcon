@@ -18,10 +18,14 @@ use App\Services\RenderContentService;
 class ContentController extends Controller
 {
     protected $renderService;
+    protected $paginationType;
+    protected $perPage;
 
     public function __construct(RenderContentService $renderService)
 	{
         $this->renderService = $renderService;
+        $this->paginationType = get_theme_setting('content.pagination.type', 'simple');
+        $this->perPage = get_theme_setting('content.pagination.perPage', 12);
     }
     
     public function frontPage(Request $request)
@@ -61,8 +65,8 @@ class ContentController extends Controller
     public function index(Request $request, $contentTypeId)
     {
         $contentType = ContentType::findOrFail($contentTypeId);
-        $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->latest()
-            ->simplePaginate(5);
+        $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->latest();
+        $posts = ($this->paginationType == 'simple') ? $posts->simplePaginate($this->perPage) : $posts->paginate($this->perPage);
 
         return $this->renderService->renderIndex($contentType, $posts);
     }
@@ -85,13 +89,14 @@ class ContentController extends Controller
     {
         $taxonomy = Taxonomy::findOrFail($taxonomyId);
         $contentType = $taxonomy->type;
-        $posts = Content::with(['featuredimage', 'author', 'terms'])
+        $posts = Content::with(['featuredimage', 'author', 'terms', 'blocks'])
             ->where('content_type_id', $contentType->id)
             ->whereHas('terms', function($query) use ($term) {
                 $query->where('slug', 'LIKE', "%$term%");
             })
-            ->latest()
-            ->simplePaginate(5);
+            ->latest();
+
+        $posts = ($this->paginationType == 'simple') ? $posts->simplePaginate($this->perPage) : $posts->paginate($this->perPage);
 
         return $this->renderService->renderIndex($contentType, $posts);
     }
