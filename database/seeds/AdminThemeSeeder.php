@@ -22,7 +22,7 @@ class AdminThemeSeeder extends Seeder
      */
     public function run()
     {
-        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . 'admin_one.zip');
+        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . 'admin.zip');
         $saveToDb = false; // admin theme is not saved in themes table, only frontend themes
         $return = $this->themeservice->installTheme($themePath, $saveToDb);
 
