@@ -30,6 +30,9 @@ class Releases extends Command
      */
     protected $signature = 'laraone:relases';
 
+    protected $themesPath = 'themes';
+
+    protected $attachmentsUrl;
     /**
      * Create a new command instance.
      *
@@ -38,8 +41,50 @@ class Releases extends Command
     public function __construct()
     {
         parent::__construct();
-
+        $this->attachmentsUrl = config('laraone.release_attachments_url');
         $this->releasesData = $this->loadReleasesData();
+    }
+
+    public function fetchAdminTheme($release)
+    {
+        $adminThemeFileName = 'admin.zip';
+        $adminThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $adminThemeFileName;
+        $this->info('admin theme: ' . $adminThemeUrl);
+        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
+
+        if($this->urlExists($adminThemeUrl)) {
+            $this->info('Downloading admin theme. This may take few moments.');
+            $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $context);
+            $adminThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $adminThemeFileName);
+            file_put_contents($adminThemePath, $adminThemeDownload);
+            fclose($adminThemeDownload);
+            $this->progressBar->finish();
+            $this->output->newLine(1);
+        } else {
+            $this->info('Downloading admin theme failed. Theme url is either not correct or file is no longer there.');
+            exit();
+        }
+    }
+
+    public function fetchDefaultTheme($release)
+    {
+        $defaultThemeFileName = $this->getDefaultTheme();
+        $defaultThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $defaultThemeFileName;
+        $this->info('default theme: ' . $defaultThemeUrl);
+        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
+
+        if($this->urlExists($defaultThemeUrl)) {
+            $this->info('Downloading default frontend theme. This may take few moments.');
+            $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $context);
+            $defaultThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $defaultThemeFileName);
+            file_put_contents($defaultThemePath, $defaultThemeDownload);
+            fclose($defaultThemeDownload);
+            $this->progressBar->finish();
+            $this->output->newLine(1);
+        } else {
+            $this->info('Downloading default theme failed. Theme url is either not correct or file is no longer there.');
+            exit();
+        }
     }
 
     /**
@@ -90,11 +135,6 @@ class Releases extends Command
             $this->info('Downloaded release ' . $version);
 
         }
-    }
-
-    protected function fetchDefaultTheme()
-    {
-        return 1;
     }
 
     /**

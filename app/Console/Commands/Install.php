@@ -39,58 +39,17 @@ class Install extends Releases
      */
     public function handle()
     {
-        $themesPath = 'themes';
-        $adminThemeFileName = 'admin_one.zip';
-        $defaultThemeFileName = $this->getDefaultTheme();
         $release = $this->getLastVersion();
-
         $this->info('last version: ' . $release);
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
-        $downloadsUrl = config('laraone.release_attachments_url');
-        $adminThemeUrl = $downloadsUrl . '/' . $release . '/' . $adminThemeFileName;
-        $defaultThemeUrl = $downloadsUrl . '/' . $release . '/' . $defaultThemeFileName;
-
-        $this->info('admin theme: ' . $adminThemeUrl);
-        $this->info('default theme: ' . $defaultThemeUrl);
-
-
-        $this->info('About to download admin and default frontend theme.');
-
-        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
-
-        if($this->urlExists($adminThemeUrl)) {
-            $this->info('Downloading admin theme. This may take few moments.');
-            $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $context);
-            $adminThemePath = storage_path($themesPath . DIRECTORY_SEPARATOR . $adminThemeFileName);
-            file_put_contents($adminThemePath, $adminThemeDownload);
-            fclose($adminThemeDownload);
-            $this->progressBar->finish();
-            $this->output->newLine(1);
-        } else {
-            $this->info('Downloading admin theme failed. Theme url is either not correct or file is no longer there.');
-            exit();
-        }
-
-        if($this->urlExists($defaultThemeUrl)) {
-            $this->info('Downloading default frontend theme. This may take few moments.');
-            $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $context);
-            $defaultThemePath = storage_path($themesPath . DIRECTORY_SEPARATOR . $defaultThemeFileName);
-            file_put_contents($defaultThemePath, $defaultThemeDownload);
-            fclose($defaultThemeDownload);
-            $this->progressBar->finish();
-            $this->output->newLine(1);
-        } else {
-            $this->info('Downloading default theme failed. Theme url is either not correct or file is no longer there.');
-            exit();
-        }
-
+        $this->info('About to download admin and default theme.');
+        $this->fetchAdminTheme($release);
+        $this->fetchDefaultTheme($release);
         $this->info('Both themes downloaded.');
 
-        // // $envType = $this->choice('Where are we?', ['local', 'production'], 'local');
-        // // $this->info($envType);
         $this->info('Running migrations.');
         Artisan::call('migrate:fresh', [
             '--force' => true,
