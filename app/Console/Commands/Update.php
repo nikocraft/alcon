@@ -41,7 +41,8 @@ class Update extends Releases
     public function handle()
     {
         $websiteService = new WebsiteService;
-        $currentVersion = get_website_setting('laraone.phoenix');
+        $release = get_website_setting('laraone.phoenix');
+        $lastVersion = $this->getLastVersion();
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
@@ -49,7 +50,6 @@ class Update extends Releases
         if($this->option('fetch-latest')) {
             $this->fetchLatestRelease();
             $zip = new ZipArchive;
-            $lastVersion = $this->getLastVersion();
 
             if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $lastVersion . '.zip')) === TRUE) {
                 $base = 'phoenix-' . $lastVersion . DIRECTORY_SEPARATOR;
@@ -61,16 +61,17 @@ class Update extends Releases
                 $zip->extractSubdirTo($base .'config', base_path('config'));
                 $zip->extractSubdirTo($base .'public' . DIRECTORY_SEPARATOR . 'install', base_path('public' . DIRECTORY_SEPARATOR . 'install'));
                 exec('composer dump-autoload');
+                $this->info('Successfully unpacked the release.');
             } else {
-                $this->info('Not able to open release zip and proceed with the update. Please report this problem.');
+                $this->info('Not able to unpack zip and proceed with the update. Please report this problem.');
             }
         }
 
-        $currentReleaseIndex = $this->getReleaseIndex($currentVersion);
+        $currentReleaseIndex = $this->getReleaseIndex($release);
         $lastReleaseIndex = $this->getLastIndex();
 
         if($currentReleaseIndex != $lastReleaseIndex) {
-            $this->info('Update started, current version is ' . $currentVersion);
+            $this->info('Update started, current version is ' . $release);
 
             $updatesData = array_slice($this->releasesData, $currentReleaseIndex);
             $seeded = 0;
@@ -96,16 +97,34 @@ class Update extends Releases
                 $this->info('Nothing new to seed.');
             }
             // exec('composer dump-autoload');
+
+            $this->info('About to download latest admin and default theme.');
+            $this->fetchAdminTheme($lastVersion);
+            $this->fetchDefaultTheme($lastVersion);
+            $this->info('Themes latest versions downloaded.');
+
             $websiteService->updateSetting('laraone', 'phoenix', $this->getLastVersion());
             $this->info('Laraone has been updated successfully to ' . $this->getLastVersion());
         } else {
-            $this->info('Already up to date.');
+            $this->info('CMS Already up to date.');
         }
     }
 
     protected function fetchLatestRelease()
     {
-        $this->call('laraone:fetch');
+        $this->fetchLatestReleaseData();
+        
+        $currentVersion = get_website_setting('laraone.phoenix');
+        $lastVersion = $this->getLastVersion();
+
+        if($currentVersion != $lastVersion) {
+            $this->fetchRelease($lastVersion);
+            $this->fetchDefaultTheme($lastVersion);
+        } else {
+            $this->info('Already up to latest release.');
+        }
+
+        return $lastVersion;
     }
 
     protected function getSeedFileName($version)

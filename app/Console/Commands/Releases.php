@@ -32,6 +32,8 @@ class Releases extends Command
 
     protected $themesPath = 'themes';
 
+    protected $context;
+
     protected $attachmentsUrl;
     /**
      * Create a new command instance.
@@ -43,6 +45,7 @@ class Releases extends Command
         parent::__construct();
         $this->attachmentsUrl = config('laraone.release_attachments_url');
         $this->releasesData = $this->loadReleasesData();
+        $this->context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
     }
 
     public function fetchAdminTheme($release)
@@ -50,11 +53,10 @@ class Releases extends Command
         $adminThemeFileName = 'admin.zip';
         $adminThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $adminThemeFileName;
         $this->info('admin theme: ' . $adminThemeUrl);
-        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
 
         if($this->urlExists($adminThemeUrl)) {
             $this->info('Downloading admin theme. This may take few moments.');
-            $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $context);
+            $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $this->context);
             $adminThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $adminThemeFileName);
             file_put_contents($adminThemePath, $adminThemeDownload);
             fclose($adminThemeDownload);
@@ -71,11 +73,10 @@ class Releases extends Command
         $defaultThemeFileName = $this->getDefaultTheme();
         $defaultThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $defaultThemeFileName;
         $this->info('default theme: ' . $defaultThemeUrl);
-        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
 
         if($this->urlExists($defaultThemeUrl)) {
             $this->info('Downloading default frontend theme. This may take few moments.');
-            $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $context);
+            $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $this->context);
             $defaultThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $defaultThemeFileName);
             file_put_contents($defaultThemePath, $defaultThemeDownload);
             fclose($defaultThemeDownload);
@@ -104,11 +105,10 @@ class Releases extends Command
     protected function fetchLatestReleaseData()
     {
         $releasesUrl = config('laraone.releases_data_url');
-        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
 
         if($this->urlExists($releasesUrl)) {
             $this->info('Fetching latest release data.');
-            $releasesDownload = fopen($releasesUrl, 'r', null, $context);
+            $releasesDownload = fopen($releasesUrl, 'r', null, $this->context);
             $releasesPath = base_path('releases.json');
             file_put_contents($releasesPath, $releasesDownload);
             fclose($releasesDownload);
@@ -122,18 +122,16 @@ class Releases extends Command
     protected function fetchRelease($version)
     {
         $releaseUrl = config('laraone.releases_archive_url') . $version . '.zip';
-        $context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
 
         if($this->urlExists($releaseUrl)) {
             $this->info('Fetching release: ' . $releaseUrl);
-            $releaseDownload = fopen($releaseUrl, 'r', null, $context);
+            $releaseDownload = fopen($releaseUrl, 'r', null);
             $releasesPath = storage_path('releases' . DIRECTORY_SEPARATOR . $version . '.zip');
             file_put_contents($releasesPath, $releaseDownload);
             fclose($releaseDownload);
-            $this->progressBar->finish();
+            // $this->progressBar->finish();
             $this->output->newLine(1);
             $this->info('Downloaded release ' . $version);
-
         }
     }
 
