@@ -2,9 +2,7 @@
     "releasesData": [
       {
         "index": 1,
-        "version": "1.0.0",
-        "default_theme": "ikigai.zip",
-        "meta": {}
+        "version": "1.0.0"
       }
     ]
 }

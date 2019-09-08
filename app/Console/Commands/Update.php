@@ -42,7 +42,7 @@ class Update extends Releases
     {
         $websiteService = new WebsiteService;
         $release = get_website_setting('laraone.phoenix');
-        $lastVersion = $this->getLastVersion();
+        $lastReleaseVersion = $this->getLastVersion();
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
@@ -51,8 +51,8 @@ class Update extends Releases
             $this->fetchLatestRelease();
             $zip = new ZipArchive;
 
-            if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $lastVersion . '.zip')) === TRUE) {
-                $base = 'phoenix-' . $lastVersion . DIRECTORY_SEPARATOR;
+            if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $lastReleaseVersion . '.zip')) === TRUE) {
+                $base = 'phoenix-' . $lastReleaseVersion . DIRECTORY_SEPARATOR;
                 $this->info('Unpacking latest release.');
                 $zip->extractSubdirTo($base .'app', base_path('app'));
                 $zip->extractSubdirTo($base .'database', base_path('database'));
@@ -99,8 +99,8 @@ class Update extends Releases
             // exec('composer dump-autoload');
 
             $this->info('About to download latest admin and default theme.');
-            $this->fetchAdminTheme($lastVersion);
-            $this->fetchDefaultTheme($lastVersion);
+            $this->fetchAdminTheme($lastReleaseVersion);
+            $this->fetchDefaultTheme($lastReleaseVersion);
             $this->info('Themes latest versions downloaded.');
 
             $websiteService->updateSetting('laraone', 'phoenix', $this->getLastVersion());
@@ -115,16 +115,16 @@ class Update extends Releases
         $this->fetchLatestReleaseData();
         
         $currentVersion = get_website_setting('laraone.phoenix');
-        $lastVersion = $this->getLastVersion();
+        $lastReleaseVersion = $this->getLastVersion();
 
-        if($currentVersion != $lastVersion) {
-            $this->fetchRelease($lastVersion);
-            $this->fetchDefaultTheme($lastVersion);
+        if($currentVersion != $lastReleaseVersion) {
+            $this->fetchRelease($lastReleaseVersion);
+            $this->fetchDefaultTheme($lastReleaseVersion);
         } else {
             $this->info('Already up to latest release.');
         }
 
-        return $lastVersion;
+        return $lastReleaseVersion;
     }
 
     protected function getSeedFileName($version)

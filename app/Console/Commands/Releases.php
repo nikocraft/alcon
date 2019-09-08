@@ -34,7 +34,6 @@ class Releases extends Command
 
     protected $context;
 
-    protected $attachmentsUrl;
     /**
      * Create a new command instance.
      *
@@ -43,15 +42,33 @@ class Releases extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->attachmentsUrl = config('laraone.release_attachments_url');
-        $this->releasesData = $this->loadReleasesData();
+        $this->releasesData = $this->loadPhoenixReleasesData();
         $this->context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
     }
 
-    public function fetchAdminTheme($release)
+    private function getCompatibleThemeRelease($releaseData, $phoenixRelease)
     {
-        $adminThemeFileName = 'admin.zip';
-        $adminThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $adminThemeFileName;
+        $phoenixRelease = (int) str_replace(".", "", $phoenixRelease);
+        foreach($releaseData as $key => $value) {
+            $minimumPhoenixVersion = (int) str_replace(".", "", $value->minimumPhoenixVersion);
+            if ($minimumPhoenixVersion <= $phoenixRelease) {
+                return $value;
+            }
+        }
+
+        return null;
+    }
+
+    public function fetchAdminTheme($phoenixRelease)
+    {
+        $adminThemeFileName = config('laraone.admin_file_name');
+        $adminSpaRelasesDataUrl = config('laraone.admin_spa_releases_url');
+        $adminSpaReleaseData = json_decode(file_get_contents($adminSpaRelasesDataUrl));
+        // $last = end($adminSpaReleaseData->releasesData);
+        $compatibleRelease = $this->getCompatibleThemeRelease($adminSpaReleaseData->releasesData, $phoenixRelease);
+
+        $downloadUrl = config('laraone.admin_spa_download_url');
+        $adminThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $adminThemeFileName;
         $this->info('admin theme: ' . $adminThemeUrl);
 
         if($this->urlExists($adminThemeUrl)) {
@@ -68,10 +85,16 @@ class Releases extends Command
         }
     }
 
-    public function fetchDefaultTheme($release)
+    public function fetchDefaultTheme($phoenixRelease)
     {
-        $defaultThemeFileName = $this->getDefaultTheme();
-        $defaultThemeUrl = $this->attachmentsUrl . '/' . $release . '/' . $defaultThemeFileName;
+        $defaultThemeFileName = config('laraone.default_theme_file_name');
+        $themeRelasesUrl = config('laraone.default_theme_releases_url');
+        $themeReleaseData = json_decode(file_get_contents($themeRelasesUrl));
+
+        $compatibleRelease = $this->getCompatibleThemeRelease($themeReleaseData->releasesData, $phoenixRelease);
+
+        $downloadUrl = config('laraone.default_theme_download_url');
+        $defaultThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $defaultThemeFileName;
         $this->info('default theme: ' . $defaultThemeUrl);
 
         if($this->urlExists($defaultThemeUrl)) {
@@ -93,7 +116,7 @@ class Releases extends Command
      *
      * @return array
      */
-    protected function loadReleasesData()
+    protected function loadPhoenixReleasesData()
     {
         $json = json_decode(file_get_contents(base_path() . DIRECTORY_SEPARATOR . 'releases.json'), true);
         $releaseList = $json['releasesData'];
@@ -104,7 +127,7 @@ class Releases extends Command
 
     protected function fetchLatestReleaseData()
     {
-        $releasesUrl = config('laraone.releases_data_url');
+        $releasesUrl = config('laraone.phoenix_releases_url');
 
         if($this->urlExists($releasesUrl)) {
             $this->info('Fetching latest release data.');
@@ -115,13 +138,13 @@ class Releases extends Command
             $this->progressBar->finish();
             $this->output->newLine(1);
             $this->info('Downloaded latest release data.');
-            $this->releasesData = $this->loadReleasesData();
+            $this->releasesData = $this->loadPhoenixReleasesData();
         }
     }
 
     protected function fetchRelease($version)
     {
-        $releaseUrl = config('laraone.releases_archive_url') . $version . '.zip';
+        $releaseUrl = config('laraone.phoenix_download_url') . $version . '.zip';
 
         if($this->urlExists($releaseUrl)) {
             $this->info('Fetching release: ' . $releaseUrl);
@@ -180,7 +203,7 @@ class Releases extends Command
      *
      * @return string
      */
-    protected function getDefaultTheme()
+    protected function getDefaultThemeFileName()
     {
         $last = end($this->releasesData);
         return $last['default_theme'];

@@ -39,15 +39,15 @@ class Install extends Releases
      */
     public function handle()
     {
-        $release = $this->getLastVersion();
-        $this->info('last version: ' . $release);
+        $phoenixVersion = $this->getLastVersion();
+        $this->info('last version: ' . $phoenixVersion);
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
         $this->info('About to download admin and default theme.');
-        $this->fetchAdminTheme($release);
-        $this->fetchDefaultTheme($release);
+        $this->fetchAdminTheme($phoenixVersion);
+        $this->fetchDefaultTheme($phoenixVersion);
         $this->info('Both themes downloaded.');
 
         $this->info('Running migrations.');
@@ -68,6 +68,6 @@ class Install extends Releases
         if($this->option('artisan-output'))
             $this->info(Artisan::output());
 
-        $this->info('Laraone v' . $release . ' installed successfully!');
+        $this->info('Laraone v' . $phoenixVersion . ' installed successfully!');
     }
 }

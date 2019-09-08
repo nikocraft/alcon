@@ -25,7 +25,7 @@ class DefaultThemeSeeder extends Seeder
      */
     public function run()
     {
-        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . 'ikigai.zip');
+        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . config('laraone.default_theme_file_name'));
         $return = $this->themeservice->installTheme($themePath);
 
         $this->command->info($return->message);

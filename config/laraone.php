@@ -1,32 +1,37 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Phoenix Urls
+    |--------------------------------------------------------------------------
+    |
+    | Used by install and update commands to fetch latest backend for Laraone
+    */
+    'phoenix_releases_url' => 'https://github.com/laraone/phoenix/raw/master/releases.json',
+    'phoenix_download_url' => 'https://github.com/laraone/phoenix/archive/',
+    // 'phoenix_releases_download_url' => 'https://github.com/laraone/phoenix/releases/download',
 
     /*
     |--------------------------------------------------------------------------
-    | Releases data json
+    | Admin Spa Urls
     |--------------------------------------------------------------------------
     |
-    | Used by install and update...
+    | Used by install and update commands to fetch latest admin spa for Laraone
     */
-    'releases_data_url' => 'https://github.com/laraone/phoenix/raw/master/releases.json',
+    'admin_spa_releases_url' => 'https://github.com/laraone/admin_spa_releases/raw/master/releases.json',
+    'admin_spa_download_url' => 'https://github.com/laraone/admin_spa_releases/releases/download',
+    'admin_file_name' => 'admin.zip',
+
 
     /*
     |--------------------------------------------------------------------------
-    | Releases archive
+    | Default Theme Urls
     |--------------------------------------------------------------------------
     |
-    | Used by install and update...
+    | Used by install and update commands to fetch default frontend theme for Laraone
     */
-    'releases_archive_url' => 'https://github.com/laraone/phoenix/archive/',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Download Attachments URL
-    |--------------------------------------------------------------------------
-    |
-    | Used by install and update...
-    |
-    */
-    'release_attachments_url' => 'https://github.com/laraone/phoenix/releases/download',
+    'default_theme_releases_url' => 'https://github.com/laraone/ikigai_theme_releases/raw/master/releases.json',
+    'default_theme_download_url' => 'https://github.com/laraone/ikigai_theme_releases/releases/download',
+    'default_theme_file_name' => 'ikigai.zip',
 ];
