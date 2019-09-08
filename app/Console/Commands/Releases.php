@@ -62,12 +62,12 @@ class Releases extends Command
     public function fetchAdminTheme($phoenixRelease)
     {
         $adminThemeFileName = config('laraone.admin_file_name');
-        $adminSpaRelasesDataUrl = config('laraone.admin_spa_releases_url');
+        $adminSpaRelasesDataUrl = config('laraone.admin_releases_url');
         $adminSpaReleaseData = json_decode(file_get_contents($adminSpaRelasesDataUrl));
         // $last = end($adminSpaReleaseData->releasesData);
         $compatibleRelease = $this->getCompatibleThemeRelease($adminSpaReleaseData->releasesData, $phoenixRelease);
 
-        $downloadUrl = config('laraone.admin_spa_download_url');
+        $downloadUrl = config('laraone.admin_download_url');
         $adminThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $adminThemeFileName;
         $this->info('admin theme: ' . $adminThemeUrl);
 

@@ -19,8 +19,8 @@ return [
     |
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
-    'admin_spa_releases_url' => 'https://github.com/laraone/admin_spa_releases/raw/master/releases.json',
-    'admin_spa_download_url' => 'https://github.com/laraone/admin_spa_releases/releases/download',
+    'admin_releases_url' => 'https://github.com/laraone/admin_releases/raw/master/releases.json',
+    'admin_download_url' => 'https://github.com/laraone/admin_releases/releases/download',
     'admin_file_name' => 'admin.zip',
 
 
