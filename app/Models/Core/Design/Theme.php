@@ -40,7 +40,7 @@ class Theme extends Model
         return $setting;
     }
 
-    public function createSetting($parent, $params)
+    public function updateOrCreateSetting($parent, $params)
     {
         extract($params);
         if(is_array($value) || is_object($value)) {
@@ -49,19 +49,20 @@ class Theme extends Model
         }
 
         $dataToInsert = [
-            'theme_id' => $this->id,
-            'parent_id' => $parent,
-            'key' => $key,
             'label' => $label,
-            'value' => $value,
-            'type' => $type
+            'type' => $type,
+            'meta' => $meta
         ];
 
-        if ($meta) {
-            $dataToInsert['meta'] = $meta;
+        $exists = $this->settings()->where('theme_id', $this->id)->where('parent_id', $parent)->where('key', $key)->exists();
+        if (!$exists) {
+            $dataToInsert['value'] = $value;
         }
 
-        $setting = $this->settings()->create($dataToInsert);
+        $setting = $this->settings()->updateOrCreate(
+            [ 'theme_id' => $this->id, 'parent_id' => $parent, 'key' => $key ],
+            $dataToInsert
+        );
 
         return $setting;
     }

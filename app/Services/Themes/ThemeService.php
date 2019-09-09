@@ -23,22 +23,64 @@ class ThemeService
         $this->activeTheme = Theme::with('sections.settings')->find($activeThemeId);
     }
 
-    public function installTheme($themePath, $saveToDB = true)
+    public function installAdmin($themePath)
     {
         $zip = new ZipArchive;
         $themeData = '';
         $themeJsonPath = "views/theme.json";
 
-        $return = array();
-        $return['message'] = '';
-        $return['code'] = 422;
-        $return['id'] = null;
-        $return = json_decode(json_encode($return));
+        $result = array();
+        $result['message'] = '';
+        $result['code'] = 422;
+        $result['id'] = null;
+        $result = json_decode(json_encode($result));
 
         if ($zip->open($themePath) === TRUE) {
             if($themeData = json_decode($zip->getFromName($themeJsonPath), false)) {
+                $themeFolderName = str_replace(' ', '-', strtolower($themeData->folder));
+                File::deleteDirectory(resource_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
+                File::deleteDirectory(public_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
+                if(!File::isDirectory(resource_path("themes" .DIRECTORY_SEPARATOR. $themeFolderName))) {
+                    $errors1 = $zip->extractSubdirTo("views", resource_path('themes'. DIRECTORY_SEPARATOR . $themeFolderName));
+                    $errors2 = $zip->extractSubdirTo("assets", public_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
 
-                $themeFolderName = str_replace(' ', '-', strtolower($themeData->name));
+                    if(count($errors1) == 0 && count($errors2) == 0) {
+                        $result->message = "Theme " . $themeData->name . " installed successfully!";
+                        $result->code = 200;
+                        if(isset($theme)) {
+                            $result->id = $theme->id;
+                        }
+                    } else {
+                        $result->message = "It seems that the themes folder is locked by another program. Close the editor and try again.";
+                    }
+                } else {
+                    $result->message = "Unpacking of theme failed. It's possible that folder is locked.";
+                }
+            } else {
+                $result->message = "Failed to extract theme data.";
+            }
+        } else {
+            $result->message = "Theme zip failed to open.";
+        }
+
+        return $result;
+    }
+
+    public function installTheme($themePath)
+    {
+        $zip = new ZipArchive;
+        $themeData = '';
+        $themeJsonPath = "views/theme.json";
+
+        $result = array();
+        $result['message'] = '';
+        $result['code'] = 422;
+        $result['id'] = null;
+        $result = json_decode(json_encode($result));
+
+        if ($zip->open($themePath) === TRUE) {
+            if($themeData = json_decode($zip->getFromName($themeJsonPath), false)) {
+                $themeFolderName = str_replace(' ', '-', strtolower($themeData->folder));
 
                 // delete themes folder, if left over from previous failed install
                 File::deleteDirectory(resource_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
@@ -48,46 +90,89 @@ class ThemeService
                     $errors1 = $zip->extractSubdirTo("views", resource_path('themes'. DIRECTORY_SEPARATOR . $themeFolderName));
                     $errors2 = $zip->extractSubdirTo("assets", public_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
 
-                // if there are no errors save the theme in database
                     if(count($errors1) == 0 && count($errors2) == 0) {
-                        if($saveToDB) {
-                            $theme = new Theme();
-                            $theme->name = $themeData->name;
-                            $theme->folder = $themeData->folder;
-                            $theme->namespace = $themeData->namespace;
-                            $theme->author = $themeData->author;
-                            $theme->org = $themeData->org;
-                            $theme->version = $themeData->version;
-                            $theme->description = $themeData->description;
-                            $theme->url = $themeData->url;
-                            $theme->screenshots = $themeData->screenshots;
-                            $theme->save();
+                        $theme = new Theme();
+                        $theme->name = $themeData->name;
+                        $theme->folder = $themeData->folder;
+                        $theme->namespace = $themeData->namespace;
+                        $theme->author = $themeData->author;
+                        $theme->org = $themeData->org;
+                        $theme->version = $themeData->version;
+                        $theme->description = $themeData->description;
+                        $theme->url = $themeData->url;
+                        $theme->releases_url = $themeData->releases_url;
+                        $theme->download_url = $themeData->download_url;
+                        $theme->screenshots = $themeData->screenshots;
+                        $theme->save();
 
-                            $this->theme = $theme;
-
-                            // theme settings are nested, we need import them correctly
-                            $this->importThemeSettings($themeData->settings);
-                            $this->websiteService->updateSetting('website', 'installed', 1);
-                        }
-                        $return->message = "Theme " . $themeData->name . " installed successfully!";
-                        $return->code = 200;
-                        if(isset($theme)) {
-                            $return->id = $theme->id;
-                        }
+                        $this->theme = $theme;
+                        $this->importThemeSettings($themeData->settings);
+                        $this->websiteService->updateSetting('website', 'installed', true);
+                        $result->message = "Theme " . $themeData->name . " installed successfully!";
+                        $result->code = 200;
                     } else {
-                        $return->message = "It seems that the themes folder is locked by another program. Close the editor and try again.";
+                        $result->message = "It seems that the themes folder is locked, not possible to update.";
                     }
                 } else {
-                    $return->message = "Unpacking of theme failed. It's possible that folder is locked.";
+                    $result->message = "Unpacking of theme failed. It's seems theme already exists.";
                 }
             } else {
-                $return->message = "Failed to extract theme data.";
+                $result->message = "Failed to extract theme data.";
             }
         } else {
-            $return->message = "Theme zip failed to open.";
+            $result->message = "Theme zip failed to open.";
         }
 
-        return $return;
+        return $result;
+    }
+
+    public function updateTheme($themePath)
+    {
+        $zip = new ZipArchive;
+        $themeData = '';
+        $themeJsonPath = "views/theme.json";
+
+        $result = array();
+        $result['message'] = '';
+        $result['code'] = 422;
+        $result['id'] = null;
+        $result = json_decode(json_encode($result));
+
+        if ($zip->open($themePath) === TRUE) {
+            if($themeData = json_decode($zip->getFromName($themeJsonPath), false)) {
+                $themeFolderName = str_replace(' ', '-', strtolower($themeData->folder));
+                if(File::isDirectory(resource_path("themes" .DIRECTORY_SEPARATOR. $themeFolderName))) {
+                    $errors1 = $zip->extractSubdirTo("views", resource_path('themes'. DIRECTORY_SEPARATOR . $themeFolderName));
+                    $errors2 = $zip->extractSubdirTo("assets", public_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
+
+                    if(count($errors1) == 0 && count($errors2) == 0) {
+                        $theme = Theme::where('namespace', $themeData->namespace)->first();
+                        $theme->version = $themeData->version;
+                        $theme->description = $themeData->description;
+                        $theme->url = $themeData->url;
+                        $theme->releases_url = $themeData->releases_url;
+                        $theme->download_url = $themeData->download_url;
+                        $theme->screenshots = $themeData->screenshots;
+                        $theme->save();
+
+                        $this->theme = $theme;
+                        $this->importThemeSettings($themeData->settings);
+                        $result->message = "Theme " . $themeData->name . " updated successfully!";
+                        $result->code = 200;
+                    } else {
+                        $result->message = "It seems that the themes folder is locked, not possible to update.";
+                    }
+                } else {
+                    $result->message = "Update of theme failed. Theme folder does not exist.";
+                }
+            } else {
+                $result->message = "Failed to extract theme data.";
+            }
+        } else {
+            $result->message = "Theme zip failed to open.";
+        }
+
+        return $result;
     }
 
     public function getTheme($themeID)
@@ -179,9 +264,10 @@ class ThemeService
                 'label' => $data->label,
                 'type' => $data->type,
                 'value' => $data->default ?? null,
-                'meta' => $data->meta ?? []
+                'meta' => $data->meta ?? null
             ];
-            $setting = $this->theme->createSetting($parent ? $parent->id : null, $params);
+
+            $setting = $this->theme->updateOrCreateSetting($parent ? $parent->id : null, $params);
             if( isset($data->settings) ) {
                 $this->importThemeSettings($data->settings, $setting);
             }

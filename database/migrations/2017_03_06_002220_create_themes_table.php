@@ -25,6 +25,8 @@ class CreateThemesTable extends Migration
             $table->tinyInteger('screenshots')->default(1);
             $table->integer('parent')->nullable();
             $table->string('url');
+            $table->string('releases_url');
+            $table->string('download_url');
             $table->timestamps();
         });
     }
