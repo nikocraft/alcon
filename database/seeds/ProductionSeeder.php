@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class InstallSeeder extends Seeder
+class ProductionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,7 @@ class InstallSeeder extends Seeder
     public function run()
     {
         $this->call(LaratrustSeeder::class);
+        $this->call(AdminUserSeeder::class);
         $this->call(AdminMenuSeeder::class);
         $this->call(WebSiteSettingsSeeder::class);
         $this->call(ContentTypeSeeder::class);

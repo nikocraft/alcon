@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class LocalSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * This seeder seeds Faker user data, used for local development
+     * This seeder should not be called manually, it's used by the installer
      *
      * @return void
      */

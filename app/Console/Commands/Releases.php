@@ -46,6 +46,11 @@ class Releases extends Command
         $this->context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
     }
 
+    /**
+     * Returns compatible theme release if one is found
+     *
+     * @return string
+     */
     private function getCompatibleThemeRelease($releaseData, $phoenixRelease)
     {
         $phoenixRelease = (int) str_replace(".", "", $phoenixRelease);
@@ -59,6 +64,10 @@ class Releases extends Command
         return null;
     }
 
+    /**
+     * Downloads admin spa theme
+     *
+     */
     public function fetchAdminTheme($phoenixRelease)
     {
         $adminThemeFileName = config('laraone.admin_file_name');
@@ -85,6 +94,10 @@ class Releases extends Command
         }
     }
 
+    /**
+     * Downloads default theme
+     *
+     */
     public function fetchDefaultTheme($phoenixRelease)
     {
         $defaultThemeFileName = config('laraone.default_theme_file_name');

@@ -60,8 +60,16 @@ class Install extends Releases
 
         $this->info('Running seeds.');
 
+        $environment = env('APP_ENV', 'production');
+
+        $seedClass = 'ProductionSeeder';
+
+        if($environment == 'local') {
+            $seedClass = 'LocalSeeder';
+        }
+
         Artisan::call('db:seed', [
-            '--class' => 'DatabaseSeeder',
+            '--class' => $seedClass,
             '--force' => true,
         ]);
 

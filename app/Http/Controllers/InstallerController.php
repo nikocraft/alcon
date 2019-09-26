@@ -49,22 +49,9 @@ class InstallerController extends Controller
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
-        $currentEnvData = [
-            'database' => env('DB_DATABASE', null),
-            'username' => env('DB_USERNAME', null),
-            'password' => env('DB_PASSWORD', null),
-            'host' => env('DB_HOST', null),
-            'prefix' => env('DB_PREFIX', null)
-        ];
-
         $dbTestSuccess = $this->testDbConnection();
 
-        $data = [
-            'environmentSettings' => $currentEnvData,
-            'dbTestSuccess' => $dbTestSuccess
-        ];
-
-        return view('install', compact('data'));
+        return view('install');
     }
 
     public function saveEnvironmentSettings(Request $request)
