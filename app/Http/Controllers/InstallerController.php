@@ -89,7 +89,7 @@ class InstallerController extends Controller
                 '--force' => true,
             ]);
             Artisan::call('db:seed', [
-                '--class' => 'InstallSeeder',
+                '--class' => 'DatabaseSeeder',
                 '--force' => true,
             ]);
             $this->saveSiteSettings($request);
@@ -101,7 +101,7 @@ class InstallerController extends Controller
 
         return response()->json([
             'status' => $success ? 'success' : 'error',
-            'data' => $errorMessage ? $errorMessage : 'Laraone installed.'
+            'data' => $errorMessage ? $errorMessage : 'Laraone installed!'
         ], $success ? 200 : 422);
     }
 
