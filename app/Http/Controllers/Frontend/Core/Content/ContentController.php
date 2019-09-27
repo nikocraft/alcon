@@ -27,7 +27,7 @@ class ContentController extends Controller
         $this->paginationType = get_theme_setting('content.pagination.type', 'simple');
         $this->perPage = get_theme_setting('content.pagination.perPage', 12);
     }
-    
+
     public function frontPage(Request $request)
     {
         $frontPageType = get_website_setting('website.frontPageType');
@@ -79,8 +79,8 @@ class ContentController extends Controller
             ->where('slug', $slug)
             ->where('content_type_id', $contentTypeId)
             ->firstOrFail();
-        
-        $blocks = $content->blocks()->orderBy('parent_id')->orderBy('order')->get();
+
+        $blocks = $this->hierarchicalSort( $content->blocks()->orderBy('order')->get() );
 
         return $this->renderService->renderSingle($content, $blocks);
     }
@@ -99,5 +99,18 @@ class ContentController extends Controller
         $posts = ($this->paginationType == 'simple') ? $posts->simplePaginate($this->perPage) : $posts->paginate($this->perPage);
 
         return $this->renderService->renderIndex($contentType, $posts);
+    }
+
+    private function hierarchicalSort($elements, $rootEl = null)
+    {
+        $data = collect();
+        $filteredElements = $elements->filter(function ($o) use ($rootEl) {
+            return $o['parent_id'] == $rootEl;
+        });
+        $data = $data->merge($filteredElements);
+        foreach ($filteredElements as $element) {
+            $data = $data->merge( $this->hierarchicalSort($elements, $element['unique_id']) );
+        }
+        return $data;
     }
 }
