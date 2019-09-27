@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Artisan;
 use Config;
+use App\Models\Role;
+use App\Models\User;
 
 class Install extends Releases
 {
@@ -13,7 +15,7 @@ class Install extends Releases
      *
      * @var string
      */
-    protected $signature = 'laraone:install {--artisan-output}';
+    protected $signature = 'laraone:install {--create-user} {--artisan-output}';
 
     /**
      * The console command description.
@@ -40,12 +42,33 @@ class Install extends Releases
     public function handle()
     {
         $phoenixVersion = $this->getLastVersion();
-        $this->info('last version: ' . $phoenixVersion);
+
+        if($this->option('create-user')) {
+            $username = $this->askWithValidation('Enter username', null, function ($value) {
+                return $this->validateInput('username', 'alpha|min:4|max:30', $value);
+            });
+
+            $email = $this->askWithValidation('Enter valid email', null, function ($value) {
+                return $this->validateInput('email', 'email', $value);
+            });
+
+            $password = $this->askWithValidation('Enter secure password', null, function ($value) {
+                return $this->validateInput('password', 'required|min:6', $value);
+            });
+
+            $firstname = $this->askWithValidation('Enter firstname', null, function ($value) {
+                return $this->validateInput('password', 'required|alpha|min:3', $value);
+            });
+
+            $lastname = $this->askWithValidation('Enter lastname', null, function ($value) {
+                return $this->validateInput('password', 'required|alpha|min:3', $value);
+            });
+        }
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
-        $this->info('About to download admin and default theme.');
+        $this->info('About to download admin and default frontend theme.');
         $this->fetchAdminTheme($phoenixVersion);
         $this->fetchDefaultTheme($phoenixVersion);
         $this->info('Both themes downloaded.');
@@ -64,6 +87,45 @@ class Install extends Releases
             '--class' => 'DatabaseSeeder',
             '--force' => true,
         ]);
+
+        if($this->option('create-user')) {
+            // get super-admin role
+            $super = Role::find(1);
+
+            // create first user
+            $user = User::create([
+                'username' => $username,
+                'firstname' => $firstname ? $firstname : 'Admin',
+                'lastname' => $lastname ? $lastname : 'User',
+                'slug' => $username,
+                'email' => $email,
+                'password' => bcrypt($password),
+                'is_activated' => true
+            ]);
+
+            // attach super role to the user
+            $user->attachRole($super);
+
+        } else {
+            $environment = env('APP_ENV', 'production');
+            switch ($environment) {
+                case 'local':
+                    Artisan::call('db:seed', [
+                        '--class' => 'DummyUserSeeder',
+                        '--force' => true,
+                    ]);
+                    break;
+                case 'production':
+                    Artisan::call('db:seed', [
+                        '--class' => 'AdminUserSeeder',
+                        '--force' => true,
+                    ]);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
 
         if($this->option('artisan-output'))
             $this->info(Artisan::output());

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 use Artisan;
+use Validator;
 
 class Releases extends Command
 {
@@ -46,6 +47,11 @@ class Releases extends Command
         $this->context = stream_context_create([], ['notification' => [$this, 'downloadProgress']]);
     }
 
+    /**
+     * Returns compatible theme release if one is found
+     *
+     * @return string
+     */
     private function getCompatibleThemeRelease($releaseData, $phoenixRelease)
     {
         $phoenixRelease = (int) str_replace(".", "", $phoenixRelease);
@@ -59,6 +65,10 @@ class Releases extends Command
         return null;
     }
 
+    /**
+     * Downloads admin spa theme
+     *
+     */
     public function fetchAdminTheme($phoenixRelease)
     {
         $adminThemeFileName = config('laraone.admin_file_name');
@@ -69,10 +79,9 @@ class Releases extends Command
 
         $downloadUrl = config('laraone.admin_download_url');
         $adminThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $adminThemeFileName;
-        $this->info('admin theme: ' . $adminThemeUrl);
 
         if($this->urlExists($adminThemeUrl)) {
-            $this->info('Downloading admin theme. This may take few moments.');
+            $this->info('Downloading admin theme ' . $adminThemeUrl);
             $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $this->context);
             $adminThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $adminThemeFileName);
             file_put_contents($adminThemePath, $adminThemeDownload);
@@ -81,10 +90,15 @@ class Releases extends Command
             $this->output->newLine(1);
         } else {
             $this->info('Downloading admin theme failed. Theme url is either not correct or file is no longer there.');
+            $this->info('admin theme url: ' . $adminThemeUrl);
             exit();
         }
     }
 
+    /**
+     * Downloads default theme
+     *
+     */
     public function fetchDefaultTheme($phoenixRelease)
     {
         $defaultThemeFileName = config('laraone.default_theme_file_name');
@@ -95,10 +109,10 @@ class Releases extends Command
 
         $downloadUrl = config('laraone.default_theme_download_url');
         $defaultThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $defaultThemeFileName;
-        $this->info('default theme: ' . $defaultThemeUrl);
+        
 
         if($this->urlExists($defaultThemeUrl)) {
-            $this->info('Downloading default frontend theme. This may take few moments.');
+            $this->info('Downloading default frontend theme ' . $defaultThemeUrl);
             $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $this->context);
             $defaultThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $defaultThemeFileName);
             file_put_contents($defaultThemePath, $defaultThemeDownload);
@@ -107,6 +121,7 @@ class Releases extends Command
             $this->output->newLine(1);
         } else {
             $this->info('Downloading default theme failed. Theme url is either not correct or file is no longer there.');
+            $this->info('default theme url: ' . $defaultThemeUrl);
             exit();
         }
     }
@@ -278,4 +293,44 @@ class Releases extends Command
         }
     }
 
+    /**
+     * Prompt the user for input.
+     *
+     * @param  string $question
+     * @param  string $default
+     * @param  callable|null $validator
+     * @return string
+     */
+    public function askWithValidation($question, $default = null, $validator = null)
+    {
+        return $this->output->ask($question, $default, $validator);
+    }
+
+    /**
+     * Validates the user input
+     *
+     * @param string $attribute
+     * @param string $validation
+     * @param string $value
+     * @throws Exception
+     * @return string
+     */
+    protected function validateInput(string $attribute, string $validation, $value)
+    {
+        if (! is_array($value) && ! is_bool($value) && 0 === strlen($value)) {
+            throw new \Exception('A value is required.');
+        }
+
+        $validator = Validator::make([
+            $attribute => $value
+        ], [
+            $attribute => $validation
+        ]);
+
+        if ($validator->fails()) {
+            throw new \Exception($validator->errors()->first($attribute));
+        }
+
+        return $value;
+    }
 }

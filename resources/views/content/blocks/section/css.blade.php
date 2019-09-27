@@ -35,7 +35,7 @@
         background-repeat: {{ $settings->get('backgroundRepeat') }};
         {{-- box-shadow: inset 0 0 0 2000px {{$settings->backgroundColor}}; --}}
     @else
-        background-color: {{ $settings->get('backgroundColor') }}
+        background-color: {{ $settings->get('backgroundColor') }};
     @endif
 
     @if($parentDisplay == 'flex')
