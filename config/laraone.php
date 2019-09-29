@@ -19,8 +19,8 @@ return [
     |
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
-    'admin_releases_url' => 'https://github.com/laraone/admin_releases/raw/master/releases.json',
-    'admin_download_url' => 'https://github.com/laraone/admin_releases/releases/download',
+    'admin_releases_url' => 'https://github.com/laraone/admin-releases/raw/master/releases.json',
+    'admin_download_url' => 'https://github.com/laraone/admin-releases/releases/download',
     'admin_file_name' => 'admin.zip',
 
 
@@ -31,7 +31,7 @@ return [
     |
     | Used by install and update commands to fetch default frontend theme for Laraone
     */
-    'default_theme_releases_url' => 'https://github.com/laraone/ikigai_theme_releases/raw/master/releases.json',
-    'default_theme_download_url' => 'https://github.com/laraone/ikigai_theme_releases/releases/download',
+    'default_theme_releases_url' => 'https://github.com/laraone/ikigai-theme-releases/raw/master/releases.json',
+    'default_theme_download_url' => 'https://github.com/laraone/ikigai-theme-releases/releases/download',
     'default_theme_file_name' => 'ikigai.zip',
 ];
