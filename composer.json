@@ -11,7 +11,7 @@
         "fideloper/proxy": "~4.0",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "2.5.0",
-        "laraone/themes": "^1.0.0",
+        "laraone/themes-support": "^1.0.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
         "mews/purifier": "2.1.4",
