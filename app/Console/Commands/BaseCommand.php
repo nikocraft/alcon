@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Artisan;
 use Validator;
 
-class Releases extends Command
+class BaseCommand extends Command
 {
 
     /**
@@ -29,7 +29,14 @@ class Releases extends Command
      *
      * @var string
      */
-    protected $signature = 'laraone:relases';
+    protected $signature = 'laraone:base';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Base Command Class, should not be run directly from CLI';
 
     protected $themesPath = 'themes';
 
@@ -126,6 +133,32 @@ class Releases extends Command
         }
     }
 
+
+    /**
+     * Downloads specific theme
+     *
+     */
+    public function fetchTheme($phoenixRelease, $themeRelasesUrl, $downloadUrl, $themeFileName)
+    {
+        $themeReleaseData = json_decode(file_get_contents($themeRelasesUrl));
+        $compatibleRelease = $this->getCompatibleThemeRelease($themeReleaseData->releasesData, $phoenixRelease);
+        $themeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $themeFileName;
+
+        if($this->urlExists($themeUrl)) {
+            $this->info('Downloading theme ' . $themeUrl);
+            $themeDownload = fopen($themeUrl, 'r', null, $this->context);
+            $themePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $themeFileName);
+            file_put_contents($themePath, $themeDownload);
+            fclose($themeDownload);
+            $this->progressBar->finish();
+            $this->output->newLine(1);
+        } else {
+            $this->info('Downloading theme failed. Theme url is either not correct or file is no longer there.');
+            $this->info('Theme url: ' . $themeUrl);
+            exit();
+        }
+    }
+
     /**
      * Load release json object for processing, sort it in asc order by index key
      *
@@ -140,6 +173,11 @@ class Releases extends Command
         return $releaseList;
     }
 
+    /**
+     * Downloads latest Phoenix Release Data from github
+     *
+     * @return mixed
+     */
     protected function fetchLatestReleaseData()
     {
         $releasesUrl = config('laraone.phoenix_releases_url');
@@ -157,6 +195,11 @@ class Releases extends Command
         }
     }
 
+    /**
+     * Downloads latest Phoenix Release from github
+     *
+     * @return mixed
+     */
     protected function fetchRelease($version)
     {
         $releaseUrl = config('laraone.phoenix_download_url') . $version . '.zip';

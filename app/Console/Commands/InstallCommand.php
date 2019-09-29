@@ -8,7 +8,7 @@ use Config;
 use App\Models\Role;
 use App\Models\User;
 
-class Install extends Releases
+class InstallCommand extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -22,7 +22,7 @@ class Install extends Releases
      *
      * @var string
      */
-    protected $description = 'Install Laraone CMS';
+    protected $description = 'Install Laraone, run migrations & seeds, fetch themes from github';
 
     /**
      * Create a new command instance.

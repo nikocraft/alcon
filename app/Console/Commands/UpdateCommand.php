@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use App\Services\WebsiteService;
 use App\Services\Zip\ZipArchive;
 
-class Update extends Releases
+class UpdateCommand extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -21,7 +21,7 @@ class Update extends Releases
      *
      * @var string
      */
-    protected $description = 'Update Laraone. New code should either be pulled by git or fetch command before update is run.';
+    protected $description = 'Update Laraone. New code should either be pulled by git or fetch command before update is run';
 
     /**
      * Create a new command instance.

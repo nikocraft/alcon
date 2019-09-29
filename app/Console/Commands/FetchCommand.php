@@ -6,7 +6,7 @@ use Artisan;
 use Illuminate\Console\Command;
 use App\Services\WebsiteService;
 
-class Fetch extends Releases
+class FetchCommand extends BaseCommand
 {
     /**
      * Fetch zip file for cms, can specify the version.
@@ -20,7 +20,7 @@ class Fetch extends Releases
      *
      * @var string
      */
-    protected $description = 'Fetch Laraone Release from Github.';
+    protected $description = 'Fetch Latest Laraone Release from Github';
 
     /**
      * Create a new command instance.
@@ -46,6 +46,7 @@ class Fetch extends Releases
 
         if($currentVersion != $lastVersion) {
             $this->fetchRelease($lastVersion);
+            $this->fetchAdminTheme($lastVersion);
             $this->fetchDefaultTheme($lastVersion);
         } else {
             $this->info('Already up to latest release.');
