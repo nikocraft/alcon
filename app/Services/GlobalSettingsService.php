@@ -33,7 +33,7 @@ class GlobalSettingsService
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
         $websiteInstalled = data_get($websiteSettings, 'website.installed');
 
-        // If there is an active theme fill the global settings with correct values
+        // If website installation has been completed, init the global settings otherwise do nothing.
         if($websiteInstalled) {
             $theme = $this->themeService->getTheme($activeThemeId);
             $themeSettings = $this->themeService->getSettings($activeThemeId);

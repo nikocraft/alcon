@@ -64,7 +64,6 @@ class ThemeService
 
                         $this->theme = $theme;
                         $this->importThemeSettings($themeData->settings);
-                        $this->websiteService->updateSetting('website', 'installed', true);
                         $result->message = "Theme " . $themeData->name . " installed successfully!";
                         $result->code = 200;
                     } else {

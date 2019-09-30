@@ -1,9 +1,16 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Services\WebsiteService;
 
 class DatabaseSeeder extends Seeder
 {
+    protected $websiteService;
+
+    public function __construct(WebsiteService $websiteService)
+    {
+        $this->websiteService = $websiteService;
+    }
     /**
      * Run the database seeds.
      * This seeder seeds Faker user data, used for local development
@@ -19,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaxonomiesTableSeeder::class);
         $this->call(AdminThemeSeeder::class);
         $this->call(DefaultThemeSeeder::class);
+
+        $this->websiteService->updateSetting('website', 'installed', true);
     }
 }
