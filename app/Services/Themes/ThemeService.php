@@ -182,6 +182,13 @@ class ThemeService
         return $theme;
     }
 
+    public function getThemeByFolderName($folder)
+    {
+        $theme = Theme::where('folder', $folder)->first();
+
+        return $theme;
+    }
+
     public function getSettings($themeID)
     {
         $theme = Theme::with('sections.settings')->find($themeID);
