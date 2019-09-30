@@ -29,9 +29,9 @@ class ThemeController extends Controller
 
     public function index(Request $request)
     {
-        $per_page = $request->input('per_page', 24);
+        $per_page = $request->input('per_page', 25);
         // $themes = Theme::paginate($per_page);
-        $themes = Theme::all();
+        $themes = Theme::where('folder', '!=', 'admin')->get();
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
