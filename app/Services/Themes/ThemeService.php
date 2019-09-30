@@ -23,49 +23,6 @@ class ThemeService
         $this->activeTheme = Theme::with('sections.settings')->find($activeThemeId);
     }
 
-    public function installAdmin($themePath)
-    {
-        $zip = new ZipArchive;
-        $themeData = '';
-        $themeJsonPath = "views/theme.json";
-
-        $result = array();
-        $result['message'] = '';
-        $result['code'] = 422;
-        $result['id'] = null;
-        $result = json_decode(json_encode($result));
-
-        if ($zip->open($themePath) === TRUE) {
-            if($themeData = json_decode($zip->getFromName($themeJsonPath), false)) {
-                $themeFolderName = str_replace(' ', '-', strtolower($themeData->folder));
-                File::deleteDirectory(resource_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
-                File::deleteDirectory(public_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
-                if(!File::isDirectory(resource_path("themes" .DIRECTORY_SEPARATOR. $themeFolderName))) {
-                    $errors1 = $zip->extractSubdirTo("views", resource_path('themes'. DIRECTORY_SEPARATOR . $themeFolderName));
-                    $errors2 = $zip->extractSubdirTo("assets", public_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
-
-                    if(count($errors1) == 0 && count($errors2) == 0) {
-                        $result->message = "Theme " . $themeData->name . " installed successfully!";
-                        $result->code = 200;
-                        if(isset($theme)) {
-                            $result->id = $theme->id;
-                        }
-                    } else {
-                        $result->message = "It seems that the themes folder is locked by another program. Close the editor and try again.";
-                    }
-                } else {
-                    $result->message = "Unpacking of theme failed. It's possible that folder is locked.";
-                }
-            } else {
-                $result->message = "Failed to extract theme data.";
-            }
-        } else {
-            $result->message = "Theme zip failed to open.";
-        }
-
-        return $result;
-    }
-
     public function installTheme($themePath)
     {
         $zip = new ZipArchive;

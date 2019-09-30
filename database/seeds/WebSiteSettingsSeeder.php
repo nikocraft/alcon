@@ -22,7 +22,7 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'url', 'value' => '', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageType', 'value' => 'welcome-page', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageMeta', 'value' => 1, 'type' => 'integer']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'activeTheme', 'value' => 1, 'type' => 'integer']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'activeTheme', 'value' => 2, 'type' => 'integer']);
         Website::create(['parent_id' => $parent->id, 'key' => 'installed', 'value' => 0, 'type' => 'boolean']);
 
         $parent = Website::create(['key' => 'admin', 'value' => 'Admin', 'type' => 'section']);
