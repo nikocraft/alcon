@@ -7,6 +7,7 @@ use Artisan;
 use Config;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Themes\ThemeService;
 
 class InstallCommand extends BaseCommand
 {
@@ -41,7 +42,7 @@ class InstallCommand extends BaseCommand
      */
     public function handle()
     {
-        $phoenixVersion = $this->getLastVersion();
+        $phoenixVersion = $this->getPhoenixLastVersion();
 
         if($this->option('create-user')) {
             $username = $this->askWithValidation('Enter username', null, function ($value) {
@@ -68,10 +69,9 @@ class InstallCommand extends BaseCommand
         Artisan::call('config:clear');
         Artisan::call('config:cache');
 
-        $this->info('About to download admin and default frontend theme.');
+        $this->info('About to download & install admin and default frontend theme.');
         $this->fetchAdminTheme($phoenixVersion);
         $this->fetchDefaultTheme($phoenixVersion);
-        $this->info('Both themes downloaded.');
 
         $this->info('Running migrations.');
         Artisan::call('migrate:fresh', [
@@ -127,9 +127,12 @@ class InstallCommand extends BaseCommand
             }
         }
 
-        if($this->option('artisan-output'))
+        if($this->option('artisan-output')) {
             $this->info(Artisan::output());
+        }
 
-        $this->info('Laraone v' . $phoenixVersion . ' installed successfully!');
+        $themeService = new ThemeService;
+        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $this->info('Laraone installed successfully!' . ' Phoenix: v' . $phoenixVersion . '; SPA Admin : v' .  $adminTheme->version);
     }
 }

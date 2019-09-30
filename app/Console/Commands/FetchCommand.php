@@ -42,7 +42,7 @@ class FetchCommand extends BaseCommand
         $this->fetchLatestReleaseData();
         
         $currentVersion = get_website_setting('laraone.phoenix');
-        $lastVersion = $this->getLastVersion();
+        $lastVersion = $this->getPhoenixLastVersion();
 
         if($currentVersion != $lastVersion) {
             $this->fetchRelease($lastVersion);

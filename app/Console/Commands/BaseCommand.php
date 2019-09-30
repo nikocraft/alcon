@@ -108,16 +108,17 @@ class BaseCommand extends Command
         $themeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $themeFileName;
 
         if($this->urlExists($themeUrl)) {
-            $this->info('Downloading theme ' . $themeUrl);
+            $this->info('Downloading theme ' . $themeFileName);
             $themeDownload = fopen($themeUrl, 'r', null, $this->context);
             $themePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $themeFileName);
             file_put_contents($themePath, $themeDownload);
             fclose($themeDownload);
             $this->progressBar->finish();
             $this->output->newLine(1);
+            return true;
         } else {
             $this->info('Downloading theme failed. Theme url is either not correct or file is no longer there.');
-            $this->info('Theme url: ' . $themeUrl);
+            $this->info('Theme name: ' . $themeFileName);
             exit();
         }
     }
@@ -213,7 +214,7 @@ class BaseCommand extends Command
      *
      * @return mixed
      */
-    protected function getLastVersion()
+    protected function getPhoenixLastVersion()
     {
         $last = end($this->releasesData);
         return $last['version'];
