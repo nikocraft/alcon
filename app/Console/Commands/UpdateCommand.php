@@ -21,7 +21,7 @@ class UpdateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Update Laraone. New code should either be pulled by git or fetch command before update is run';
+    protected $description = 'Update Laraone by running new migrations and seeds. Latest version should be pulled by git before running this command. Option --fetch-latest should only be used if not using git to deploy.';
 
     /**
      * Create a new command instance.

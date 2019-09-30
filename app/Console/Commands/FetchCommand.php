@@ -20,7 +20,7 @@ class FetchCommand extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Fetch Latest Laraone Release from Github';
+    protected $description = 'Fetch latest Laraone release from Github repo.';
 
     /**
      * Create a new command instance.

@@ -36,7 +36,7 @@ class BaseCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Base Command Class, should not be run directly from CLI';
+    protected $description = 'Base command class, should not be run directly from CLI, other commands extend this class.';
 
     protected $themesPath = 'themes';
 

@@ -22,7 +22,7 @@ class InstallCommand extends BaseCommand
      *
      * @var string
      */
-    protected $description = 'Install Laraone, run migrations & seeds, fetch themes from github';
+    protected $description = 'Run migrations & seeds, fetch themes from github repos.';
 
     /**
      * Create a new command instance.
