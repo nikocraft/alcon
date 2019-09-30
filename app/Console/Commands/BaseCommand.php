@@ -79,27 +79,9 @@ class BaseCommand extends Command
     public function fetchAdminTheme($phoenixRelease)
     {
         $adminThemeFileName = config('laraone.admin_file_name');
-        $adminSpaRelasesDataUrl = config('laraone.admin_releases_url');
-        $adminSpaReleaseData = json_decode(file_get_contents($adminSpaRelasesDataUrl));
-        // $last = end($adminSpaReleaseData->releasesData);
-        $compatibleRelease = $this->getCompatibleThemeRelease($adminSpaReleaseData->releasesData, $phoenixRelease);
-
+        $relasesUrl = config('laraone.admin_releases_url');
         $downloadUrl = config('laraone.admin_download_url');
-        $adminThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $adminThemeFileName;
-
-        if($this->urlExists($adminThemeUrl)) {
-            $this->info('Downloading admin theme ' . $adminThemeUrl);
-            $adminThemeDownload = fopen($adminThemeUrl, 'r', null, $this->context);
-            $adminThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $adminThemeFileName);
-            file_put_contents($adminThemePath, $adminThemeDownload);
-            fclose($adminThemeDownload);
-            $this->progressBar->finish();
-            $this->output->newLine(1);
-        } else {
-            $this->info('Downloading admin theme failed. Theme url is either not correct or file is no longer there.');
-            $this->info('admin theme url: ' . $adminThemeUrl);
-            exit();
-        }
+        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $adminThemeFileName);
     }
 
     /**
@@ -108,29 +90,10 @@ class BaseCommand extends Command
      */
     public function fetchDefaultTheme($phoenixRelease)
     {
-        $defaultThemeFileName = config('laraone.default_theme_file_name');
-        $themeRelasesUrl = config('laraone.default_theme_releases_url');
-        $themeReleaseData = json_decode(file_get_contents($themeRelasesUrl));
-
-        $compatibleRelease = $this->getCompatibleThemeRelease($themeReleaseData->releasesData, $phoenixRelease);
-
+        $themeFileName = config('laraone.default_theme_file_name');
+        $relasesUrl = config('laraone.default_theme_releases_url');
         $downloadUrl = config('laraone.default_theme_download_url');
-        $defaultThemeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $defaultThemeFileName;
-        
-
-        if($this->urlExists($defaultThemeUrl)) {
-            $this->info('Downloading default frontend theme ' . $defaultThemeUrl);
-            $defaultThemeDownload = fopen($defaultThemeUrl, 'r', null, $this->context);
-            $defaultThemePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $defaultThemeFileName);
-            file_put_contents($defaultThemePath, $defaultThemeDownload);
-            fclose($defaultThemeDownload);
-            $this->progressBar->finish();
-            $this->output->newLine(1);
-        } else {
-            $this->info('Downloading default theme failed. Theme url is either not correct or file is no longer there.');
-            $this->info('default theme url: ' . $defaultThemeUrl);
-            exit();
-        }
+        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeFileName);
     }
 
 
