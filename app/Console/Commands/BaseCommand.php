@@ -69,7 +69,7 @@ class BaseCommand extends Command
             }
         }
 
-        return null;
+        return false;
     }
 
     /**
@@ -78,10 +78,10 @@ class BaseCommand extends Command
      */
     public function fetchAdminTheme($phoenixRelease)
     {
-        $adminThemeFileName = config('laraone.admin_file_name');
+        $themeName = config('laraone.admin_theme');
         $relasesUrl = config('laraone.admin_releases_url');
         $downloadUrl = config('laraone.admin_download_url');
-        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $adminThemeFileName);
+        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeName);
     }
 
     /**
@@ -90,10 +90,10 @@ class BaseCommand extends Command
      */
     public function fetchDefaultTheme($phoenixRelease)
     {
-        $themeFileName = config('laraone.default_theme_file_name');
+        $themeName = config('laraone.default_theme');
         $relasesUrl = config('laraone.default_theme_releases_url');
         $downloadUrl = config('laraone.default_theme_download_url');
-        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeFileName);
+        $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeName);
     }
 
 
@@ -101,25 +101,30 @@ class BaseCommand extends Command
      * Downloads specific theme
      *
      */
-    public function fetchTheme($phoenixRelease, $themeRelasesUrl, $downloadUrl, $themeFileName)
+    public function fetchTheme($phoenixRelease, $themeRelasesUrl, $downloadUrl, $themeName)
     {
         $themeReleaseData = json_decode(file_get_contents($themeRelasesUrl));
         $compatibleRelease = $this->getCompatibleThemeRelease($themeReleaseData->releasesData, $phoenixRelease);
-        $themeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $themeFileName;
+        if($compatibleRelease) {
+            $themeFileName = $themeName . '.zip';
+            $themeUrl = $downloadUrl . '/' . $compatibleRelease->version . '/' . $themeFileName;
 
-        if($this->urlExists($themeUrl)) {
-            $this->info('Downloading theme ' . $themeFileName);
-            $themeDownload = fopen($themeUrl, 'r', null, $this->context);
-            $themePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $themeFileName);
-            file_put_contents($themePath, $themeDownload);
-            fclose($themeDownload);
-            $this->progressBar->finish();
-            $this->output->newLine(1);
-            return true;
+            if($this->urlExists($themeUrl)) {
+                $this->info('Downloading ' . ucfirst($themeName) . ' theme.');
+                $themeDownload = fopen($themeUrl, 'r', null, $this->context);
+                $themePath = storage_path($this->themesPath . DIRECTORY_SEPARATOR . $themeFileName);
+                file_put_contents($themePath, $themeDownload);
+                fclose($themeDownload);
+                $this->progressBar->finish();
+                $this->output->newLine(1);
+                return true;
+            } else {
+                $this->info('Downloading theme failed. Theme url is either not correct or file is no longer there.');
+                $this->info('Theme name: ' . $themeFileName);
+                exit();
+            }
         } else {
-            $this->info('Downloading theme failed. Theme url is either not correct or file is no longer there.');
-            $this->info('Theme name: ' . $themeFileName);
-            exit();
+            $this->info(ucfirst($themeName) .' already up to date!');
         }
     }
 

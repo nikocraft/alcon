@@ -16,7 +16,7 @@ class InstallCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'laraone:install {--create-user} {--artisan-output}';
+    protected $signature = 'laraone:install {--force} {--create-user} {--artisan-output}';
 
     /**
      * The console command description.
@@ -133,6 +133,7 @@ class InstallCommand extends BaseCommand
 
         $themeService = new ThemeService;
         $adminTheme = $themeService->getThemeByFolderName('admin');
-        $this->info('Laraone installed successfully!' . ' Phoenix: v' . $phoenixVersion . '; SPA Admin : v' .  $adminTheme->version);
+        $this->info('Phoenix: v' . $phoenixVersion . ', SPA Admin : v' .  $adminTheme->version);
+        $this->info('Laraone is now correctly installed!');
     }
 }

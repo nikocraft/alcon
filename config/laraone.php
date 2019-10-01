@@ -21,7 +21,7 @@ return [
     */
     'admin_releases_url' => 'https://github.com/laraone/admin-releases/raw/master/releases.json',
     'admin_download_url' => 'https://github.com/laraone/admin-releases/releases/download',
-    'admin_file_name' => 'admin.zip',
+    'admin_theme' => 'admin',
 
 
     /*
@@ -33,5 +33,5 @@ return [
     */
     'default_theme_releases_url' => 'https://github.com/laraone/ikigai-theme-releases/raw/master/releases.json',
     'default_theme_download_url' => 'https://github.com/laraone/ikigai-theme-releases/releases/download',
-    'default_theme_file_name' => 'ikigai.zip',
+    'default_theme' => 'ikigai',
 ];

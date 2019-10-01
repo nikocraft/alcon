@@ -48,15 +48,19 @@ class ThemeUpdateCommand extends BaseCommand
         $themeService = new ThemeService;
         $theme = $themeService->getThemeByFolderName($themeName);
 
-        $this->fetchTheme($phoenixVersion, $theme->releases_url, $theme->download_url, $themeName . '.zip');
-        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . $themeName . '.zip');
-        $return = $themeService->updateTheme($themePath);
+        if($theme) {
+            $this->fetchTheme($phoenixVersion, $theme->releases_url, $theme->download_url, $themeName);
+            $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . $themeName . '.zip');
+            $return = $themeService->updateTheme($themePath);
 
-        if($return->code == 200) {
-            $this->info($return->message);
+            if($return->code == 200) {
+                $this->info($return->message);
+            } else {
+                $this->error('Updating the theme failed.');
+                $this->error($return->message);
+            }
         } else {
-            $this->error('Updating the theme failed.');
-            $this->error($return->message);
+            $this->error('Theme not found, did you type the theme folder name correctly?');
         }
     }
 }

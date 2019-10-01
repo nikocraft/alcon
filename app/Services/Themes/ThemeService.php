@@ -113,7 +113,7 @@ class ThemeService
 
                         $this->theme = $theme;
                         $this->importThemeSettings($themeData->settings);
-                        $result->message = "Theme " . $themeData->name . " updated successfully!";
+                        $result->message = ucfirst($themeData->name) . " theme updated successfully!";
                         $result->code = 200;
                     } else {
                         $result->message = "It seems that the themes folder is locked, not possible to update.";
@@ -141,6 +141,13 @@ class ThemeService
     public function getThemeByFolderName($folder)
     {
         $theme = Theme::where('folder', $folder)->first();
+
+        return $theme;
+    }
+
+    public function getThemeByNamespace($namespace)
+    {
+        $theme = Theme::where('namespace', $namespace)->first();
 
         return $theme;
     }

@@ -15,14 +15,14 @@ class UpdateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'laraone:update {--fetch-latest}';
+    protected $signature = 'laraone:update {--fetch-latest-phoenix} {--fetch-active-theme}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update Laraone by running new migrations and seeds. Latest version should be pulled by git before running this command. Option --fetch-latest should only be used if not using git to deploy.';
+    protected $description = 'Update Laraone by running new migrations and seeds. Latest version should be pulled by git before running this command. Option --fetch-latest-phoenix should only be used if not using git to deploy.';
 
     /**
      * Create a new command instance.
@@ -57,7 +57,7 @@ class UpdateCommand extends BaseCommand
         if($phoenixCurrentReleaseIndex != $phoenixLastReleaseIndex) {
             $this->info('Update started, current version is ' . $phoenixCurrentVersion);
 
-            if($this->option('fetch-latest')) {
+            if($this->option('fetch-latest-phoenix')) {
                 $this->fetchLatestRelease();
                 $zip = new ZipArchive;
     
@@ -103,27 +103,57 @@ class UpdateCommand extends BaseCommand
             }
             // exec('composer dump-autoload');
 
-            // download admin theme and update
-            $adminTheme = $themeService->getThemeByFolderName('admin');
-            $adminThemeId = $adminTheme->id;
-            $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
-
-            // download active theme and update
-            $activeThemeId = get_website_setting('website.activeTheme');
-            $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
-
-            // get admin theme again
-            $adminTheme = $themeService->getThemeByFolderName('admin');
+            // fetch admin and active theme
+            // $this->fetchThemes($phoenixLastVersion);
 
             // update versions
             $websiteService->updateSetting('laraone', 'phoenix', $phoenixLastVersion);
-            $websiteService->updateSetting('laraone', 'admin', $adminTheme->version);
+            
 
-            $this->info('Laraone updated successfully!' . ' Phoenix: v' . $phoenixLastVersion . ', SPA Admin : v' .  $adminTheme->version);
+            $this->info('Phoenix updated to v' . $phoenixLastVersion);
         } else {
-            $adminTheme = $themeService->getThemeByFolderName('admin');
-            $this->info('Laraone is up to date.' . ' Phoenix: v' . $phoenixLastVersion . ', SPA Admin : v' .  $adminTheme->version);
+            // fetch admin and active theme
+            $this->info('Phoenix already up to date!');
         }
+
+        $this->fetchAdmin($phoenixLastVersion);
+        if($this->option('fetch-active-theme')) {
+            $this->fetchActiveTheme($phoenixLastVersion);
+        }
+        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $websiteService->updateSetting('laraone', 'admin', $adminTheme->version);
+        $this->info('Phoenix: v' . $phoenixLastVersion . ', SPA Admin: v' .  $adminTheme->version);
+        $this->info('Laraone updated!');
+    }
+
+    private function fetchAdmin($phoenixLastVersion)
+    {
+        $themeService = new ThemeService;
+        // download admin theme and update
+        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $adminThemeId = $adminTheme->id;
+        $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
+    }
+
+    private function fetchActiveTheme($phoenixLastVersion)
+    {
+        // download active theme and update
+        $activeThemeId = get_website_setting('website.activeTheme');
+        $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
+    }
+
+    private function fetchThemes($phoenixLastVersion)
+    {
+        $themeService = new ThemeService;
+
+        // download admin theme and update
+        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $adminThemeId = $adminTheme->id;
+        $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
+
+        // download active theme and update
+        $activeThemeId = get_website_setting('website.activeTheme');
+        $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
     }
 
     private function fetchAndUpdateTheme($phoenixLastVersion, $themeId)
@@ -131,7 +161,7 @@ class UpdateCommand extends BaseCommand
         $themeService = new ThemeService;
         $theme = $themeService->getTheme($themeId);
         $themeFileName = $theme->folder . '.zip';
-        $fetch = $this->fetchTheme($phoenixLastVersion, $theme->releases_url, $theme->download_url, $themeFileName);
+        $fetch = $this->fetchTheme($phoenixLastVersion, $theme->releases_url, $theme->download_url, $theme->folder);
         if($fetch) {
             $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . $themeFileName);
             $return = $themeService->updateTheme($themePath);
