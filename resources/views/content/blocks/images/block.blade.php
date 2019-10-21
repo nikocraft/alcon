@@ -7,11 +7,11 @@
 
 @includeIf('content.blocks.images.css')
 
-<div class="images-block images-{{ $block->unique_id }}">
-    <div class="image-group">
+<div class="images-block images-block-{{ $block->unique_id }}">
+    <div class="images-wrapper">
         @foreach ($images as $key => $image)
             @if(isset($image->filename))
-                <div class="image">
+                <div class="images-block-image">
                     @php
                         if($settings->get('imageSize') == 'original')
                             $imageUrl = '/' .  $image->path .  $image->filename . '.' .  $image->extension;
@@ -19,7 +19,7 @@
                             $imageUrl = '/' .  $image->path .  $image->filename .'_'. $settings->get('imageSize') .'.' .  $image->extension;
                     @endphp
                     @if($settings->get('onClick') == 'lightbox')
-                        <a href="{{ '/' .  $image->path . $image->filename . '.' . $image->extension }}" class="image-lightbox" style="order: 2;">
+                        <a href="{{ '/' .  $image->path . $image->filename . '.' . $image->extension }}" class="image-lightbox">
                             <img class="{{ $settings->get('customClass')  }}"
                                 src="{{ $imageUrl }}"
                                 title="{{ $image->title }}"

@@ -3,7 +3,7 @@
 @endpush
 
 @push('content-block-css')
-    .images-{{ $block->unique_id }} {
+    .images-block-{{ $block->unique_id }} {
         margin: {{ $settings->get('margin') }};
         padding: {{ $settings->get('padding') }};
         background-color: {{ $settings->get('backgroundColor') }};
@@ -17,17 +17,17 @@
         @endif
     }
 
-    .images-{{ $block->unique_id }} .image-group {
+    .images-block-{{ $block->unique_id }} .image-wrapper {
         margin-left: -{{ $settings->get('spaceBetweenImages') }};
         margin-right: -{{ $settings->get('spaceBetweenImages') }};
     }
 
-    .images-{{ $block->unique_id }} .image {
+    .images-block-{{ $block->unique_id }} .images-block-image {
         width: {{ $settings->get('imageWidth') }};
         margin: {{ $settings->get('spaceBetweenImages') }};
     }
 
-    .images-{{ $block->unique_id }} img {
+    .images-block-{{ $block->unique_id }} img {
         object-fit: cover;
         height: {{ $settings->get('imageHeight') }};
         width: 100%;
@@ -36,17 +36,17 @@
         border: {{ $settings->get('imageBorder') }};
         border-radius: {{ $settings->get('imageBorderRadius') }};
     }
-    .images-{{ $block->unique_id }}:hover {
+    .images-block-{{ $block->unique_id }}:hover {
         @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
     }
 
-    .images-{{ $block->unique_id }}:active {
+    .images-block-{{ $block->unique_id }}:active {
         @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
     }
 @endpush
 
 @push('content-block-css-large')
-    .images-{{ $block->unique_id }} {
+    .images-block-{{ $block->unique_id }} {
         padding: {{ $settings->get('paddingLarge') }};
         margin: {{ $settings->get('marginLarge') }};
         @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayLarge') == 'flex'))
@@ -55,13 +55,13 @@
             align-self: {{ $settings->get('alignSelfLarge') }};
         @endif
     }
-    .images-{{ $block->unique_id }} img {
+    .images-block-{{ $block->unique_id }} img {
         height: {{ $settings->get('imageHeightLarge') }};
     }
 @endpush
 
 @push('content-block-css-medium')
-    .images-{{ $block->unique_id }} {
+    .images-block-{{ $block->unique_id }} {
         padding: {{ $settings->get('paddingMedium') }};
         margin: {{ $settings->get('marginMedium') }};
 
@@ -75,17 +75,17 @@
         $space = preg_replace('/\D/', '', $settings->get('spaceBetweenImages'));
         $offset = $space * 2;
     @endphp
-    .images-{{ $block->unique_id }} .image {
+    .images-block-{{ $block->unique_id }} .images-block-image {
         width: calc(50% - {{ $offset }}px);
         margin: {{ $settings->get('spaceBetweenImages') }};
     }
-    .images-{{ $block->unique_id }} img {
+    .images-block-{{ $block->unique_id }} img {
         height: {{ $settings->get('imageHeightMedium') }};
     }
 @endpush
 
 @push('content-block-css-small')
-    .images-{{ $block->unique_id }} {
+    .images-block-{{ $block->unique_id }} {
         padding: {{ $settings->get('paddingSmall') }};
         margin: {{ $settings->get('marginSmall') }};
         @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displaySmall') == 'flex'))
@@ -94,17 +94,17 @@
             align-self: {{ $settings->get('alignSelfSmall') }};
         @endif
     }
-    .images-{{ $block->unique_id }} .image {
+    .images-block-{{ $block->unique_id }} .images-block-image {
         width: 100%;
         margin: {{ $settings->get('spaceBetweenImages') }};
     }
-    .images-{{ $block->unique_id }} img {
+    .images-block-{{ $block->unique_id }} img {
         height: {{ $settings->get('imageHeightSmall') }};
     }
 @endpush
 
 @push('content-block-css-extra-small')
-    .images-{{ $block->unique_id }} {
+    .images-block-{{ $block->unique_id }} {
         padding: {{ $settings->get('paddingExtraSmall') }};
         margin: {{ $settings->get('marginExtraSmall') }};
         @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayExtraSmall') == 'flex'))
@@ -113,11 +113,11 @@
             align-self: {{ $settings->get('alignSelfExtraSmall') }};
         @endif
     }
-    .images-{{ $block->unique_id }} .image {
+    .images-block-{{ $block->unique_id }} .images-block-image {
         width: 100%;
         margin: {{ $settings->get('spaceBetweenImages') }};
     }
-    .images-{{ $block->unique_id }} img {
+    .images-block-{{ $block->unique_id }} img {
         height: {{ $settings->get('imageHeightExtraSmall') }};
     }
 @endpush

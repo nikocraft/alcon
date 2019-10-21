@@ -6,25 +6,27 @@
 
 @foreach ($posts as $post)
     @if($settings->get('renderFeaturedImage'))
-        <div class="widget-post">
+        <div class="post">
             @if($post->featuredimage)
-            <div class="widget-post-thumbnail" style="flex: 0.5; margin-right: 12px;">
-                <a href="/{{ $post->type->slug }}/{{ $post->slug }}">
-                    <div style="background-image: url('{{ $post->featuredimage->medium }}'); background-position-y: center; background-size: cover; height: 70px;"></div>
-                </a>
-            </div>
-            @else
-            <div class="widget-post-thumbnail" style="flex: 0.5; margin-right: 12px;">
+                <div class="post-featured-image">
                     <a href="/{{ $post->type->slug }}/{{ $post->slug }}">
-                        <div style="background-color: rgba(233, 239, 242, 0.6); height: 70px; justify-content: center; align-content: center;"><div></div></div>
+                        <div class="background-image" style="background-image: url('{{ $post->featuredimage->medium }}');"></div>
+                    </a>
+                </div>
+            @else
+                <div class="post-featured-image">
+                    <a href="/{{ $post->type->slug }}/{{ $post->slug }}">
+                        <div class="no-background-image"></div>
                     </a>
                 </div>
             @endif
-            <div class="widget-post-details" style="flex: 1; display: flex; flex-direction: column;">
-                <div class="widget-post-title">
-                    <a class="widget-post-title-link" href="/{{ $post->type->slug }}/{{ $post->slug }}"><b>{{ mb_strimwidth(strip_tags($post->title), 0, 65, '...')  }}</b></a>
+            <div class="post-details">
+                <div class="post-title">
+                    <a class="post-title-link" href="/{{ $post->type->slug }}/{{ $post->slug }}">
+                        {{ mb_strimwidth(strip_tags($post->title), 0, 65, '...')  }}
+                    </a>
                 </div>
-                <div class="widget-post-date">{{ $post->created_at->format('Y-m-d') }}</div>
+                <div class="post-date">{{ $post->created_at->format('Y-m-d') }}</div>
             </div>
         </div>
     @else 

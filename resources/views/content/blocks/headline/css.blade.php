@@ -23,6 +23,7 @@
         width: 100%;
     @endif
 }
+
 .headline-{{ $block->unique_id }}:hover {
     @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorHover') }};@endif
     @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
