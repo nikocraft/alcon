@@ -12,8 +12,6 @@ if (!function_exists('has_excerpt')) {
     {
         $blocks = $content->blocks;
         $excerptBlock = $blocks->firstWhere('type', 'Excerpt');
-        if(is_null($excerptBlock))
-            $excerptBlock = $blocks->firstWhere('type', 'Text');
 
         return $excerptBlock ? true : false;
     }
@@ -24,10 +22,33 @@ if (!function_exists('get_excerpt')) {
     {
         $blocks = $content->blocks;
         $excerptBlock = $blocks->firstWhere('type', 'Excerpt');
-        if(is_null($excerptBlock))
-            $excerptBlock = $blocks->firstWhere('type', 'Text');
 
         return $excerptBlock ? mb_strimwidth(strip_tags($excerptBlock->content), 0, $limit, '...') : null;
+    }
+}
+
+
+if (!function_exists('has_text_block')) {
+    function has_text_block($content)
+    {
+        $blocks = $content->blocks;
+        $textBlock = $blocks->firstWhere('type', 'Text');
+        if(is_null($textBlock))
+            $textBlock = $blocks->firstWhere('type', 'Text');
+
+        return $textBlock ? true : false;
+    }
+}
+
+if (!function_exists('get_text_block')) {
+    function get_text_block($content)
+    {
+        $blocks = $content->blocks;
+        $textBlock = $blocks->firstWhere('type', 'Text');
+        if(is_null($textBlock))
+            $textBlock = $blocks->firstWhere('type', 'Text');
+
+        return $textBlock ? ($textBlock->content) : null;
     }
 }
 
