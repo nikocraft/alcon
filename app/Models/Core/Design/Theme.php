@@ -87,40 +87,6 @@ class Theme extends Model
         return $settings;
     }
 
-    static public function getSettingsData($activeTheme) {
-        $theme = Theme::with('sections.settings')->find($activeTheme);
-        $themeSettings = $theme->sections;
-        $themeSettings = $theme->buildSettingsRecursive($themeSettings);
-        return $themeSettings;
-    }
-
-    public function buildSettingsRecursive($settings) {
-        $output = collect($settings)->mapWithKeys(function ($setting) {
-            switch ($setting['type']) {
-                case 'string':
-                    $value = $setting['value'];
-                break;
-                case 'integer':
-                    $value = (int)$setting['value'];
-                break;
-                case 'boolean':
-                    $value = filter_var($setting['value'], FILTER_VALIDATE_BOOLEAN);
-                break;
-                default:
-                    $value = $setting['value'];
-            }
-            if ($setting['type'] == 'section') {
-                return [
-                    $setting['key'] => $this->buildSettingsRecursive(isset($setting['settings']) ? $setting['settings'] : [])
-                ];
-            } else {
-                return [$setting['key'] => $value];
-            }
-        });
-
-        return $output;
-    }
-
     static public function getSetting($theme, $section, $key)
     {
         $setting = ThemeSetting::where('key', $key)->where('theme_id', $theme)->select('theme_id', 'key', 'value', 'type')->first();
