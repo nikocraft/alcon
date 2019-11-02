@@ -72,11 +72,13 @@ class Image extends Model
         return asset($this->path . $this->filename . '_thumb.' . $this->extension);
     }
 
-    public function scopeLatest($query)
+    public function scopeNewer($query)
     {
-        $query->orderBy('created_at', 'desc');
+        $query->orderBy('id', 'desc');
     }
 
-
-
+    public function scopeOlder($query)
+    {
+        $query->orderBy('id', 'asc');
+    }
 }

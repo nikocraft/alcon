@@ -26,7 +26,7 @@ class ImageController extends Controller
         $filter = $request->filter;
         $page = $request->page;
         $append = array();
-        $perPage = 25;
+        $perPage = 50;
 
         $order = $request->order;
         $tagFilter = $request->tag;
@@ -35,13 +35,13 @@ class ImageController extends Controller
 
         switch($order) {
             case 'newer':
-                $images = $images->latest();
+                $images = $images->newer();
                 break;
             case 'older':
-                $images = $images->oldest();
+                $images = $images->older();
                 break;
             default:
-                $images = $images->latest();
+                $images = $images->newer();
                 break;
         }
 
