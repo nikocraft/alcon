@@ -65,6 +65,7 @@ class ThemeService
                         $this->theme = $theme;
                         $this->importThemeSettings($themeData->settings);
                         $result->message = "Theme " . $themeData->name . " installed successfully!";
+                        $result->id = $theme->id;
                         $result->code = 200;
                     } else {
                         $result->message = "It seems that the themes folder is locked, not possible to update.";
@@ -156,9 +157,7 @@ class ThemeService
     {
         $theme = Theme::with('sections.settings')->find($themeID);
         $themeSettings = optional($theme)->sections;
-        if($themeSettings) {
-            $themeSettings = $theme->buildSettingsRecursive($themeSettings);
-        }
+        $themeSettings = $themeSettings ? $this->buildSettingsRecursive($themeSettings) : null;
 
         return $themeSettings;
     }
@@ -210,6 +209,9 @@ class ThemeService
                 break;
                 case 'boolean':
                     $value = filter_var($setting['value'], FILTER_VALIDATE_BOOLEAN);
+                break;
+                case 'json':
+                    $value = json_decode($setting['value'], true);
                 break;
                 default:
                     $value = $setting['value'];
