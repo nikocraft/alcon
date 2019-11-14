@@ -27,7 +27,6 @@ if (!function_exists('get_excerpt')) {
     }
 }
 
-
 if (!function_exists('has_text_block')) {
     function has_text_block($content)
     {
@@ -150,8 +149,6 @@ if (!function_exists('process_widgets')) {
     }
 }
 
-
-
 /**
  * returns user created menu by location
  */
@@ -185,7 +182,7 @@ if (!function_exists('get_menu_by_id')) {
 }
 
 /**
- * Returns specified theme setting
+ * Returns active theme folder
  */
 if (!function_exists('get_theme_folder')) {
     function get_theme_folder()
@@ -199,7 +196,7 @@ if (!function_exists('get_theme_folder')) {
 
 
 /**
- * Returns specified theme setting
+ * Returns specified theme setting, settings are loaded at Laravel bootup time and kept in memory for quicker access
  */
 if (!function_exists('get_theme_setting')) {
     function get_theme_setting($setting, $default = null)
@@ -213,7 +210,7 @@ if (!function_exists('get_theme_setting')) {
 }
 
 /**
- * Returns specified website setting
+ * Returns specified website setting, loaded at boot time, kept in memory for quicker access
  * @param string $setting key to look up
  * @return Value that is stored in database for that particular setting
  */

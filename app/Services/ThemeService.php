@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Themes;
+namespace App\Services;
 
 use App\Models\Core\Settings\Website;
 use App\Models\Core\Design\Theme;
 use App\Models\Core\Design\ThemeSetting;
-use App\Services\Zip\ZipArchive;
+use App\Services\ZipArchiveService;
 use App\Services\WebsiteService;
 use File;
 
@@ -25,7 +25,7 @@ class ThemeService
 
     public function installTheme($themePath)
     {
-        $zip = new ZipArchive;
+        $zip = new ZipArchiveService;
         $themeData = '';
         $themeJsonPath = "views/theme.json";
 
@@ -85,7 +85,7 @@ class ThemeService
 
     public function updateTheme($themePath)
     {
-        $zip = new ZipArchive;
+        $zip = new ZipArchiveService;
         $themeData = '';
         $themeJsonPath = "views/theme.json";
 

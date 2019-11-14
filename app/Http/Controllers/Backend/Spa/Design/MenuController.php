@@ -15,7 +15,7 @@ use App\Http\Resources\Design\MenuItemResource;
 use App\Http\Resources\ThemeSettingsResource;
 
 use App\Services\WebsiteService;
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 
 class MenuController extends Controller
 {

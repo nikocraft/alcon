@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use Artisan;
 use Illuminate\Console\Command;
 use App\Services\WebsiteService;
-use App\Services\Themes\ThemeService;
-use App\Services\Zip\ZipArchive;
+use App\Services\ThemeService;
+use App\Services\ZipArchiveService;
 
 class UpdateCommand extends BaseCommand
 {
@@ -59,7 +59,7 @@ class UpdateCommand extends BaseCommand
 
             if($this->option('fetch-latest-phoenix')) {
                 $this->fetchLatestRelease();
-                $zip = new ZipArchive;
+                $zip = new ZipArchiveService;
     
                 if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $phoenixLastVersion . '.zip')) === TRUE) {
                     $base = 'phoenix-' . $phoenixLastVersion . DIRECTORY_SEPARATOR;

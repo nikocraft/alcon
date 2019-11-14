@@ -19,13 +19,17 @@ class ContentSettingsController extends Controller
     
     public function storeIndexSettings(Request $request) {
         $this->websiteService->updateSettings('contentIndex', $request->settings);
-        $settings = get_website_setting('contentEditor');
+
+        $websiteSettings = $this->websiteService->getSettings();
+        $settings = data_get($websiteSettings, 'contentIndex');
         return response()->json(['data' => $settings], 200);
     }
 
     public function storeEditorSettings(Request $request) {
         $this->websiteService->updateSettings('contentEditor', $request->settings);
-        $settings = get_website_setting('contentEditor');
+
+        $websiteSettings = $this->websiteService->getSettings();
+        $settings = data_get($websiteSettings, 'contentEditor');
         return response()->json(['data' => $settings], 200);
     }
 }

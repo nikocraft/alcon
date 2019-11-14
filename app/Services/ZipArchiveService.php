@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\Zip;
+namespace App\Services;
 
-use ZipArchive as OriginalZipArchive;
+use ZipArchive;
 
-class ZipArchive extends OriginalZipArchive
+class ZipArchiveService extends ZipArchive
 {
     public function extractSubdirTo($subdir, $destination)
     {

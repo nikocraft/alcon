@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
-use App\Services\Zip\ZipArchive;
 
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 use App\Services\WebsiteService;
 
 class DefaultThemeSeeder extends Seeder

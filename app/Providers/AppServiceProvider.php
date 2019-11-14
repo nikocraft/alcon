@@ -39,6 +39,6 @@ class AppServiceProvider extends ServiceProvider
             return new GlobalSettingsService();
         });
 
-        require_once __DIR__.'/../Services/helpers.php';
+        require_once __DIR__.'/../Helpers/helpers.php';
     }
 }

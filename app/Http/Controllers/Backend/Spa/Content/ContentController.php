@@ -30,7 +30,7 @@ use App\Http\Resources\ContentCollection;
 use App\Http\Resources\SettingResource;
 
 use App\Services\WebsiteService;
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 
 class ContentController extends Controller
 {

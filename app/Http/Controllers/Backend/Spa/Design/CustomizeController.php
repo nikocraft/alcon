@@ -10,7 +10,7 @@ use App\Models\Core\Settings\Setting;
 use App\Models\Core\Settings\Website;
 use App\Http\Resources\ThemeResource;
 
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 
 class CustomizeController extends Controller
 {

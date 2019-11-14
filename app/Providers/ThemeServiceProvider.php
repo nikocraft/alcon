@@ -37,7 +37,7 @@ class ThemeServiceProvider extends ServiceProvider
 
         // \App::singleton('view.finder', function($app)
         // {
-        //     return new \App\Services\Themes\LaraoneViewFinder(
+        //     return new \App\Services\ThemeViewFinderService(
         //         $app['files'],
         //         $app['config']['view.paths'],
         //         null
@@ -48,7 +48,7 @@ class ThemeServiceProvider extends ServiceProvider
         | Register helpers.php functions
         |--------------------------------------------------------------------------*/
 
-        require_once __DIR__.'/../Services/Themes/helpers.php';
+        require_once __DIR__.'/../Helpers/theme_helpers.php';
 
     }
 }

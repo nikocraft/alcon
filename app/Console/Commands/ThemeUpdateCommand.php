@@ -4,8 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Services\WebsiteService;
-use App\Services\Themes\ThemeService;
-use App\Services\Zip\ZipArchive;
+use App\Services\ThemeService;
 
 class ThemeUpdateCommand extends BaseCommand
 {

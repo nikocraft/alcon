@@ -6,7 +6,7 @@ use App\Models\Core\Settings\Website;
 use App\Models\Core\Design\ThemeSetting;
 
 use App\Services\WebsiteService;
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 
 class GlobalSettingsService
 {
@@ -31,10 +31,10 @@ class GlobalSettingsService
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
-        $websiteInstalled = data_get($websiteSettings, 'website.installed');
+        $cmsInstalled = data_get($websiteSettings, 'website.installed');
 
         // If website installation has been completed, init the global settings otherwise do nothing.
-        if($websiteInstalled) {
+        if($cmsInstalled) {
             $theme = $this->themeService->getTheme($activeThemeId);
             $themeSettings = $this->themeService->getSettings($activeThemeId);
 

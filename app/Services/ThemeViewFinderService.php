@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Themes;
+namespace App\Services;
 
 use Illuminate\Filesystem\Filesystem;
 // use Module;
 
-class LaraoneViewFinder extends \Laraone\Themes\themeViewFinder{
+class ThemeViewFinderService extends \Laraone\Themes\themeViewFinder{
 
     public $currentModule = null;
 

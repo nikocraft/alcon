@@ -7,7 +7,7 @@ use Artisan;
 use Config;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\Themes\ThemeService;
+use App\Services\ThemeService;
 
 class InstallCommand extends BaseCommand
 {
