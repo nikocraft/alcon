@@ -97,14 +97,12 @@ class ContentController extends Controller
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
         $editorSettings = data_get($websiteSettings, 'contentEditor');
 
-        $themeSettings = $this->themeservice->getSettings($activeThemeId);
-        $defaultContentLayout = data_get($themeSettings, 'content.' . lcfirst($contentType->slug) .'.layout');
-        $themeContentSettings = data_get($themeSettings, 'content.' . lcfirst($contentType->slug));
+        $defaultContentLayout = get_theme_setting('content.' . lcfirst($contentType->slug) . '.layout.singlePage', null);
+        $defaultContentSettings = get_theme_setting('content.' . lcfirst($contentType->slug) . '.settings', null);
 
-        return response()->json(compact('contentTaxonomies', 'editorSettings', 'defaultContentLayout', 'themeContentSettings'));
+        return response()->json(compact('contentTaxonomies', 'editorSettings', 'defaultContentLayout', 'defaultContentSettings'));
     }
 
     public function show(Request $request, $contentTypeId, $contentId)
@@ -114,18 +112,14 @@ class ContentController extends Controller
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
         $editorSettings = data_get($websiteSettings, 'contentEditor');
-
-        $themeSettings = $this->themeservice->getSettings($activeThemeId);
-        $themeContentSettings = data_get($themeSettings, 'content.' . lcfirst($contentType->slug), null);
+        $defaultContentSettings = get_theme_setting('content.' . lcfirst($contentType->slug) . '.settings', null);
 
         // merge content settings with global theme settings
-        // $content->settings = $content->settings ? array_merge($themeContentSettings->toArray(), $content->settings->all()) : $themeContentSettings->toArray();
+        $content->settings = $content->settings ? array_merge((array)$defaultContentSettings, $content->settings->all()) : (array)$defaultContentSettings;
+        $defaultContentLayout = get_theme_setting('content.' . lcfirst($contentType->slug) . '.layout.singlePage', null);
 
-        $defaultContentLayout = data_get($themeSettings, 'content.' . lcfirst($contentType->slug) . '.layout', null);
-
-        return (new ContentResource($content))->additional(compact('themeContentSettings', 'contentTaxonomies', 'editorSettings', 'defaultContentLayout'));
+        return (new ContentResource($content))->additional(compact('contentTaxonomies', 'editorSettings', 'defaultContentLayout', 'defaultContentSettings'));
     }
 
     public function store(Request $request, $contentTypeId)
@@ -143,9 +137,6 @@ class ContentController extends Controller
     protected function save($request, $contentTypeId, $id = null)
     {
         $contentType = ContentType::whereId($contentTypeId)->first();
-        $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
-        $themeSettings = $this->themeservice->getSettings($activeThemeId);
 
         // delete user removed blocks
         foreach ($request->removedItems as $key => $itemId) {
@@ -157,17 +148,15 @@ class ContentController extends Controller
         $content->content_type_id = $contentType->id;
         $content->title = $request->title;
         $content->seo = $request->seo;
-        $content->layout = $request->layout == 'default' ? null : $request->layout;
         $content->status = $request->status;
-        // $content->published_at = $request->publishAt;
-        $content->user_id = Auth::user()->id;
+        $content->published_at = $content->published_at ? $content->published_at : ($request->publishAt ? $request->publishAt : Carbon::now());
         $content->slug = $content->title;
         $content->css = $request->css;
         $content->js = $request->js;
-
-        $themeContentSettings = data_get($themeSettings, 'content.' . lcfirst($contentType->slug));
-        $settings = array_diff($request->settings, $themeContentSettings->toArray());
-        $content->settings = !empty($settings) ? $settings : null;
+        $content->layout = $request->layout == 'default' ? null : $request->layout;
+        $content->user_id = Auth::user()->id;
+        $content->settings = $request->settings;
+        $content->settings = $this->diffContentThemeSettings($request->settings, $contentType);
         $content->save();
         $content->touch();
 
@@ -183,7 +172,15 @@ class ContentController extends Controller
         return $content;
     }
 
-    protected function updateOrCreateBlock($content, $blockData, $parentId = null)
+    private function diffContentThemeSettings($contentSettings, $contentType)
+    {
+        $themeContentSettings = get_theme_setting('content.' . lcfirst($contentType->slug) . '.settings');
+        $diffedSettings = array_diff_assoc($contentSettings, (array)$themeContentSettings);
+
+        return !empty($diffedSettings) ? $diffedSettings : null;
+    }
+
+    private function updateOrCreateBlock($content, $blockData, $parentId = null)
     {
         $blockData = (object) $blockData;
         $block = $content->saveBlock($blockData, $parentId);
