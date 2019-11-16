@@ -4,6 +4,11 @@
     "keywords": ["laraone", "cms", "responsive", "web-design", "themes", "php", "javascript", "components"],
     "type": "project",
     "homepage": "https://laraone.com",
+    "authors": [
+        {
+            "name": "Niko Craft"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": ">=7.1.3",
