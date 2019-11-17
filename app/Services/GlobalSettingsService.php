@@ -14,7 +14,6 @@ class GlobalSettingsService
     protected $themeService;
     protected $settings;
 
-    CONST DEFAULT_THEME = "ikigai";
     CONST WEBSITE_SETTINGS = "website";
     CONST THEME_SETTINGS = "theme";
     CONST THEME_FOLDER = "themeFolder";
@@ -27,7 +26,7 @@ class GlobalSettingsService
         // Initialise settings with null value first
         $this->settings[self::WEBSITE_SETTINGS] = null;
         $this->settings[self::THEME_SETTINGS] = null;
-        $this->settings[self::THEME_FOLDER] = self::DEFAULT_THEME;
+        $this->settings[self::THEME_FOLDER] = config('laraone.default_theme.name');
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');

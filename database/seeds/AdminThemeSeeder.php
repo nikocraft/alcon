@@ -21,7 +21,7 @@ class AdminThemeSeeder extends Seeder
      */
     public function run()
     {
-        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . config('laraone.admin_theme') . '.zip');
+        $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . config('laraone.admin_theme.name') . '.zip');
         $return = $this->themeservice->installTheme($themePath);
 
         $this->command->info($return->message);

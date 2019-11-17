@@ -78,9 +78,9 @@ class BaseCommand extends Command
      */
     public function fetchAdminTheme($phoenixRelease)
     {
-        $themeName = config('laraone.admin_theme');
-        $relasesUrl = config('laraone.admin_releases_url');
-        $downloadUrl = config('laraone.admin_download_url');
+        $themeName = config('laraone.admin_theme.name');
+        $relasesUrl = config('laraone.admin_theme.releases_url');
+        $downloadUrl = config('laraone.admin_theme.download_url');
         $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeName);
     }
 
@@ -90,9 +90,9 @@ class BaseCommand extends Command
      */
     public function fetchDefaultTheme($phoenixRelease)
     {
-        $themeName = config('laraone.default_theme');
-        $relasesUrl = config('laraone.default_theme_releases_url');
-        $downloadUrl = config('laraone.default_theme_download_url');
+        $themeName = config('laraone.default_theme.name');
+        $relasesUrl = config('laraone.default_theme.releases_url');
+        $downloadUrl = config('laraone.default_theme.download_url');
         $this->fetchTheme($phoenixRelease, $relasesUrl, $downloadUrl, $themeName);
     }
 
@@ -149,7 +149,7 @@ class BaseCommand extends Command
      */
     protected function fetchLatestReleaseData()
     {
-        $releasesUrl = config('laraone.phoenix_releases_url');
+        $releasesUrl = config('laraone.phoenix.releases_url');
 
         if($this->urlExists($releasesUrl)) {
             $this->info('Fetching latest release data.');
@@ -171,7 +171,7 @@ class BaseCommand extends Command
      */
     protected function fetchRelease($version)
     {
-        $releaseUrl = config('laraone.phoenix_download_url') . $version . '.zip';
+        $releaseUrl = config('laraone.phoenix.download_url') . $version . '.zip';
 
         if($this->urlExists($releaseUrl)) {
             $this->info('Fetching release: ' . $releaseUrl);
@@ -223,17 +223,6 @@ class BaseCommand extends Command
     {
         $last = end($this->releasesData);
         return $last['version'];
-    }
-
-    /**
-     * Get last version
-     *
-     * @return string
-     */
-    protected function getDefaultThemeFileName()
-    {
-        $last = end($this->releasesData);
-        return $last['default_theme'];
     }
 
     /**

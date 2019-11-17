@@ -1,5 +1,13 @@
 <?php
 
+$baseUrl = 'https://github.com/laraone/';
+$adminTheme = 'atlas';
+
+$themeBaseUrl = 'https://github.com/laraone/';
+
+// default theme to be installed
+$defaultTheme = 'ikigai';
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -8,9 +16,10 @@ return [
     |
     | Used by install and update commands to fetch latest backend for Laraone
     */
-    'phoenix_releases_url' => 'https://github.com/laraone/phoenix/raw/master/releases.json',
-    'phoenix_download_url' => 'https://github.com/laraone/phoenix/archive/',
-    // 'phoenix_releases_download_url' => 'https://github.com/laraone/phoenix/releases/download',
+    'phoenix' => [
+        'releases_url' => $baseUrl . 'phoenix/raw/master/releases.json',
+        'download_url' => $baseUrl . 'phoenix/archive/',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -19,10 +28,15 @@ return [
     |
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
-    'admin_releases_url' => 'https://github.com/laraone/admin-releases/raw/master/releases.json',
-    'admin_download_url' => 'https://github.com/laraone/admin-releases/releases/download',
-    'admin_theme' => 'admin',
+    // 'admin_releases_url' => $baseUrl . 'admin-releases/raw/master/releases.json',
+    // 'admin_download_url' => $baseUrl . 'admin-releases/releases/download',
+    // 'admin_theme' => 'admin',
 
+    'admin_theme' => [
+        'releases_url' => $baseUrl . 'admin-releases/raw/master/releases.json',
+        'download_url' => $baseUrl . 'admin-releases/releases/download',
+        'name' => 'admin',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -30,8 +44,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Used by install and update commands to fetch default frontend theme for Laraone
+    / Note: This is not necessary active theme
     */
-    'default_theme_releases_url' => 'https://github.com/laraone/ikigai-theme-releases/raw/master/releases.json',
-    'default_theme_download_url' => 'https://github.com/laraone/ikigai-theme-releases/releases/download',
-    'default_theme' => 'ikigai',
+    'default_theme' => [
+        'releases_url' => $themeBaseUrl . $defaultTheme .'/raw/master/releases.json',
+        'download_url' => $themeBaseUrl . $defaultTheme. '/releases/download',
+        'name' => $defaultTheme,
+    ],
 ];
