@@ -56,7 +56,7 @@ class AdminMenuSeeder extends Seeder
 
         // USERS
         AdminMenu::create([
-            'name' => 'ACL',
+            'name' => 'Users & Roles',
             'unique_id' =>'core.acl',
             'icon' => '',
             'permission' => 'access-acl'
