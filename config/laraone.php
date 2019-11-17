@@ -28,10 +28,6 @@ return [
     |
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
-    // 'admin_releases_url' => $baseUrl . 'admin-releases/raw/master/releases.json',
-    // 'admin_download_url' => $baseUrl . 'admin-releases/releases/download',
-    // 'admin_theme' => 'admin',
-
     'admin_theme' => [
         'releases_url' => $baseUrl . 'admin-releases/raw/master/releases.json',
         'download_url' => $baseUrl . 'admin-releases/releases/download',
