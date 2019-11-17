@@ -63,7 +63,7 @@ class BaseCommand extends Command
     {
         $phoenixRelease = (int) str_replace(".", "", $phoenixRelease);
         foreach($releaseData as $key => $value) {
-            $minimumPhoenixVersion = (int) str_replace(".", "", $value->minimumPhoenixVersion);
+            $minimumPhoenixVersion = (int) str_replace(".", "", $value->dependency->phoenix);
             if ($minimumPhoenixVersion <= $phoenixRelease) {
                 return $value;
             }
