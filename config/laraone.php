@@ -29,9 +29,9 @@ return [
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
     'admin_theme' => [
-        'releases_url' => $baseUrl . 'admin-releases/raw/master/releases.json',
-        'download_url' => $baseUrl . 'admin-releases/releases/download',
-        'name' => 'admin',
+        'releases_url' => $baseUrl . 'atlas/raw/master/releases.json',
+        'download_url' => $baseUrl . 'atlas/releases/download',
+        'name' => 'atlas',
     ],
 
     /*

@@ -30,7 +30,7 @@ class ThemeController extends Controller
     {
         $per_page = $request->input('per_page', 25);
         // $themes = Theme::paginate($per_page);
-        $themes = Theme::where('folder', '!=', 'admin')->get();
+        $themes = Theme::where('folder', '!=', config('laraone.admin_theme.name'))->get();
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');

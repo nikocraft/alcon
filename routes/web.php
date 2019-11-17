@@ -35,7 +35,7 @@ Route::get('/js/lang.js', function () {
 |--------------------------------------------------------------------------
 |
 */
-Route::group(['namespace' => 'Backend\Spa', 'middleware' => ['auth', 'setTheme:admin', 'ability:super,access-admin']], function () {
+Route::group(['namespace' => 'Backend\Spa', 'middleware' => ['auth', 'setTheme:' . config('laraone.admin_theme.name'), 'ability:super,access-admin']], function () {
     Route::get('admin{any}', ['as' => 'backend.spa', 'uses' => 'SpaController@index'])->where('any', '.*');
 });
 

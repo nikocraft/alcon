@@ -132,8 +132,8 @@ class InstallCommand extends BaseCommand
         }
 
         $themeService = new ThemeService;
-        $adminTheme = $themeService->getThemeByFolderName('admin');
-        $this->info('Phoenix: v' . $phoenixVersion . ', SPA Admin : v' .  $adminTheme->version);
-        $this->info('Laraone is now correctly installed!');
+        $adminTheme = $themeService->getThemeByNamespace('com.reimaginedworks.atlas');
+        $this->info('Phoenix Backend: v' . $phoenixVersion . ', Atlas Admin: v' .  $adminTheme->version);
+        $this->info('Laraone CMS is now correctly installed!');
     }
 }
