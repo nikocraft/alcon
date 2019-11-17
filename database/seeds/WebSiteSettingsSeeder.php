@@ -12,9 +12,10 @@ class WebSiteSettingsSeeder extends Seeder
      */
     public function run()
     {
-        $parent = Website::create(['key' => 'laraone', 'value' => 'Laraone Info', 'type' => 'section']);
+        $parent = Website::create(['key' => 'cms', 'value' => 'CMS Info', 'type' => 'section']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'installed', 'value' => 0, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id,  'key' => 'phoenix', 'value' => '1.0.0', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id,  'key' => 'admin', 'value' => '1.0.0', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id,  'key' => 'atlas', 'value' => '1.0.0', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'website', 'value' => 'General', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'title', 'value' => 'LaraOne', 'type' => 'string']);
@@ -23,7 +24,6 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageType', 'value' => 'welcome-page', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageMeta', 'value' => 1, 'type' => 'integer']);
         Website::create(['parent_id' => $parent->id, 'key' => 'activeTheme', 'value' => 2, 'type' => 'integer']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'installed', 'value' => 0, 'type' => 'boolean']);
 
         $parent = Website::create(['key' => 'admin', 'value' => 'Admin', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'email', 'value' => '', 'type' => 'string']);

@@ -31,7 +31,7 @@ class GlobalSettingsService
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
-        $cmsInstalled = data_get($websiteSettings, 'website.installed');
+        $cmsInstalled = data_get($websiteSettings, 'cms.installed');
 
         // If website installation has been completed, init the global settings otherwise do nothing.
         if($cmsInstalled) {
