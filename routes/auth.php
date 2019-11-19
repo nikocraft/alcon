@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'auth', 'middleware'=>'setTheme:admin', 'namespace' => 'Backend'], function () {
+Route::group(['prefix' => 'auth', 'middleware'=>'setTheme:' . config('laraone.admin_theme.name'), 'namespace' => 'Backend'], function () {
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showAuthForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
