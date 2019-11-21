@@ -34,7 +34,7 @@
                 <img class="{{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}" alt="{{ $content->title }}">
             </a>
         @else
-            <img class="{{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}">
+            <img class="{{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}" alt="{{ $content->title }}">
         @endif
     </div>
 @endif
