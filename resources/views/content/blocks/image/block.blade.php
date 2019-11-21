@@ -28,9 +28,7 @@
 @if(isset($content->filename))
     <div class="image-block image-{{ $block->unique_id }}">
         @if($settings->get('onClick') == 'lightbox')
-            <a href="{{ '/' .  $content->path . $content->filename . '.' . $content->extension }}" class="image-lightbox">
-                <img class="{{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}" alt="{{ $content->title }}">
-            </a>
+            <img class="lightbox {{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}" alt="{{ $content->title }}">
         @elseif ($settings->get('onClick') == 'open-link')
             <a href="{{$content->get('link') }}" target="{{ $settings->get('target') }}">
                 <img class="{{ $settings->get('customClass') }} @if($settings->get('imageResponsive'))img-responsive @endif" src="{{ $imageUrl }}" title="{{ $content->title }}" alt="{{ $content->title }}">
