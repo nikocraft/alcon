@@ -41,6 +41,9 @@ class CustomizeController extends Controller
         $themeSettings = $this->themeservice->getSettings($theme->id);
         $this->buildThemeStyles($theme, $themeSettings);
 
+        // touch update_at for this theme so that we know when it was last customized
+        $theme->touch();
+
         return response()->json($themeSettings, 200);
     }
 
@@ -56,7 +59,7 @@ class CustomizeController extends Controller
         $customizeCss = preg_replace('/^(?(?! *})( {4}))\h*|(?|(?:(\R(?<!}\n))\h*)+|(\t))\2+/m', '$1$2', $customizeCss);
         $customizeCss = str_replace(['}'], ["}\r\n"], $customizeCss);
 
-        // save css
+        // save customized theme css into a file that can be loaded at run time
         file_put_contents(public_path().'/themes/'.$themeName.'/css/customize.css', $customizeCss);
         return true;
     }

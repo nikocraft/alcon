@@ -106,7 +106,6 @@ if (!function_exists('get_widget_group')) {
     }
 }
 
-
 /**
  * Returns the first widget registered for theme area
  */
@@ -116,7 +115,6 @@ if (!function_exists('get_widgets')) {
         return process_widgets($widgetGroup->widgets);
     }
 }
-
 
 /**
  * processes widget blocks for rendering
@@ -194,7 +192,6 @@ if (!function_exists('get_theme_folder')) {
     }
 }
 
-
 /**
  * Returns specified theme setting, settings are loaded at Laravel bootup time and kept in memory for quicker access
  */
@@ -206,6 +203,17 @@ if (!function_exists('get_theme_setting')) {
         $data = data_get($settings, $setting);
 
         return $data ? $data : $default;
+    }
+}
+
+/**
+ * Returns specified theme setting, settings are loaded at Laravel bootup time and kept in memory for quicker access
+ */
+if (!function_exists('get_theme_timestamp')) {
+    function get_theme_timestamp()
+    {
+        $theme = \App\Models\Core\Design\Theme::where('folder', get_theme_folder())->first();
+        return $theme ? $theme->updated_at->timestamp : null;
     }
 }
 
