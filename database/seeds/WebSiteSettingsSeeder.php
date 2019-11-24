@@ -17,13 +17,15 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id,  'key' => 'phoenix', 'value' => '1.0.0', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id,  'key' => 'atlas', 'value' => '1.0.0', 'type' => 'string']);
 
-        $parent = Website::create(['key' => 'website', 'value' => 'General', 'type' => 'section']);
+        $parent = Website::create(['key' => 'website', 'value' => 'Website', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'title', 'value' => 'LaraOne', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'tagline', 'value' => 'Website tagline...', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'url', 'value' => '', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageType', 'value' => 'welcome-page', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'frontPageMeta', 'value' => 1, 'type' => 'integer']);
         Website::create(['parent_id' => $parent->id, 'key' => 'activeTheme', 'value' => 2, 'type' => 'integer']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'paginationType', 'value' => 'simple', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'paginationPerPage', 'value' => 12, 'type' => 'string']);
 
         $parent = Website::create(['key' => 'admin', 'value' => 'Admin', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'email', 'value' => '', 'type' => 'string']);

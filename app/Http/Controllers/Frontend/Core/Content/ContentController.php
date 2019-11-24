@@ -24,8 +24,8 @@ class ContentController extends Controller
     public function __construct(RenderContentService $renderService)
 	{
         $this->renderService = $renderService;
-        $this->paginationType = get_theme_setting('content.pagination.type', 'simple');
-        $this->perPage = get_theme_setting('content.pagination.perPage', 12);
+        $this->paginationType = get_website_setting('website.paginationType', 'simple');
+        $this->perPage = get_website_setting('website.paginationPerPage', 12);
     }
 
     public function frontPage(Request $request)
