@@ -28,7 +28,7 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'paginationPerPage', 'value' => 12, 'type' => 'string']);
 
         $parent = Website::create(['key' => 'analytics', 'value' => 'Analytics', 'type' => 'section']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'googleAnalyticsCode', 'value' => 'LaraOne', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'googleAnalyticsCode', 'value' => '', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'admin', 'value' => 'Admin', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'email', 'value' => '', 'type' => 'string']);
