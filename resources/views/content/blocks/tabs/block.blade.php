@@ -12,7 +12,7 @@
                 $tab = $renderData->allBlocks[$tabId];
                 $tabSettings = $tab->settings;
             @endphp
-            <div id="tab-nav-{{ $tabSettings->get('blockRef') }}" class="tabsbar-item tab-item" onclick="Lara.openTab('tabs-{{ $block->unique_id }}', '{{ $tabSettings->get('blockRef') }}')">{{ $tabSettings->get('blockTitle') }}</div>
+            <div id="tab-nav-{{ $tabSettings->get('blockRef') }}" class="tabsbar-item tab-item" onclick="theme.openTab('tabs-{{ $block->unique_id }}', '{{ $tabSettings->get('blockRef') }}')">{{ $tabSettings->get('blockTitle') }}</div>
         @endforeach
     </div>
     @component('content.render.blocks', [
