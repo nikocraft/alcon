@@ -153,10 +153,17 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
+            'name' => 'Analytics',
+            'unique_id' =>'core.settings.analytics',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.analytics',
+        ]);
+
+        AdminMenu::create([
             'name' => 'Admin',
             'unique_id' =>'core.settings.admin',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'route' => 'settings.backend',
+            'route' => 'settings.admin',
             'visible' => 0
         ]);
 
