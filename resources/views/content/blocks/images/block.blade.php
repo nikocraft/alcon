@@ -19,11 +19,12 @@
                             $imageUrl = '/' .  $image->path .  $image->filename .'_'. $settings->get('imageSize') .'.' .  $image->extension;
                     @endphp
                     @if($settings->get('onClick') == 'lightbox')
-                        <img class="lightbox {{ $settings->get('customClass')  }}"
-                            src="{{ $imageUrl }}"
-                            title="{{ $image->title }}"
-                            alt="{{ $image->alt }}">
-
+                        <a href="{{ '/' .  $image->path . $image->filename . '.' . $image->extension }}" class="image-lightbox">
+                            <img class="{{ $settings->get('customClass')  }}"
+                                src="{{ $imageUrl }}"
+                                title="{{ $image->title }}"
+                                alt="{{ $image->alt }}">
+                        </a>
                     @else
                         <img class="{{ $settings->get('customClass') }}"
                             src="{{ $imageUrl }}"
