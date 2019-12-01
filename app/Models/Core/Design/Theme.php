@@ -10,7 +10,7 @@ class Theme extends Model
 {
     protected $table = "themes";
 
-    protected $fillable = ['namespace', 'name', 'folder', 'author', 'org', 'version', 'description', 'screenshots', 'parent', 'url'];
+    protected $fillable = ['namespace', 'name', 'folder', 'author', 'org', 'version', 'description', 'parent', 'url'];
 
     public function settings()
     {

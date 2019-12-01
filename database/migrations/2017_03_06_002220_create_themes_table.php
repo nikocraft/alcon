@@ -16,17 +16,17 @@ class CreateThemesTable extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('namespace')->unique();
-            $table->string('name')->unique();
             $table->string('folder')->unique();
+            $table->integer('parent')->nullable();
+            $table->string('name');
+            $table->text('description');
             $table->string('org');
             $table->string('author');
-            $table->string('url');
             $table->string('version');
-            $table->text('description');
-            $table->tinyInteger('screenshots')->default(1);
-            $table->integer('parent')->nullable();
+            $table->string('url');
             $table->string('releases_url');
             $table->string('download_url');
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

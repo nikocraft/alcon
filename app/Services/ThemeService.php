@@ -59,7 +59,6 @@ class ThemeService
                         $theme->url = $themeData->url;
                         $theme->releases_url = $themeData->releases_url;
                         $theme->download_url = $themeData->download_url;
-                        $theme->screenshots = $themeData->screenshots;
                         $theme->save();
 
                         $this->theme = $theme;
@@ -109,7 +108,6 @@ class ThemeService
                         $theme->url = $themeData->url;
                         $theme->releases_url = $themeData->releases_url;
                         $theme->download_url = $themeData->download_url;
-                        $theme->screenshots = $themeData->screenshots;
                         $theme->save();
 
                         $this->theme = $theme;
