@@ -18,7 +18,7 @@ class LoginController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('adminLogin');
+        $settings = get_website_setting('adminCustomLogin');
 
         return response()->json([
             'data' => $settings
@@ -27,7 +27,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('adminLogin', $request->settings);
+        $this->websiteService->updateSettings('adminCustomLogin', $request->settings);
 
         return response()->json(['status' => 'success'], 200);
     }

@@ -23,7 +23,7 @@ class ActivateController extends Controller
         $forwardingQuery = $request->all();
 
         $settingsData = Website::getSettingsDataWithMeta();
-        $settings = $settingsData['adminLogin'];
+        $settings = $settingsData['adminCustomLogin'];
         return view('auth.activate', compact('settings', 'userId', 'signatureValid', 'forwardingQuery'));
     }
 

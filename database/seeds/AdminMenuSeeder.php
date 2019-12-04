@@ -99,7 +99,7 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
-            'name' => 'Customize Theme',
+            'name' => 'Theme Settings',
             'unique_id' =>'core.design.customize',
             'parent' => AdminMenu::where('unique_id', 'core.design')->value('id'),
             'route' => 'design.customize',
@@ -153,13 +153,6 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
-            'name' => 'Analytics',
-            'unique_id' =>'core.settings.analytics',
-            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'route' => 'settings.analytics',
-        ]);
-
-        AdminMenu::create([
             'name' => 'Admin',
             'unique_id' =>'core.settings.admin',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
@@ -186,7 +179,6 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.members',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.members',
-            'visible' => 0
         ]);
 
         AdminMenu::create([

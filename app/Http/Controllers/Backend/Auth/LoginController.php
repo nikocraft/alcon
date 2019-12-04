@@ -49,7 +49,7 @@ class LoginController extends Controller
     public function showAuthForm()
     {
         $settingsData = Website::getSettingsDataWithMeta();
-        $settings = $settingsData['adminLogin'];
+        $settings = $settingsData['adminCustomLogin'];
         return view('auth.login', compact('settings'));
     }
 
