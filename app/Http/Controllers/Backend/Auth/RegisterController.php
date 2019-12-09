@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Models\Core\Settings\Website;
 
 class RegisterController extends Controller
 {
@@ -51,8 +50,6 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $settingsData = Website::getSettingsDataWithMeta();
-        $settings = $settingsData['adminCustomLogin'];
         return view('auth.register', compact('settings'));
     }
 
