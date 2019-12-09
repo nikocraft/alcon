@@ -107,11 +107,11 @@ class RegisterController extends Controller
         ]);
 
         $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
+            return get_website_setting('members.requireFullname', true);
         });
 
         $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
+            return get_website_setting('members.requireFullname', true);
         });
 
         return $validator;
