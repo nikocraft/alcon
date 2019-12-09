@@ -19,10 +19,11 @@ class CommentService
         }
 
         if(Auth::user()) {
+            $username = empty(Auth::user()->firstname) ? Auth::user()->username : Auth::user()->firstname .' '. Auth::user()->lastname;
             $user_id = Auth::user()->id;
             $status = Comment::APPROVED;
             $email = Auth::user()->email;
-            $name = Auth::user()->firstname .' '. Auth::user()->lastname;
+            $name = $username;
             $website = $request->website;
         } else {
             $user_id = null;
