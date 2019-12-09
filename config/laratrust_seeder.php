@@ -20,8 +20,15 @@ return [
             'roles' => 'manage',
             'profile' => 'manage'
         ],
-        // a role you can assign to your end-user, and limit what they can access and see
-        'end-client' => [
+        'writer' => [
+            'admin' => 'access',
+            'media' => 'access',
+            'content' => 'manage',
+            'images' => 'manage',
+            'profile' => 'manage'
+        ],
+        // a role you can assign to your client, and limit what they can access and see
+        'client' => [
             'admin' => 'access',
             'media' => 'access',
             'design' => 'access',
