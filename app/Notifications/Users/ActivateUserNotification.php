@@ -49,8 +49,7 @@ class ActivateUserNotification extends Notification
         return (new MailMessage)
                     ->subject('Activate your user account')
                     ->line('Hi ' . $this->user->username . '!')
-                    ->line('An account associated with this email has been created.')
-                    ->line('To activate this account click the button below.')
+                    ->line('An account associated with this email has been created. To activate the account click the button below.')
                     ->action('Activate Account', $url)
                     ->line('If you did not create this account, you can ignore this email.')
                     ->line('Thank you.');
