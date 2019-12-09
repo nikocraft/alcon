@@ -34,6 +34,13 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
+     * Check if user registrations are allowed
+     *
+     * @var boolean
+     */
+    protected $allowRegistrations = false;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -41,6 +48,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->allowRegistrations = get_website_setting('members.allowRegistrations');
     }
 
     /**
@@ -50,7 +58,11 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        return view('auth.register', compact('settings'));
+        if($this->allowRegistrations) {
+            return view('auth.register');
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -61,20 +73,22 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        if($this->allowRegistrations) {
+            $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+            event(new Registered($user = $this->create($request->all())));
 
-        // $this->guard()->login($user);
+            // $this->guard()->login($user);
 
-        return $this->registered($request, $user);
+            return $this->registered($request, $user);
+        }
     }
 
 
     protected function registered(Request $request, $user)
     {
         return response()->json([
-            'message' => 'User account created.'
+            'message' => 'User account has been created successfully.'
         ], 200);
     }
 
