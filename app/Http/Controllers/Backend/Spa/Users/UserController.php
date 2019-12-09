@@ -155,14 +155,6 @@ class UserController extends Controller
             $messages
         );
 
-        // $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
-        //     return get_website_setting('members.requireFullname', false);
-        // });
-
-        // $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
-        //     return get_website_setting('members.requireFullname', false);
-        // });
-
         $validator->validate();
 
         $user = new User();
@@ -208,22 +200,6 @@ class UserController extends Controller
             ],
             $messages
         );
-
-        // $validator->sometimes('password', 'bail|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed', function ($request) {
-        //     if($request->password != '')
-        //         return true;
-        //     else {
-        //         return false;
-        //     }
-        // });
-
-        $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
-        });
-
-        $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
-        });
 
         $validator->validate();
 
