@@ -202,7 +202,7 @@ if (!function_exists('get_theme_setting')) {
         $settings = app($globalSettings)->get($globalSettings::THEME_SETTINGS);
         $data = data_get($settings, $setting);
 
-        return $data ? $data : $default;
+        return (!is_null($data)) ? $data : $default;
     }
 }
 
@@ -229,7 +229,7 @@ if (!function_exists('get_website_setting')) {
         $settings = app($globalSettings)->get($globalSettings::WEBSITE_SETTINGS);
         $data = data_get($settings, $setting);
 
-        return $data ? $data : $default;
+        return (!is_null($data)) ? $data : $default;
     }
 }
 
