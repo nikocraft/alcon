@@ -129,7 +129,7 @@ class UserController extends Controller
                 ]);
         } else {
             return response()->json([
-                'message' => 'Could not find this user. Perhaps it was deleted.'
+                'message' => 'Could not find this user. Perhaps the user was deleted.'
             ], 401);
         }
     }
@@ -142,24 +142,26 @@ class UserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|alpha_dash|min:3|max:20',
-            'email' => 'required|email|unique:users,email,',
-            'bio' => 'sometimes|min:5',
-            'password' => 'required|min:8',
-            // 'password' => 'bail|required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed',
-            'roles' => 'required|array',
-            'permissions' => 'sometimes|array',
+                'firstname' => 'sometimes|alpha|min:2|max:25',
+                'lastname' => 'sometimes|alpha|min:2|max:25',
+                'username' => 'required|alpha_dash|min:3|max:20',
+                'email' => 'required|email|unique:users,email,',
+                'bio' => 'sometimes|min:5',
+                'password' => 'required|min:8',
+                // 'password' => 'bail|required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed',
+                'roles' => 'required|array',
+                'permissions' => 'sometimes|array',
             ],
             $messages
         );
 
-        $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
-        });
+        // $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
+        //     return get_website_setting('members.requireFullname', false);
+        // });
 
-        $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', false);
-        });
+        // $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
+        //     return get_website_setting('members.requireFullname', false);
+        // });
 
         $validator->validate();
 
@@ -196,12 +198,13 @@ class UserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|alpha_dash|min:3|max:20',
-            'email' => 'required|email|unique:users,email,' .$request->id,
-            'bio' => 'sometimes|max:300',
-            // 'password' => 'sometimes|min:6|confirmed',
-            // 'roles' => 'sometimes|array',
-            // 'permissions' => 'sometimes|array',
+                'firstname' => 'sometimes|alpha|min:2|max:25',
+                'lastname' => 'sometimes|alpha|min:2|max:25',
+                'username' => 'required|alpha_dash|min:3|max:20',
+                'email' => 'required|email|unique:users,email,' .$request->id,
+                'bio' => 'sometimes|max:300',
+                'roles' => 'required|array',
+                'permissions' => 'sometimes|array',
             ],
             $messages
         );
