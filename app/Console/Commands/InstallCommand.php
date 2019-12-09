@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Artisan;
 use Config;
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\ThemeService;
@@ -100,7 +101,9 @@ class InstallCommand extends BaseCommand
                 'slug' => $username,
                 'email' => $email,
                 'password' => bcrypt($password),
-                'is_activated' => true
+                'activated' => true,
+                'activated_at' => Carbon::now(),
+                'approved' => true
             ]);
 
             // attach super role to the user
