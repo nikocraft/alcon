@@ -44,14 +44,15 @@ class ActivateUserNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $url = URL::temporarySignedRoute('backend.user.activate.show', now()->addHours(24), ['user' => $this->user->id]);
+        $url = URL::temporarySignedRoute('backend.user.activate', now()->addHours(72), ['user' => $this->user->id]);
 
         return (new MailMessage)
                     ->subject('Activate your user account')
-                    ->line('Hi ' . $this->user->firstname . '!')
-                    ->line('Administrator at laraone.co has created an account for you.')
-                    ->line('To activate your user account and set the password please click the button below.')
+                    ->line('Hi ' . $this->user->username . '!')
+                    ->line('An account associated with this email has been created.')
+                    ->line('To activate this account click the button below.')
                     ->action('Activate Account', $url)
+                    ->line('If you did not create this account, you can ignore this email.')
                     ->line('Thank you.');
     }
 

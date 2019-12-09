@@ -16,9 +16,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
+    | This controller handles authenticating users for Laraone CMS
     |
     */
 
@@ -29,7 +27,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/backend/dashboaasdfasdrd';
+    protected $redirectTo = '/admin/content/pages';
+
 
     /**
      * Create a new controller instance.
@@ -48,13 +47,11 @@ class LoginController extends Controller
      */
     public function showAuthForm()
     {
-        $settingsData = Website::getSettingsDataWithMeta();
-        $settings = $settingsData['adminCustomLogin'];
-        return view('auth.login', compact('settings'));
+        return view('auth.login');
     }
 
     /**
-     * Handle an authentication attempt. Overrides the original login method so we can check for if user is_activated = true or not
+     * Handle an authentication attempt. Overrides the original login method so we can check for if user activated = true or not
      *
      * @param  \Illuminate\Http\Request $request
      *
@@ -71,23 +68,58 @@ class LoginController extends Controller
         }
 
         if($this->guard()->validate($this->credentials($request))) {
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_activated' => 1], $request->remember)) {
-                return response()->json([
-                    'message' => 'Successfully logged in.'
-                ], 200);
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'activated' => 1, 'approved' => 1], $request->remember)) {
+                return $this->sendLoginResponse($request);
             }  else {
-                $this->incrementLoginAttempts($request);
-                return response()->json([
-                    'error' => 'This account is not activated.'
-                ], 401);
+                return $this->sendNotActivatedResponse($request);
             }
         } else {
-            // dd('ok');
-            $this->incrementLoginAttempts($request);
-            return response()->json([
-                'error' => 'Credentials do not match our database.'
-            ], 401);
+            return $this->sendFailedLoginResponse($request);
         }
+    }
+
+    /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user());
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        return response()->json([
+            'message' => 'Successfully logged in.',
+            'redirectTo' => $this->redirectTo
+        ], 200);
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendNotActivatedResponse(Request $request)
+    {
+        $this->incrementLoginAttempts($request);
+        return response()->json([
+            'error' => 'This account is not activated.'
+        ], 401);
     }
 
     /**
@@ -98,17 +130,10 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        // if ($request->ajax()) {
-        //     return response()->json([
-        //         'error' => Lang::get('auth.failed')
-        //     ], 401);
-        // }
-        //
-        // return redirect()->back()
-        //     ->withInput($request->only($this->username(), 'remember'))
-        //     ->withErrors([
-        //         $this->username() => Lang::get('auth.failed'),
-        //     ]);
+        $this->incrementLoginAttempts($request);
+        return response()->json([
+            'error' => 'Credentials do not match our database.'
+        ], 401);
     }
 
     protected function sendLockoutResponse(Request $request)

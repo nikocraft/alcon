@@ -16,7 +16,7 @@ class SpaController extends Controller
         $contentTypesList = ContentType::all()->toArray();
         $adminMenuArray = $adminMenu->toArray();
         $menuTree = $this->buildMenuTree($adminMenuArray);
-        return view ('layouts.spa', compact('menuTree', 'contentTypesList'));
+        return view ('admin', compact('menuTree', 'contentTypesList'));
     }
 
     protected function buildMenuTree(array &$elements, $parentId = 0) {

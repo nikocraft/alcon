@@ -6,48 +6,31 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Settings\Website;
 use App\Models\User;
+use Carbon\Carbon;
 
 class ActivateController extends Controller
 {
     /**
-     * Show activation form.
+     * Show activated form.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showActivate(Request $request, $userId)
+    public function showActivatedForm(Request $request, $userId)
     {
-        $signatureValid = 'false';
-        if ($request->hasValidSignature()) {
-            $signatureValid = 'true';
-        }
-        $forwardingQuery = $request->all();
+        $activated = false;
+        $signatureValid = $request->hasValidSignature();
 
-        $settingsData = Website::getSettingsDataWithMeta();
-        $settings = $settingsData['adminCustomLogin'];
-        return view('auth.activate', compact('settings', 'userId', 'signatureValid', 'forwardingQuery'));
-    }
-
-    /**
-     * Activate User.
-     *
-     */
-    public function activate(Request $request)
-    {
-        $this->validate($request, [
-            'password' => 'required|min:8'
-        ]);
-        $user = User::find($request->user);
-        if ($request->hasValidSignature()) {
-            if($user->is_activated == false) {
-                $user->password = bcrypt($request->password);
-                $user->is_activated = true;
+        if ($signatureValid) {
+            $user = User::find($userId);
+            if($user && is_null($user->activated_at)) {
+                $user->activated = true;
+                $user->activated_at = Carbon::now();
                 $user->save();
+                $activated = true;
+            } else if($user) {
+                $activated = true;
             }
-            return response()->json([
-                'sucess' => 'Activated.'
-            ], 200);
-        } else {
-            // do nothing...
         }
+        return view('auth.activate', compact('activated', 'signatureValid'));
     }
 }

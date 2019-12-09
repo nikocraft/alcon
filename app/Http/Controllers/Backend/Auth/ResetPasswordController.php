@@ -26,7 +26,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/content/pages';
 
     /**
      * Create a new controller instance.
@@ -38,9 +38,28 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * Display the password reset view for the given token.
+     *
+     * If no token is present, display the link request form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string|null  $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('auth.passwords.reset')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
     protected function sendResetResponse(Request $request, $response)
     {
-        return response()->json(['status' => trans($response)]);
+        return response()->json([
+            'status' => trans($response),
+            'redirectTo' => $this->redirectTo
+        ]);
     }
 
     protected function sendResetFailedResponse(Request $request, $response)

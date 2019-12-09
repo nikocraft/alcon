@@ -223,13 +223,13 @@ if (!function_exists('get_theme_timestamp')) {
  * @return Value that is stored in database for that particular setting
  */
 if (!function_exists('get_website_setting')) {
-    function get_website_setting($setting)
+    function get_website_setting($setting, $default = null)
     {
         $globalSettings = App\Services\GlobalSettingsService::class;
         $settings = app($globalSettings)->get($globalSettings::WEBSITE_SETTINGS);
         $data = data_get($settings, $setting);
 
-        return $data ? $data : null;
+        return $data ? $data : $default;
     }
 }
 

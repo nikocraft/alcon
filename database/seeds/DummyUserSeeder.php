@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 
 class DummyUserSeeder extends Seeder
 {
@@ -31,7 +32,9 @@ class DummyUserSeeder extends Seeder
                 'email' => 'first@gmail.com',
                 'password' => bcrypt('123456'),
                 'timezone' => 'Europe/Amsterdam',
-                'is_activated' => true,
+                'activated' => true,
+                'activated_at' => Carbon::now(),
+                'approved' => true,
                 'bio' => $faker->text(rand(200, 250)),
             ]);
             $user->detachRole($super);
@@ -44,6 +47,10 @@ class DummyUserSeeder extends Seeder
                 'username' => $username,
                 'email' => 'second@gmail.com',
                 'password' => bcrypt('123456'),
+                'timezone' => 'Europe/Amsterdam',
+                'activated' => true,
+                'activated_at' => Carbon::now(),
+                'approved' => true,
                 'bio' => $faker->text(rand(200, 250)),
             ]);
             $user->detachRole($admin);

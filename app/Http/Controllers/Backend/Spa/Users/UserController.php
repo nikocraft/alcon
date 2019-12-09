@@ -144,8 +144,8 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|alpha_dash|min:3|max:20',
             'email' => 'required|email|unique:users,email,',
-            'bio' => 'sometimes|min:3',
-            // 'password' => 'sometimes|min:6|confirmed',
+            'bio' => 'sometimes|min:5',
+            'password' => 'required|min:8',
             // 'password' => 'bail|required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed',
             'roles' => 'required|array',
             'permissions' => 'sometimes|array',
@@ -153,33 +153,25 @@ class UserController extends Controller
             $messages
         );
 
-        $validator->sometimes('firstname', 'alpha|min:3|max:20', function ($request) {
-            if($request->firstname != '')
-                return true;
-            else {
-                return false;
-            }
+        $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
         });
 
-        $validator->sometimes('lastname', 'alpha|min:3|max:20', function ($request) {
-            if($request->lastname != '')
-                return true;
-            else {
-                return false;
-            }
+        $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
         });
 
         $validator->validate();
 
         $user = new User();
-
-        $user->username = $request->username;
-        $user->email = $request->email;
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
-        $user->bio = $request->bio;
+        $user->username = $request->username;
         $user->slug = $user->username;
-        $user->password = bcrypt("some random value here");
+        $user->email = $request->email;
+        $user->bio = $request->bio;
+        $user->approved = true;
+        $user->password = bcrypt($request->password);
         $user->save();
 
         $user->roles()->sync($request->roles, true);
@@ -214,40 +206,30 @@ class UserController extends Controller
             $messages
         );
 
-        $validator->sometimes('password', 'bail|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed', function ($request) {
-            if($request->password != '')
-                return true;
-            else {
-                return false;
-            }
+        // $validator->sometimes('password', 'bail|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/|min:6|confirmed', function ($request) {
+        //     if($request->password != '')
+        //         return true;
+        //     else {
+        //         return false;
+        //     }
+        // });
+
+        $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
         });
 
-        $validator->sometimes('firstname', 'alpha|min:3|max:20', function ($request) {
-            if($request->firstname != '')
-                return true;
-            else {
-                return false;
-            }
-        });
-
-        $validator->sometimes('lastname', 'alpha|min:3|max:20', function ($request) {
-            if($request->lastname != '')
-                return true;
-            else {
-                return false;
-            }
+        $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
         });
 
         $validator->validate();
 
         $user = User::find($request->id);
-
         $user->username = $request->username;
         $user->email = $request->email;
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->bio = $request->bio;
-        $user->slug = null;
 
         // if($request->password)
         //     $user->password = bcrypt($request->password);

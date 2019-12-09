@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 
 class AdminUserSeeder extends Seeder
 {
@@ -29,7 +30,9 @@ class AdminUserSeeder extends Seeder
                 'lastname' => $lastname ? $lastname : 'User',
                 'email' => $email,
                 'password' => bcrypt($password),
-                'is_activated' => true
+                'activated' => true,
+                'activated_at' => Carbon::now(),
+                'approved' => true
             ]);
             $user->detachRole($super);
             $user->attachRole($super);

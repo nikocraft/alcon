@@ -11,6 +11,7 @@ use DB;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\WebsiteService;
+use Carbon\Carbon;
 
 class InstallerController extends Controller
 {
@@ -117,12 +118,14 @@ class InstallerController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'is_activated' => true
+            'activated' => true,
+            'activated_at' => Carbon::now(),
+            'approved' => true
         ]);
         $user->attachRole($super);
 
         return response()->json([
-            'status' => 'success',
+            'status' => 'Success',
             'user' => $user
         ], 200);
     }

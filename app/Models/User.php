@@ -19,11 +19,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'slug', 'username', 'email', 'password', 'bio', 'is_activated'
+        'firstname', 'lastname', 'slug', 'username', 'email', 'password', 'bio', 'activated', 'approved' , 'approved_at'
     ];
 
-    protected $casts = ['is_activated' => 'boolean'];
-    protected $hidden = ['password', 'remember_token',];
+    protected $casts = [
+        'activated' => 'boolean', 
+        'approved' => 'boolean',
+        'activated_at' => 'datetime'
+    ];
+
+    protected $hidden = [
+        'password', 
+        'remember_token'
+    ];
+
     /**
     * Get all user roles.
     *

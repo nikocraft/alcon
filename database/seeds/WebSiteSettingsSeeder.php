@@ -47,7 +47,7 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'logoText', 'value' => 'LaraOne', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'logoTextColor', 'value' => 'black', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'logoImage', 'value' => '', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxWidth', 'value' => '300px', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxWidth', 'value' => '365px', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxMargin', 'value' => '0px', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'backgroundColor', 'value' => '#4C8DAA', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'backgroundImage', 'value' => '', 'type' => 'string']);
@@ -59,11 +59,11 @@ class WebSiteSettingsSeeder extends Seeder
         $parent = Website::create(['key' => 'members', 'value' => 'Members', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'allowRegistrations', 'value' => false, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id, 'key' => 'defaultUserRole', 'value' => 'member', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'userDisplayName', 'value' => 'username', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'userDisplayName', 'value' => 'fullname', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'useRecaptcha', 'value' => false, 'type' =>'boolean']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'newRegistrationStatus', 'value' => 'email', 'type' =>'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'requireFirstAndLastName', 'value' => false, 'type' => 'boolean']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'requireStrongPassword', 'value' => true, 'type' => 'boolean']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'autoApprove', 'value' => false, 'type' =>'boolean']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'requireFullname', 'value' => true, 'type' => 'boolean']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'requireStrongPassword', 'value' => false, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id, 'key' => 'newUserNotification', 'value' => false, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id, 'key' => 'blacklistUserNameWords', 'value' => 'admin, administrator, webmaster, moderator', 'type' => 'string']);
 

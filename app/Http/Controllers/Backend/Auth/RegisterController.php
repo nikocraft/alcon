@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Auth;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Core\Settings\Website;
 
 class RegisterController extends Controller
 {
@@ -40,6 +45,43 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        $settingsData = Website::getSettingsDataWithMeta();
+        $settings = $settingsData['adminCustomLogin'];
+        return view('auth.register', compact('settings'));
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // $this->guard()->login($user);
+
+        return $this->registered($request, $user);
+    }
+
+
+    protected function registered(Request $request, $user)
+    {
+        return response()->json([
+            'message' => 'User account created.'
+        ], 200);
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -47,11 +89,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+        $validator = Validator::make($data, [
+            'username' => 'required|string|min:3|max:30|unique:users',
+            'email' => 'required|string|email|max:40|unique:users',
+            'password' => 'required|string|min:8|confirmed',
         ]);
+
+        $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
+        });
+
+        $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
+            return get_website_setting('members.requireFullname', false);
+        });
+
+        return $validator;
     }
 
     /**
@@ -62,13 +114,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $member = Role::where('name', 'member')->first();
         $user = User::create([
-            'name' => $data['name'],
+            'firstname' => $data['firstname'] ?: null,
+            'lastname' => $data['lastname'] ?: null,
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'approved' => get_website_setting('members.autoApprove', false)
         ]);
 
-        $user->notify(new \App\Notifications\Users\ActivateEmailNotification($user));
+        // attach default role
+        $user->attachRole($member);
+
+        $user->notify(new \App\Notifications\Users\ActivateUserNotification($user));
 
         return $user;
     }
