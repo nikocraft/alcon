@@ -30,7 +30,8 @@ class ActivateController extends Controller
             } else if($user) {
                 $activated = true;
             }
+            $autoApprove = (bool) $user->approved;
         }
-        return view('auth.activate', compact('activated', 'signatureValid'));
+        return view('auth.activate', compact('activated', 'signatureValid', 'autoApprove'));
     }
 }
