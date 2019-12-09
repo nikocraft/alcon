@@ -229,6 +229,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
+        $user->approved = $request->approved;
         $user->bio = $request->bio;
 
         // if($request->password)
