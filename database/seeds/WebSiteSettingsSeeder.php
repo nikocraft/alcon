@@ -43,18 +43,14 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'disqusChannel', 'value' => '', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'adminCustomLogin', 'value' => 'Login Customization', 'type' => 'section']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'theme', 'value' => 'light', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'logoType', 'value' => 'text', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'logoText', 'value' => 'LaraOne', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'logoTextColor', 'value' => 'black', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'logoImage', 'value' => '', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxWidth', 'value' => '365px', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxMargin', 'value' => '0px', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'backgroundColor', 'value' => '#4C8DAA', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'backgroundImage', 'value' => '', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxPosition', 'value' => 'center', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxFullHeight', 'value' => false, 'type' => 'boolean']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'loginBoxBackgroundColor', 'value' => 'white', 'type' => 'string']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'logoTextBackgroundColor', 'value' => 'white', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'termsUrl', 'value' => '', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'privacyPolicyUrl', 'value' => '', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'customCss', 'value' => '', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'members', 'value' => 'Members', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'allowRegistrations', 'value' => false, 'type' => 'boolean']);
