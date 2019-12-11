@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('activated')->default(false);
             $table->boolean('approved')->default(false);
             $table->string('timezone')->nullable();
-            $table->schemalessAttributes('settings')->nullable();
+            $table->schemalessAttributes('meta')->nullable();
             $table->rememberToken();
             $table->timestamp('activated_at')->nullable();
             $table->timestamps();
