@@ -18,6 +18,7 @@ class ActivateController extends Controller
     public function showActivatedForm(Request $request, $userId)
     {
         $activated = false;
+        $autoApprove = false;
         $signatureValid = $request->hasValidSignature();
 
         if ($signatureValid) {
@@ -31,6 +32,7 @@ class ActivateController extends Controller
                 $activated = true;
             }
             $autoApprove = (bool) $user->approved;
+            
         }
         return view('auth.activate', compact('activated', 'signatureValid', 'autoApprove'));
     }
