@@ -82,7 +82,7 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
 
         if($image->delete()) {
-            return response()->json(null, 204);
+            return response()->json(null, 200);
         } else {
             return response()->json([
                 'message' => 'Could not delete.'

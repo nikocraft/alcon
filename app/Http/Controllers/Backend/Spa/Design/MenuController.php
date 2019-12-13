@@ -44,7 +44,7 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
 
         if($menu->delete()) {
-            return response()->json(null, 204);
+            return response()->json(null, 200);
         } else {
             return response()->json([
                 'message' => 'Could not delete.'

@@ -198,7 +198,7 @@ class ContentController extends Controller
         $content = Content::find($contentId);
 
         if($content->delete()) {
-            return response()->json(null, 204);
+            return response()->json(null, 200);
         } else {
             return response()->json([
                 'message' => 'Could not delete.'

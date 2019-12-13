@@ -30,7 +30,7 @@ class RoleController extends Controller
         return response()->json([
             'valid' => !$exists,
             'message' => !$exists ? null : 'Name is not unique.',
-        ], 201);
+        ], 200);
     }
 
     public function store(Request $request) {
@@ -65,7 +65,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         if($role->delete()) {
-            return response()->json(null, 204);
+            return response()->json(['message' => 'Successfully deleted'], 200);
         } else {
             return response()->json([
                 'message' => 'Could not delete.'

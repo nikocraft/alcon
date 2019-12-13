@@ -59,7 +59,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         if($comment->delete()) {
-            return response()->json(null, 204);
+            return response()->json(null, 200);
         } else {
             return response()->json([
                 'message' => 'Could not delete.'
