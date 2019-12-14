@@ -142,8 +142,8 @@ class UserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-                'firstname' => 'sometimes|alpha|min:2|max:25',
-                'lastname' => 'sometimes|alpha|min:2|max:25',
+                'firstname' => 'nullable|alpha|min:2|max:25',
+                'lastname' => 'nullable|alpha|min:2|max:25',
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|unique:users,email,',
                 'bio' => 'sometimes|min:5',
@@ -190,8 +190,8 @@ class UserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-                'firstname' => 'sometimes|alpha|min:2|max:25',
-                'lastname' => 'sometimes|alpha|min:2|max:25',
+                'firstname' => 'nullable|alpha|min:2|max:25',
+                'lastname' => 'nullable|alpha|min:2|max:25',
                 'username' => 'required|alpha_dash|min:3|max:20',
                 'email' => 'required|email|unique:users,email,' .$request->id,
                 'bio' => 'sometimes|max:300',
