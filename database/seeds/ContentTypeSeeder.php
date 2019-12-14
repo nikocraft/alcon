@@ -16,7 +16,6 @@ class ContentTypeSeeder extends Seeder
             'name' => 'Pages',
             'name_singular' => 'Page',
             'slug' => 'pages',
-            'front_slug' => 'pages',
             'locked' => true,
             'type' => 1
         ]);
