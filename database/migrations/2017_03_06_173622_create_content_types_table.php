@@ -21,7 +21,7 @@ class CreateContentTypesTable extends Migration
             $table->string('front_slug')->nullable();
             $table->smallInteger('type'); // 1 - non-repeating type like page, 2 - repeating type like blogs posts, etc
             $table->boolean('locked')->default(false);
-            $table->schemalessAttributes('settings')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }

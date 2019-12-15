@@ -24,7 +24,7 @@ class CreateMenuItemsTable extends Migration
             $table->string('type'); // page menu-item, custom url menu-item, mega menu-item
             $table->string('icon')->nullable();
             $table->integer('order')->nullable();
-            $table->schemalessAttributes('settings')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
 
             $table->foreign('menu_id')->references('id')->on('menus')->onUpdate('cascade');

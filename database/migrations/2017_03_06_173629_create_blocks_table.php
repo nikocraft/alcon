@@ -22,7 +22,7 @@ class CreateBlocksTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedInteger('order')->default(0);
-            $table->schemalessAttributes('settings')->nullable();
+            $table->json('settings')->nullable();
 
             $table->index('unique_id');
 

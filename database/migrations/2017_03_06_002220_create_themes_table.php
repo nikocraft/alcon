@@ -26,7 +26,7 @@ class CreateThemesTable extends Migration
             $table->string('url');
             $table->string('releases_url');
             $table->string('download_url');
-            $table->json('meta')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
     }

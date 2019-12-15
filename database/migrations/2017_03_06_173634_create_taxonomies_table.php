@@ -21,7 +21,7 @@ class CreateTaxonomiesTable extends Migration
             $table->string('placeholder')->default('Select');
             $table->string('slug');
             $table->unsignedInteger('order')->default(0);
-            $table->schemalessAttributes('settings')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
 
             $table->foreign('content_type_id')->references('id')->on('content_types')->onDelete('cascade')->onUpdate('cascade');
