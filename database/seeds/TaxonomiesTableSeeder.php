@@ -17,7 +17,7 @@ class TaxonomiesTableSeeder extends Seeder
             'allowFilterable' => true,
             'allowMultiple' => true,
             'canHaveChildren' => false,
-            'maxAllowed' => 2,
+            'maxAllowed' => 4,
             'required' => false
         ];
 
@@ -26,7 +26,7 @@ class TaxonomiesTableSeeder extends Seeder
             'allowFilterable' => true,
             'allowMultiple' => true,
             'canHaveChildren' => false,
-            'maxAllowed' => 4,
+            'maxAllowed' => 8,
             'required' => false
         ];
 
