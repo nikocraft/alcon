@@ -11,11 +11,16 @@ return [
             'admin' => 'access',
             'acl' => 'access',
             'media' => 'access',
-            'settings' => 'access',
             'design' => 'access',
+            'extensions' => 'access',
+            'settings' => 'access',
             'content' => 'manage',
             'images' => 'manage',
             'comments' => 'manage',
+            'menus' => 'manage',
+            'themes' => 'manage',
+            'widgets' => 'manage',
+            'extensions' => 'manage',
             'users' => 'manage',
             'roles' => 'manage',
             'profile' => 'manage'
@@ -34,6 +39,9 @@ return [
             'design' => 'access',
             'content' => 'manage',
             'images' => 'manage',
+            'comments' => 'manage',
+            'menus' => 'manage',
+            'widgets' => 'manage',
             'profile' => 'manage'
         ],
         // visitors of your website, in case you allow them to register
