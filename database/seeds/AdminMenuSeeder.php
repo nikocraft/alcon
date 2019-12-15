@@ -166,6 +166,29 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
+            'name' => 'Content',
+            'unique_id' =>'core.settings.content',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.content',
+        ]);
+
+        AdminMenu::create([
+            'name' => 'Cache',
+            'unique_id' =>'core.settings.cache',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.cache',
+            'visible' => 0
+        ]);
+
+        AdminMenu::create([
+            'name' => 'Security',
+            'unique_id' =>'core.settings.security',
+            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
+            'route' => 'settings.security',
+            'visible' => 0
+        ]);
+
+        AdminMenu::create([
             'name' => 'Admin',
             'unique_id' =>'core.settings.admin',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),

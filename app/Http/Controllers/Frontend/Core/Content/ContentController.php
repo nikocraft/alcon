@@ -24,14 +24,14 @@ class ContentController extends Controller
     public function __construct(RenderContentService $renderService)
 	{
         $this->renderService = $renderService;
-        $this->paginationType = get_website_setting('website.paginationType', 'simple');
-        $this->perPage = get_website_setting('website.paginationPerPage', 12);
+        $this->paginationType = get_website_setting('content.paginationType', 'simple');
+        $this->perPage = get_website_setting('content.paginationPerPage', 12);
     }
 
     public function frontPage(Request $request)
     {
-        $frontPageType = get_website_setting('website.frontPageType');
-        $frontPageMeta = get_website_setting('website.frontPageMeta');
+        $frontPageType = get_website_setting('content.frontPageType');
+        $frontPageMeta = get_website_setting('content.frontPageMeta');
 
         switch ($frontPageType) {
             case 'single-page':
