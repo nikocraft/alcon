@@ -19,7 +19,7 @@ class CreateTaxonomiesTable extends Migration
             $table->string('name');
             $table->string('name_singular');
             $table->string('placeholder')->default('Select');
-            $table->string('slug')->nullable();
+            $table->string('slug');
             $table->unsignedInteger('order')->default(0);
             $table->schemalessAttributes('settings')->nullable();
             $table->timestamps();
