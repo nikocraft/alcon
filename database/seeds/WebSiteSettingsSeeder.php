@@ -16,6 +16,7 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'installed', 'value' => 0, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id,  'key' => 'phoenix', 'value' => '1.0.0', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id,  'key' => 'atlas', 'value' => '1.0.0', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id,  'key' => 'locale', 'value' => 'en', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'website', 'value' => 'Website', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'title', 'value' => 'LaraOne', 'type' => 'string']);
