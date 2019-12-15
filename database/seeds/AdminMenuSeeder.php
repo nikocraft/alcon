@@ -12,6 +12,16 @@ class AdminMenuSeeder extends Seeder
      */
     public function run()
     {
+
+        // Dashboard
+        AdminMenu::create([
+            'name' => 'Dashboard',
+            'unique_id' =>'core.dashboard',
+            'route' => 'dashboard'
+        ]);
+
+        /** Content Types Start */
+
         // Pages
         AdminMenu::create([
             'name' => 'Pages',
@@ -36,13 +46,14 @@ class AdminMenuSeeder extends Seeder
             ]
         ]);
 
-        // Media
+        /** Content Types End */
+
+        /** Media Start */
         AdminMenu::create([
             'name' => 'Media',
             'unique_id' =>'core.media',
             'icon' => 'fa fa-image',
-            'permission' => 'access-media',
-            // 'order' => 30,
+            'permission' => 'access-media'
         ]);
 
         // Images
@@ -53,13 +64,14 @@ class AdminMenuSeeder extends Seeder
             'permission' => 'manage-images',
             'route' => 'media.images',
         ]);
+        /** Media End */
 
-        // USERS
+        /** Users Start */
         AdminMenu::create([
             'name' => 'Users & Roles',
             'unique_id' =>'core.acl',
             'icon' => '',
-            'permission' => 'access-acl'
+            'permission' => 'access-acl',
         ]);
 
         AdminMenu::create([
@@ -77,25 +89,14 @@ class AdminMenuSeeder extends Seeder
             'permission' => 'manage-roles',
             'route' => 'acl.roles',
         ]);
+        /** Users End */
 
-        // Comments
-        AdminMenu::create([
-            'name' => 'Comments',
-            'unique_id' =>'core.comments',
-            'icon' => 'fa fa-comments',
-            'permission' => 'manage-comments',
-            'route' => 'comments',
-            // 'order' => 30,
-            'visible' => 1
-        ]);
-
-        // DESIGN
+        /** Design Start */
         AdminMenu::create([
             'name' => 'Design',
             'unique_id' =>'core.design',
             'icon' => '',
-            'permission' => 'access-design'
-            // 'order' => 40,
+            'permission' => 'access-design',
         ]);
 
         AdminMenu::create([
@@ -129,23 +130,33 @@ class AdminMenuSeeder extends Seeder
             'permission' => 'manage-widgets',
             'route' => 'widgets.list',
         ]);
+        /** Design End */
 
-        // Extensions
+        /** Comments Start */
         AdminMenu::create([
-            'name' => 'Extensions',
-            'unique_id' =>'core.extensions',
-            'icon' => '',
-            'permission' => 'access-extensions',
-            'visible' => 0
+            'name' => 'Comments',
+            'unique_id' =>'core.comments',
+            'icon' => 'fa fa-comments',
+            'permission' => 'manage-comments',
+            'route' => 'comments',
+            'visible' => 1
         ]);
+        /** Comments End */
 
-        // Settings
+        /** Plugins Start */
+        AdminMenu::create([
+            'name' => 'Plugins',
+            'unique_id' =>'core.plugins',
+            'permission' => 'access-plugins',
+            'visible' => 0,
+        ]);
+        /** Plugins End */
+
+        /** Settings Start */
         AdminMenu::create([
             'name' => 'Settings',
             'unique_id' =>'core.settings',
-            'icon' => '',
             'permission' => 'access-settings',
-            // 'order' => 60,
         ]);
 
         // Types
@@ -177,7 +188,7 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.cache',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.cache',
-            'visible' => 0
+            'visible' => 0,
         ]);
 
         AdminMenu::create([
@@ -185,7 +196,7 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.security',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.security',
-            'visible' => 0
+            'visible' => 0,
         ]);
 
         AdminMenu::create([
@@ -193,7 +204,7 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.admin',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.admin',
-            'visible' => 0
+            'visible' => 0,
         ]);
 
         AdminMenu::create([
@@ -230,5 +241,7 @@ class AdminMenuSeeder extends Seeder
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.urls',
         ]);
+
+        /** Settings End */
     }
 }

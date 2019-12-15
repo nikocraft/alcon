@@ -12,7 +12,7 @@ return [
             'acl' => 'access',
             'media' => 'access',
             'design' => 'access',
-            'extensions' => 'access',
+            'plugins' => 'access',
             'settings' => 'access',
             'content' => 'manage',
             'images' => 'manage',
@@ -20,7 +20,8 @@ return [
             'menus' => 'manage',
             'themes' => 'manage',
             'widgets' => 'manage',
-            'extensions' => 'manage',
+            'plugins' => 'manage',
+            'settings' => 'manage',
             'users' => 'manage',
             'roles' => 'manage',
             'profile' => 'manage'
