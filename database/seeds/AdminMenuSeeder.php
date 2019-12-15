@@ -83,10 +83,10 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Comments',
             'unique_id' =>'core.comments',
             'icon' => 'fa fa-comments',
-            'permission' => 'list-comments',
+            'permission' => 'manage-comments',
             'route' => 'comments',
             // 'order' => 30,
-            'visible' => 0
+            'visible' => 1
         ]);
 
         // DESIGN
@@ -102,6 +102,7 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Theme Settings',
             'unique_id' =>'core.design.customize',
             'parent' => AdminMenu::where('unique_id', 'core.design')->value('id'),
+            'permission' => 'manage-themes',
             'route' => 'design.customize',
         ]);
 
@@ -109,6 +110,7 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Themes',
             'unique_id' =>'core.design.themes',
             'parent' => AdminMenu::where('unique_id', 'core.design')->value('id'),
+            'permission' => 'manage-themes',
             'route' => 'design.themes',
         ]);
 
@@ -116,6 +118,7 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Menus',
             'unique_id' =>'core.design.menus',
             'parent' => AdminMenu::where('unique_id', 'core.design')->value('id'),
+            'permission' => 'manage-menus',
             'route' => 'menus.list',
         ]);
 
@@ -123,7 +126,17 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Widgets',
             'unique_id' =>'core.design.widgets',
             'parent' => AdminMenu::where('unique_id', 'core.design')->value('id'),
+            'permission' => 'manage-widgets',
             'route' => 'widgets.list',
+        ]);
+
+        // Extensions
+        AdminMenu::create([
+            'name' => 'Extensions',
+            'unique_id' =>'core.extensions',
+            'icon' => '',
+            'permission' => 'access-extensions',
+            'visible' => 0
         ]);
 
         // Settings
@@ -140,7 +153,7 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Content Types',
             'unique_id' =>'core.settings.types.index',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'permission' => 'all',
+            'permission' => 'all-permissions',
             'route' => 'content-types.list',
             'visible' => 0
         ]);
