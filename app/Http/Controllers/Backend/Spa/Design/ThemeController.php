@@ -61,6 +61,8 @@ class ThemeController extends Controller
 
                 $return = $this->themeservice->installTheme($themePath);
 
+                unlink($themePath);
+
                 return response()->json([
                     'message' => $return->message,
                     'id' => $return->id
