@@ -1,6 +1,6 @@
 @php
     $content = $renderData->block->content;
-    $settings = $renderData->block->getSettings();
+    $settings = $renderData->block->settings;
     // $slides = Slide::prepareSlides($renderData->allBlocks, $renderData->subBlocksIds);
     $subBlocksIds = $renderData->subBlocksIds;
     $allBlocks = $renderData->allBlocks;
@@ -18,8 +18,8 @@
                     $renderData = array();
                     $renderData['subBlocksIds'] = $subBlocksIds;
                     $renderData['allBlocks'] = $allBlocks;
-                    $renderData['display'] = $settings->display;
-                    $renderData['flexDirection'] = $settings->flexDirection;
+                    $renderData['display'] = $settings->get('display');
+                    $renderData['flexDirection'] = $settings->get('flexDirection');
                     $renderData = (object) $renderData;
                 @endphp
 
@@ -34,8 +34,8 @@
                 $renderData = array();
                 $renderData['subBlocksIds'] = $subBlocksIds;
                 $renderData['allBlocks'] = $allBlocks;
-                $renderData['display'] = $settings->display;
-                $renderData['flexDirection'] = $settings->flexDirection;
+                $renderData['display'] = $settings->get('display');
+                $renderData['flexDirection'] = $settings->get('flexDirection');
                 $renderData = (object) $renderData;
             @endphp
 
