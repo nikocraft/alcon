@@ -69,12 +69,12 @@ if (!function_exists('get_seo_image')) {
 }
 
 if (!function_exists('get_seo_description')) {
-    function get_seo_description($content)
+    function get_seo_description($content, $default = null)
     {
         if($content->seo['metaDescription'])
             return $content->seo['metaDescription'];
         else
-            return "todo: get website default description from websiteSettings";
+            return $default;
     }
 }
 
