@@ -19,7 +19,7 @@ class CreateContentTermTable extends Migration
             $table->unsignedInteger('term_id');
 
             $table->foreign('content_id')->references('id')->on('content')->onUpdate('cascade');
-            $table->foreign('term_id')->references('id')->on('terms')->onUpdate('cascade');
+            $table->foreign('term_id')->references('id')->on('terms')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
