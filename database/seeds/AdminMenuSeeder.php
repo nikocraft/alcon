@@ -71,6 +71,17 @@ class AdminMenuSeeder extends Seeder
         ]);
         /** Media End */
 
+        /** Comments Start */
+        AdminMenu::create([
+            'name' => 'Comments',
+            'unique_id' =>'core.comments',
+            'icon' => 'fa fa-comments',
+            'permission' => 'manage-comments',
+            'route' => 'comments',
+            'order' => 60,
+        ]);
+        /** Comments End */
+
         /** Users Start */
         AdminMenu::create([
             'name' => 'Users & Roles',
@@ -144,17 +155,6 @@ class AdminMenuSeeder extends Seeder
             'order' => 40,
         ]);
         /** Design End */
-
-        /** Comments Start */
-        AdminMenu::create([
-            'name' => 'Comments',
-            'unique_id' =>'core.comments',
-            'icon' => 'fa fa-comments',
-            'permission' => 'manage-comments',
-            'route' => 'comments',
-            'order' => 60,
-        ]);
-        /** Comments End */
 
         /** Plugins Start */
         AdminMenu::create([
