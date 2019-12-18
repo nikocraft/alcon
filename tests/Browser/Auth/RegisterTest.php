@@ -55,7 +55,7 @@ class RegisterTest extends DuskTestCase
                     ->press('.btn-auth')
                     ->pause(5000)
                     ->assertSee('You have successfully registered an account! We\'ve sent you an email to activate your account.')
-                    ->visit($this->getEmail())->screenshot('email')->assertPresent('.button-primary')
+                    ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
                     ->pause(1000);
 
                     // Trick to avoid _blank

@@ -26,7 +26,7 @@ trait EmailTrait {
     *
     * @return string The email URL
     */
-    public function getEmail()
+    public function getUrlFromEmail()
     {
         $urlEmail = null;
 

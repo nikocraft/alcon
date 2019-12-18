@@ -15,18 +15,6 @@ abstract class DuskTestCase extends BaseTestCase
 
     protected static $db_inited = false;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        if (!static::$db_inited) {
-            static::$db_inited = true;
-            $path = __DIR__ . '../../../sqlite.testing.database';
-            file_put_contents($path, '');
-            Artisan::call('laraone:install');
-        }
-    }
-
     /**
      * Prepare for Dusk test execution.
      *
@@ -44,18 +32,19 @@ abstract class DuskTestCase extends BaseTestCase
      * @beforeClass
      * @return void
      */
-    // public function setUp(): void
-    // {
-    //     parent::setUp();
 
-    //     if (!static::$db_inited) {
-    //         static::$db_inited = true;
-    //         $path = __DIR__ . './sqlite.testing.database';
-    //         file_put_contents($path, '');
-    //         Artisan::call('laraone:install');
-    //     }
-    // }
+    public function setUp(): void
+    {
+        parent::setUp();
 
+        if (!static::$db_inited) {
+            static::$db_inited = true;
+            $path = __DIR__ . '../../../sqlite.testing.database';
+            file_put_contents($path, '');
+            Artisan::call('laraone:install');
+        }
+    }
+    
     /**
      * Create the RemoteWebDriver instance.
      *
@@ -64,9 +53,11 @@ abstract class DuskTestCase extends BaseTestCase
     protected function driver()
     {
         $options = (new ChromeOptions)->addArguments([
-            // '--disable-gpu',
-            // '--headless',
-            '--window-size=1920,1080',
+            '--disable-gpu',
+            '--headless',
+            '--window-size=1220,1080',
+            '--log-level=3',
+            '--silent'
         ]);
 
         return RemoteWebDriver::create(

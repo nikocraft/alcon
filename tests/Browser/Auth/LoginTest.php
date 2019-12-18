@@ -29,14 +29,14 @@ class LoginTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                     ->visit('/auth/login')
-                    ->pause(1000)
+                    ->pause(200)
                     ->assertPathIs('/admin/content/pages')
                     ->assertSee('Pages')
                     ->assertAuthenticatedAs($user)
                     ->logout()
-                    ->pause(1000)
+                    ->pause(200)
                     ->visit('/admin/content/pages')
-                    ->pause(1000)
+                    ->pause(200)
                     ->assertPathIs('/auth/login');
         });
     }
@@ -45,7 +45,7 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/content/pages')
-                    ->pause(1000)
+                    ->pause(200)
                     ->assertPathIs('/auth/login');
         });
     }
@@ -56,7 +56,7 @@ class LoginTest extends DuskTestCase
                     ->type('email', 'super@gmail.com')
                     ->type('password', '123456888')
                     ->press('.btn-auth')
-                    ->pause(1000)
+                    ->pause(200)
                     ->assertPathIs('/auth/login');
         });
     }
@@ -67,7 +67,7 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'example@example.com')
                     ->press('.btn-auth')
-                    ->pause(2000)
+                    ->pause(200)
                     ->assertSee("We can't find a user with that e-mail address.");
         });
     }
@@ -81,10 +81,10 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'admin@gmail.com')
                     ->press('.btn-auth')
-                    ->pause(6000)
+                    ->pause(2500)
                     ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
-                    ->visit($this->getEmail())->screenshot('email_reset')->assertPresent('.button-primary')
-                    ->pause(1000);
+                    ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
+                    ->pause(1500);
 
                     // Trick to avoid _blank
                     $urlConfirm = $browser->element('.button-primary')->getAttribute('href');
@@ -93,7 +93,7 @@ class LoginTest extends DuskTestCase
                     ->type('password', '11111111')
                     ->type('passwordConfirmation', '11111111')
                     ->press('.btn-auth')
-                    ->pause(2000)
+                    ->pause(1500)
                     ->assertSee('Your password has been reset!');
         });
     }
