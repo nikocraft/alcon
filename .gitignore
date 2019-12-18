@@ -3,6 +3,8 @@
 /tests/*.database
 /vendor
 /.idea
+/tests/Browser/screenshots/*
+/tests/Browser/console/*
 /
 Homestead.json
 Homestead.yaml
@@ -11,3 +13,4 @@ Homestead.yaml
 .DS_Store
 .vscode/launch.json
 yarn-error.log
+.phpunit.result.cache
