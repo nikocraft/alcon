@@ -4,11 +4,11 @@ namespace Tests\Browser\Settings;
 
 use App\Models\User;
 use App\Models\Role;
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
-class WebsiteSettingsTest extends DuskTestCase
+class ContentSettingsTest extends DuskTestCase
 {
 
     public function setUp(): void
@@ -16,7 +16,7 @@ class WebsiteSettingsTest extends DuskTestCase
         parent::setUp();
     }
 
-    public function test_user_can_see_website_settings()
+    public function test_user_can_see_content_settings()
     {
         $super = Role::find(1);
         $user = factory(User::class)->create([
@@ -26,17 +26,16 @@ class WebsiteSettingsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->assertPathIs('/admin/settings/website')
-                    ->assertSee('Website Settings')
-                    ->assertSee('Title')
-                    ->assertSee('Tagline')
-                    ->assertSee('Site Url');
+                    ->assertPathIs('/admin/settings/content')
+                    ->assertSee('What should we show on frontpage?')
+                    ->assertSee('Pagination Type')
+                    ->assertSee('Items Per Page');
         });
     }
 
-    public function test_user_can_change_title_setting()
+    public function test_user_can_change_frontpage_setting()
     {
         $super = Role::find(1);
         $user = factory(User::class)->create([
@@ -46,18 +45,20 @@ class WebsiteSettingsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->clear('title')
-                    ->type('title', 'Title Test Success!')
+                    ->select('frontPageType', 'index-page')
+                    ->select('frontPageMeta', '2')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/')
-                    ->assertSee('Title Test Success!');
+                    ->visit('/admin/settings/content')
+                    ->pause(2000)
+                    ->assertSelected('frontPageType', 'index-page')
+                    ->assertSelected('frontPageMeta', '2');
         });
     }
 
-    public function test_user_can_change_tagline_setting()
+    public function test_user_can_change_pagination_type_setting()
     {
         $super = Role::find(1);
         $user = factory(User::class)->create([
@@ -67,19 +68,18 @@ class WebsiteSettingsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->clear('tagline')
-                    ->type('tagline', 'Tagline Test Success!')
+                    ->select('paginationType', 'standard')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->assertInputValue('tagline', 'Tagline Test Success!');
+                    ->assertSelected('paginationType', 'standard');
         });
     }
 
-    public function test_user_can_change_url_setting()
+    public function test_user_can_change_items_per_page_setting()
     {
         $super = Role::find(1);
         $user = factory(User::class)->create([
@@ -89,15 +89,15 @@ class WebsiteSettingsTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->clear('url')
-                    ->type('url', 'laraone.com')
+                    ->clear('paginationPerPage')
+                    ->type('paginationPerPage', '5')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/admin/settings/website')
+                    ->visit('/admin/settings/content')
                     ->pause(2000)
-                    ->assertInputValue('url', 'laraone.com');
+                    ->assertInputValue('paginationPerPage', '5');
         });
     }
 }

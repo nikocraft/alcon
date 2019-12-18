@@ -1,30 +1,22 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Content;
 
 use App\Models\User;
 use App\Models\Role;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\Artisan;
 
 class PostsTest extends DuskTestCase
 {
 
-
-    protected static $db_inited = false;
+    use WithFaker;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        if (!static::$db_inited) {
-            static::$db_inited = true;
-            $path = __DIR__ . '../../../sqlite.testing.database';
-            file_put_contents($path, '');
-            Artisan::call('laraone:install');
-        }
     }
 
     public function test_super_user_can_create_post()
@@ -35,23 +27,23 @@ class PostsTest extends DuskTestCase
         ]);
         $user->attachRole($super);
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $postName = $this->faker->lexify('??????');
+
+        $this->browse(function (Browser $browser) use ($user, $postName) {
             $browser->loginAs($user)
                     ->visit('/admin/content/posts')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts')
                     ->press('Create')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', 'Post Super')
+                    ->type('title', $postName)
                     ->press('Save')
-                    ->pause(3000)
-                    ->visit('/posts/post-super')
-                    ->pause(3000)
-                    ->assertSee('Post Super');
+                    ->pause(2000);
         });
 
-        $this->get('/posts/post-super')->assertStatus(200);
+        $this->get('/posts/' . strtolower($postName))->assertStatus(200);
+
     }
 
     public function test_admin_user_can_create_post()
@@ -62,23 +54,23 @@ class PostsTest extends DuskTestCase
         ]);
         $user->attachRole($admin);
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $postName = $this->faker->lexify('??????');
+
+        $this->browse(function (Browser $browser) use ($user, $postName) {
             $browser->loginAs($user)
                     ->visit('/admin/content/posts')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts')
                     ->press('Create')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', 'Post Admin')
+                    ->type('title', $postName)
                     ->press('Save')
-                    ->pause(3000)
-                    ->visit('/posts/post-admin')
-                    ->pause(3000)
-                    ->assertSee('Post Admin');
+                    ->pause(2000);
         });
 
-        $this->get('/posts/post-admin')->assertStatus(200);
+        $this->get('/posts/' . strtolower($postName))->assertStatus(200);
+
     }
 
     public function test_end_client_can_create_post()
@@ -89,22 +81,22 @@ class PostsTest extends DuskTestCase
         ]);
         $user->attachRole($endClient);
 
-        $this->browse(function (Browser $browser) use ($user) {
+        $postName = $this->faker->lexify('??????');
+
+        $this->browse(function (Browser $browser) use ($user, $postName) {
             $browser->loginAs($user)
                     ->visit('/admin/content/posts')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts')
                     ->press('Create')
-                    ->pause(3000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', 'Post End Client')
+                    ->type('title', $postName)
                     ->press('Save')
-                    ->pause(3000)
-                    ->visit('/posts/post-end-client')
-                    ->pause(3000)
-                    ->assertSee('Post End Client');
+                    ->pause(2000);
         });
 
-        $this->get('/posts/post-end-client')->assertStatus(200);
+        $this->get('/posts/' . strtolower($postName))->assertStatus(200);
+
     }
 }

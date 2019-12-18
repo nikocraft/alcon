@@ -5,6 +5,8 @@
 /.idea
 /tests/Browser/screenshots/*
 /tests/Browser/console/*
+/tests/Browser/Pages/*
+/tests/Browser/ExampleTest.php
 /
 Homestead.json
 Homestead.yaml

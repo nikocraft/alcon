@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Auth;
 
 use App\Models\User;
 use App\Models\Role;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\Browser\Traits\EmailTrait;
 
@@ -42,14 +41,14 @@ class LoginTest extends DuskTestCase
         });
     }
 
-    // public function test_guest_cannot_view_admin_page()
-    // {
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/admin/content/pages')
-    //                 ->pause(3000)
-    //                 ->assertPathIs('/auth/login');
-    //     });
-    // }
+    public function test_guest_cannot_view_admin_page()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/admin/content/pages')
+                    ->pause(1000)
+                    ->assertPathIs('/auth/login');
+        });
+    }
 
     public function test_user_enters_wrong_password_and_fails_logging_in() {
         $this->browse(function (Browser $browser) {
@@ -68,34 +67,34 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'example@example.com')
                     ->press('.btn-auth')
-                    ->pause(1000)
+                    ->pause(2000)
                     ->assertSee("We can't find a user with that e-mail address.");
         });
     }
 
-    // public function test_user_successfully_resets_password() {
+    public function test_user_successfully_resets_password() {
 
-    //     $this->deleteEmails();
+        $this->deleteEmails();
 
-    //     $this->browse(function (Browser $browser) {
-    //         $browser->visit('/auth/login')
-    //                 ->click('a[href="/auth/password/reset"]')
-    //                 ->type('email', 'admin@gmail.com')
-    //                 ->press('.btn-auth')
-    //                 ->pause(8000)
-    //                 ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
-    //                 ->visit($this->getEmail())->screenshot('email_reset')->assertPresent('.button-primary')
-    //                 ->pause(3000);
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/auth/login')
+                    ->click('a[href="/auth/password/reset"]')
+                    ->type('email', 'admin@gmail.com')
+                    ->press('.btn-auth')
+                    ->pause(6000)
+                    ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
+                    ->visit($this->getEmail())->screenshot('email_reset')->assertPresent('.button-primary')
+                    ->pause(1000);
 
-    //                 // Trick to avoid _blank
-    //                 $urlConfirm = $browser->element('.button-primary')->getAttribute('href');
-    //                 $browser->visit($urlConfirm)->screenshot('confirmation_reset_email')->assertSee('RESET YOUR PASSWORD')
+                    // Trick to avoid _blank
+                    $urlConfirm = $browser->element('.button-primary')->getAttribute('href');
+                    $browser->visit($urlConfirm)->screenshot('confirmation_reset_email')->assertSee('RESET YOUR PASSWORD')
 
-    //                 ->type('password', '11111111')
-    //                 ->type('passwordConfirmation', '11111111')
-    //                 ->press('.btn-auth')
-    //                 ->pause(2000)
-    //                 ->assertSee('Your password has been reset!');
-    //     });
-    // }
+                    ->type('password', '11111111')
+                    ->type('passwordConfirmation', '11111111')
+                    ->press('.btn-auth')
+                    ->pause(2000)
+                    ->assertSee('Your password has been reset!');
+        });
+    }
 }
