@@ -6,10 +6,26 @@ use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 abstract class DuskTestCase extends BaseTestCase
 {
     use CreatesApplication;
+
+    protected static $db_inited = false;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        if (!static::$db_inited) {
+            static::$db_inited = true;
+            $path = __DIR__ . '../../../sqlite.testing.database';
+            file_put_contents($path, '');
+            Artisan::call('laraone:install');
+        }
+    }
 
     /**
      * Prepare for Dusk test execution.
@@ -23,6 +39,24 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
+     * Setup test class before running tests
+     *
+     * @beforeClass
+     * @return void
+     */
+    // public function setUp(): void
+    // {
+    //     parent::setUp();
+
+    //     if (!static::$db_inited) {
+    //         static::$db_inited = true;
+    //         $path = __DIR__ . './sqlite.testing.database';
+    //         file_put_contents($path, '');
+    //         Artisan::call('laraone:install');
+    //     }
+    // }
+
+    /**
      * Create the RemoteWebDriver instance.
      *
      * @return \Facebook\WebDriver\Remote\RemoteWebDriver
@@ -30,8 +64,8 @@ abstract class DuskTestCase extends BaseTestCase
     protected function driver()
     {
         $options = (new ChromeOptions)->addArguments([
-            '--disable-gpu',
-            '--headless',
+            // '--disable-gpu',
+            // '--headless',
             '--window-size=1920,1080',
         ]);
 
