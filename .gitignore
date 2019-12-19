@@ -6,6 +6,8 @@ Homestead.json
 Homestead.yaml
 .env
 .env.dusk.local
+tests/sqlite.testing.database
+.phpunit.result.cache
 .DS_Store
 .vscode/launch.json
 yarn-error.log
