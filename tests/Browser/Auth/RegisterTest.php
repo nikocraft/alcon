@@ -28,13 +28,13 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(1000)
-                    ->type('firstname', $this->faker->firstName)
-                    ->type('lastname', $this->faker->lastName)
+                    ->type('firstname', $this->faker->lexify('??????'))
+                    ->type('lastname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
                     ->type('email', $this->faker->email)
                     ->type('password', '12341234')
                     ->press('.btn-auth')
-                    ->pause(5000)
+                    ->pause(5400)
                     ->assertSee('You have successfully registered an account! We\'ve sent you an email to activate your account.');
         });
     }
@@ -47,8 +47,8 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(1000)
-                    ->type('firstname', $this->faker->firstName)
-                    ->type('lastname', $this->faker->lastName)
+                    ->type('firstname', $this->faker->lexify('??????'))
+                    ->type('lastname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
                     ->type('email', $this->faker->email)
                     ->type('password', '12341234')
@@ -70,12 +70,11 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(2000)
-                    ->type('firstname', $this->faker->firstName)
+                    ->type('firstname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
                     ->type('email', $this->faker->email)
                     ->type('password', '12341234')
                     ->press('.btn-auth')
-                    ->pause(2000)
                     ->assertSee('Required Field');
         });
     }
@@ -86,12 +85,11 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(2000)
-                    ->type('firstname', $this->faker->firstName)
-                    ->type('lastname', $this->faker->lastName)
+                    ->type('firstname', $this->faker->lexify('??????'))
+                    ->type('lastname', $this->faker->lexify('??????'))
                     ->type('email', $this->faker->email)
                     ->type('password', '12341234')
                     ->press('.btn-auth')
-                    ->pause(2000)
                     ->assertSee('Required Field');
         });
     }
@@ -102,12 +100,11 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(2000)
-                    ->type('firstname', $this->faker->firstName)
-                    ->type('lastname', $this->faker->lastName)
+                    ->type('firstname', $this->faker->lexify('??????'))
+                    ->type('lastname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
                     ->type('password', '12341234')
                     ->press('.btn-auth')
-                    ->pause(2000)
                     ->assertSee('Enter Valid Email');
         });
     }
@@ -118,12 +115,11 @@ class RegisterTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/register')
                     ->pause(2000)
-                    ->type('firstname', $this->faker->firstName)
-                    ->type('lastname', $this->faker->lastName)
+                    ->type('firstname', $this->faker->lexify('??????'))
+                    ->type('lastname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
                     ->type('email', $this->faker->email)
                     ->press('.btn-auth')
-                    ->pause(2000)
                     ->assertSee('Required Field');
         });
     }

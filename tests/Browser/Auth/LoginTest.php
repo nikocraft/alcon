@@ -67,7 +67,7 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'example@example.com')
                     ->press('.btn-auth')
-                    ->pause(200)
+                    ->pause(1600)
                     ->assertSee("We can't find a user with that e-mail address.");
         });
     }
@@ -81,7 +81,7 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'admin@gmail.com')
                     ->press('.btn-auth')
-                    ->pause(2500)
+                    ->pause(4700)
                     ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
                     ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
                     ->pause(1500);
@@ -93,7 +93,7 @@ class LoginTest extends DuskTestCase
                     ->type('password', '11111111')
                     ->type('passwordConfirmation', '11111111')
                     ->press('.btn-auth')
-                    ->pause(1500)
+                    ->pause(1900)
                     ->assertSee('Your password has been reset!');
         });
     }

@@ -19,6 +19,33 @@ class PagesTest extends DuskTestCase
         parent::setUp();
     }
 
+    public function test_super_user_can_create_empty_page()
+    {
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $pageName = $this->faker->lexify('??????');
+
+        $this->browse(function (Browser $browser) use ($user, $pageName) {
+            $browser->loginAs($user)
+                    ->visit('/admin/content/pages')
+                    ->pause(2000)
+                    ->assertPathIs('/admin/content/pages')
+                    ->press('Create')
+                    ->pause(1000)
+                    ->assertPathIs('/admin/content/pages/create')
+                    ->type('title', strtolower($pageName))
+                    ->press('Save')
+                    ->pause(2000);
+        });
+
+        $this->get('/' . strtolower($pageName))->assertStatus(200);
+
+    }
+
     public function test_super_user_can_create_page()
     {
         $super = Role::find(1);
@@ -27,9 +54,10 @@ class PagesTest extends DuskTestCase
         ]);
         $user->attachRole($super);
 
-        $postName = $this->faker->lexify('??????');
+        $pageName = $this->faker->lexify('??????');
 
-        $this->browse(function (Browser $browser) use ($user, $postName) {
+        $this->browse(function (Browser $browser) use ($user, $pageName) {
+            $testString = 'Hello World, Super User Testing Pages';
             $browser->loginAs($user)
                     ->visit('/admin/content/pages')
                     ->pause(2000)
@@ -37,12 +65,17 @@ class PagesTest extends DuskTestCase
                     ->press('Create')
                     ->pause(1000)
                     ->assertPathIs('/admin/content/pages/create')
-                    ->type('title', strtolower($postName))
+                    ->type('title', strtolower($pageName))
+                    ->pause(2000)
+                    ->press('Headline')
+                    ->type('#pane-content > div > div.components > div > div > div.content-block-body > h2', $testString)
                     ->press('Save')
-                    ->pause(1000);
+                    ->pause(2000)
+                    ->visit('/' . $pageName)
+                    ->pause(2000)
+                    ->assertSee($testString);
         });
 
-        $this->get('/' . strtolower($postName))->assertStatus(200);
     }
 
     public function test_admin_user_can_create_page()
@@ -53,9 +86,10 @@ class PagesTest extends DuskTestCase
         ]);
         $user->attachRole($admin);
 
-        $postName = $this->faker->lexify('??????');
+        $pageName = $this->faker->lexify('??????');
 
-        $this->browse(function (Browser $browser) use ($user, $postName) {
+        $this->browse(function (Browser $browser) use ($user, $pageName) {
+            $testString = 'Hello World, Admin Testing Pages';
             $browser->loginAs($user)
                     ->visit('/admin/content/pages')
                     ->pause(1000)
@@ -63,37 +97,48 @@ class PagesTest extends DuskTestCase
                     ->press('Create')
                     ->pause(1000)
                     ->assertPathIs('/admin/content/pages/create')
-                    ->type('title', strtolower($postName))
+                    ->type('title', strtolower($pageName))
+                    ->pause(2000)
+                    ->press('Headline')
+                    ->type('#pane-content > div > div.components > div > div > div.content-block-body > h2', $testString)
                     ->press('Save')
-                    ->pause(1000);
+                    ->pause(2000)
+                    ->visit('/' . $pageName)
+                    ->pause(2000)
+                    ->assertSee($testString);
         });
 
-        $this->get('/' . strtolower($postName))->assertStatus(200);
     }
 
-    public function test_end_client_can_create_page()
+    public function test_client_can_create_page()
     {
-        $endClient = Role::find(3);
+        $client = Role::find(3);
         $user = factory(User::class)->create([
             'activated' => true
         ]);
-        $user->attachRole($endClient);
+        $user->attachRole($client);
 
-        $postName = $this->faker->lexify('??????');
+        $pageName = $this->faker->lexify('??????');
 
-        $this->browse(function (Browser $browser) use ($user, $postName) {
+        $this->browse(function (Browser $browser) use ($user, $pageName) {
+            $testString = 'Hello World, Client Testing Pages';
             $browser->loginAs($user)
                     ->visit('/admin/content/pages')
-                    ->pause(1000)
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/pages')
                     ->press('Create')
                     ->pause(1000)
                     ->assertPathIs('/admin/content/pages/create')
-                    ->type('title', strtolower($postName))
+                    ->type('title', strtolower($pageName))
+                    ->pause(2000)
+                    ->press('Headline')
+                    ->type('#pane-content > div > div.components > div > div.content-block.content-block_headline > div.content-block-body > h2', $testString)
                     ->press('Save')
-                    ->pause(1000);
+                    ->pause(2000)
+                    ->visit('/' . $pageName)
+                    ->pause(2000)
+                    ->assertSee($testString);
         });
 
-        $this->get('/' . strtolower($postName))->assertStatus(200);
     }
 }

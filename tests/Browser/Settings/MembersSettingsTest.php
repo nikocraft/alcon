@@ -48,10 +48,14 @@ class MembersSettingsTest extends DuskTestCase
                     ->select('allowRegistrations', 'true')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/admin/settings/members')
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->pause(1000)
+                    ->visit('/auth/register')
                     ->pause(2000)
-                    ->assertSelected('allowRegistrations', 'true');
+                    ->assertSee('SIGN UP');
         });
+
     }
 
     public function test_user_can_change_display_name_setting()
