@@ -67,7 +67,7 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'example@example.com')
                     ->press('.btn-auth')
-                    ->pause(1600)
+                    ->pause(2200)
                     ->assertSee("We can't find a user with that e-mail address.");
         });
     }
@@ -93,7 +93,7 @@ class LoginTest extends DuskTestCase
                     ->type('password', '11111111')
                     ->type('passwordConfirmation', '11111111')
                     ->press('.btn-auth')
-                    ->pause(1900)
+                    ->pause(2400)
                     ->assertSee('Your password has been reset!');
         });
     }

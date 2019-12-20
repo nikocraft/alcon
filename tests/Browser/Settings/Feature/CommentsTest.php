@@ -67,6 +67,46 @@ class CommentsTest extends DuskTestCase
 
     }
 
+    public function test_user_posts_a_disqus_comment()
+    {
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $postName = $this->faker->lexify('??????');
+            $browser->loginAs($user)
+                    ->visit('/admin/content/posts')
+                    ->pause(2000)
+                    ->assertPathIs('/admin/content/posts')
+                    ->press('Create')
+                    ->pause(2000)
+                    ->assertPathIs('/admin/content/posts/create')
+                    ->type('title', $postName)
+                    ->press('Save')
+                    ->pause(1000);
+
+            $browser->visit('/admin/settings/comments')
+                    ->pause(2000)
+                    ->assertPathIs('/admin/settings/comments')
+                    ->select('type', 'disqus')
+                    ->type('disqusChannel', 'disqus')
+                    ->press('Save')
+                    ->pause(2000)
+                    ->visit('/admin/settings/comments')
+                    ->pause(2000)
+                    ->assertSelected('type', 'disqus');
+
+            $browser->visit('/posts/' . $postName)
+                    ->pause(2000)
+                    ->assertSee($postName)
+                    ->assertPresent('#disqus_thread');
+        });
+
+    }
+
     public function test_user_turns_off_comments()
     {
         $super = Role::find(1);
