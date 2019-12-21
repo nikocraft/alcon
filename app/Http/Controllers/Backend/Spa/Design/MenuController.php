@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Spa\Design;
 
+use Cache;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Website;
 use App\Models\Core\Design\Menu;
 use App\Models\Core\Design\MenuItem;
-
-use Cache;
-
 use App\Http\Resources\Design\MenuResource;
 use App\Http\Resources\Design\MenuItemResource;
 use App\Http\Resources\ThemeSettingsResource;
-
 use App\Services\WebsiteService;
 use App\Services\ThemeService;
 

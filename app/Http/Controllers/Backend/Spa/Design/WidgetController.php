@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Backend\Spa\Design;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Core\Settings\Website;
 use App\Models\Core\Design\WidgetGroup;
 use App\Models\Core\Content\ContentType;
-
 use App\Services\ThemeService;
 use App\Services\WidgetService;
-
 use App\Http\Resources\WidgetGroupResource;
 use App\Http\Resources\ThemeSettingsResource;
 

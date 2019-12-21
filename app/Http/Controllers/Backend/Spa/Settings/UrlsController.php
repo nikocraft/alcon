@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Core\Content\ContentType;
 use App\Models\Core\Taxonomies\Taxonomy;
-
 use App\Http\Resources\ContentTypeResource;
 
 class UrlsController extends Controller

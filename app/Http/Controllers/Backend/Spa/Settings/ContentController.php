@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Spa\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Website;
 use App\Services\WebsiteService;
 
 class ContentController extends Controller

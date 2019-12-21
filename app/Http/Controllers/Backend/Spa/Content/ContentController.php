@@ -11,9 +11,6 @@ use App\Models\Core\Content\TemplateBlock;
 use App\Models\Core\Content\Content;
 use App\Models\Core\Content\ContentBlock;
 use App\Models\Core\Content\Block;
-use App\Models\Core\Settings\Website;
-
-use App\Models\Core\Settings\Setting;
 use App\Models\Core\Taxonomies\Taxonomy;
 
 use Artisan;

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Backend\Spa\Content;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Content\ContentType;
-use App\Models\Core\Settings\Website;
-
 use App\Http\Resources\ContentTypeResource;
 
 class ContentTypeController extends Controller

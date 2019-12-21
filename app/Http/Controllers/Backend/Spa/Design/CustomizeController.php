@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\Backend\Spa\Design;
 
 use ThemeManager;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Setting;
-use App\Models\Core\Settings\Website;
 use App\Http\Resources\ThemeResource;
-
 use App\Services\ThemeService;
 
 class CustomizeController extends Controller

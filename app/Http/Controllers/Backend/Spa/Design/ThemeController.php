@@ -7,9 +7,7 @@ use ThemeManager;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Setting;
 use App\Models\Core\Design\Theme;
-use App\Models\Core\Settings\Website;
 use App\Http\Resources\ThemeResource;
 
 use App\Services\WebsiteService;
