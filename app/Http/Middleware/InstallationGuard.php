@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use DB;
 use Schema;
-use App\Models\Core\Settings\Website;
+use App\Models\Core\Settings\Setting;
 
 class InstallationGuard
 {
@@ -20,7 +20,7 @@ class InstallationGuard
     public function handle($request, Closure $next, $guard = null)
     {
         if($this->testDbConnection()
-            && Schema::hasTable( (new Website)->getTable() )
+            && Schema::hasTable( (new Setting)->getTable() )
         ) {
             $installedFlag = get_website_setting('cms.installed');
             if($installedFlag) {

@@ -220,7 +220,7 @@ return [
         'ImgManager' => Intervention\Image\Facades\Image::class,
 
         // Laraone own models
-        'Website' => App\Models\Core\Settings\Website::class,
+        'Setting' => App\Models\Core\Settings\Setting::class,
         'Theme' => App\Models\Core\Design\Theme::class,
         'Admin' => App\Models\Core\Settings\Admin::class,
         'AdminMenu' => App\Models\Core\Settings\AdminMenu::class,

@@ -13,7 +13,7 @@ class CreateWebsiteSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('website', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('key', 60);

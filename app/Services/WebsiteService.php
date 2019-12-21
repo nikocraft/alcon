@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Core\Settings\Website;
+use App\Models\Core\Settings\Setting;
 use App\Models\Core\Design\ThemeSetting;
 
 class WebsiteService
@@ -19,14 +19,14 @@ class WebsiteService
 
     public function updateSetting($section, $key, $value)
     {
-        $section = Website::where('key', $section)->first();
-        $setting = Website::where('key', $key)->where('parent_id', $section->id)->update(['value' => $value]);
+        $section = Setting::where('key', $section)->first();
+        $setting = Setting::where('key', $key)->where('parent_id', $section->id)->update(['value' => $value]);
 
         return $setting;
     }
 
     public function getSettings() {
-        $websiteSettings = Website::with('settings')->where('type', 'section')->get();
+        $websiteSettings = Setting::with('settings')->where('type', 'section')->get();
         $websiteSettings = collect($websiteSettings->toArray());
 
         $websiteSettings = $websiteSettings->mapWithKeys(function ($item) {

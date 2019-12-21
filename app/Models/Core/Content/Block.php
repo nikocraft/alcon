@@ -9,6 +9,8 @@ class Block extends Model
 {
     use HasSettings;
 
+    protected $table = "blocks";
+
     protected $fillable = ['content', 'unique_id', 'type', 'order', 'settings', 'user_id', 'parent_id', 'meta'];
 
     public $casts = [
