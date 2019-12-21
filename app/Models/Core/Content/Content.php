@@ -14,15 +14,15 @@ use App\Models\Core\Media\Image;
 use App\Models\Core\Comments\Comment;
 use App\Models\Traits\Sluggable;
 use App\Models\Traits\HasBlocks;
-use App\Models\Traits\HasSettings;
+use App\Models\Traits\HasSchemalessAttributes;
 
 class Content extends Model
 {
-    use Sluggable, HasBlocks, HasSettings;
+    use Sluggable, HasBlocks, HasSchemalessAttributes;
 
     protected $table = "content";
 
-    protected $fillable = ['id'];
+    protected $fillable = ['id', 'title', 'slug', 'user_id', 'parent_id', 'status', 'access', 'layout', 'views', 'order', 'sticky', 'js', 'css', 'seo', 'resources', 'settings'];
 
     // content status
     const PUBLISH = 1;

@@ -5,12 +5,12 @@ namespace App\Models\Core\Design;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Traits\HasWidgets;
-use App\Models\Traits\HasSettings;
+use App\Models\Traits\HasSchemalessAttributes;
 
 class WidgetGroup extends Model
 {
     use HasWidgets;
-    use HasSettings;
+    use HasSchemalessAttributes;
 
     protected $table = "widget_groups";
 
