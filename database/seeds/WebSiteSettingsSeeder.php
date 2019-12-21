@@ -35,7 +35,7 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'language', 'value' => 'english', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'comments', 'value' => 'Comments', 'type' => 'section']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'type', 'value' => 'native', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'type', 'value' => 'off', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'loggedInToComment', 'value' => false, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id, 'key' => 'allowNested', 'value' => true, 'type' => 'boolean']);
         Website::create(['parent_id' => $parent->id, 'key' => 'nestedDepth', 'value' => 1, 'type' => 'integer']);
