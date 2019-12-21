@@ -31,8 +31,8 @@ class WebSiteSettingsSeeder extends Seeder
         Website::create(['parent_id' => $parent->id, 'key' => 'paginationPerPage', 'value' => 12, 'type' => 'string']);
 
         $parent = Website::create(['key' => 'admin', 'value' => 'Admin', 'type' => 'section']);
-        Website::create(['parent_id' => $parent->id, 'key' => 'email', 'value' => '', 'type' => 'string']);
         Website::create(['parent_id' => $parent->id, 'key' => 'language', 'value' => 'english', 'type' => 'string']);
+        Website::create(['parent_id' => $parent->id, 'key' => 'theme', 'value' => 'dark', 'type' => 'string']);
 
         $parent = Website::create(['key' => 'comments', 'value' => 'Comments', 'type' => 'section']);
         Website::create(['parent_id' => $parent->id, 'key' => 'type', 'value' => 'off', 'type' => 'string']);
