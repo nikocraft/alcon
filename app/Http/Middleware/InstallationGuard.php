@@ -22,7 +22,7 @@ class InstallationGuard
         if($this->testDbConnection()
             && Schema::hasTable( (new Website)->getTable() )
         ) {
-            $installedFlag = get_website_setting('website.installed');
+            $installedFlag = get_website_setting('cms.installed');
             if($installedFlag) {
                 return redirect()->route('login');
             }
