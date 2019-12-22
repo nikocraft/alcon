@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Spa\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Website;
 use App\Services\WebsiteService;
 
 class WebsiteController extends Controller
@@ -18,7 +17,7 @@ class WebsiteController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('website');
+        $settings = get_website_setting('website.general');
 
         return response()->json([
             'data' => $settings
@@ -27,10 +26,8 @@ class WebsiteController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('website', $request->settings);
+        $this->websiteService->updateSettings('website.general', $request->settings);
 
-        return response()->json([
-            'status' => 'success',
-        ]);
+        return response()->json([], 200);
     }
 }

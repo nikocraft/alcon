@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use DB;
 use Schema;
-use App\Models\Core\Settings\Website;
+use App\Models\Core\Settings\Setting;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         if($this->testDbConnection()
-            && Schema::hasTable( (new Website)->getTable() )
+            && Schema::hasTable( (new Setting)->getTable() )
         ) {
             $this->mapSpaRoutes();
             $this->mapAuthRoutes();

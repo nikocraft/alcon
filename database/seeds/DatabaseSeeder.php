@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminThemeSeeder::class);
         $this->call(DefaultThemeSeeder::class);
 
-        $this->websiteService->updateSetting('cms', 'installed', true);
+        $this->websiteService->updateSetting('cms.installed', true);
     }
 }

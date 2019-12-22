@@ -8,6 +8,7 @@ use Config;
 use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\WebsiteService;
 use App\Services\ThemeService;
 
 class InstallCommand extends BaseCommand
@@ -43,7 +44,9 @@ class InstallCommand extends BaseCommand
      */
     public function handle()
     {
-        $phoenixVersion = $this->getPhoenixLastVersion();
+        $websiteService = new WebsiteService;
+        $themeService = new ThemeService;
+        $phoenixLastVersion = $this->getPhoenixLastVersion();
 
         if($this->option('create-user')) {
             $username = $this->askWithValidation('Enter username', null, function ($value) {
@@ -71,8 +74,8 @@ class InstallCommand extends BaseCommand
         Artisan::call('config:cache');
 
         $this->info('About to download & install admin and default frontend theme.');
-        $this->fetchAdminTheme($phoenixVersion);
-        $this->fetchDefaultTheme($phoenixVersion);
+        $this->fetchAdminTheme($phoenixLastVersion);
+        $this->fetchDefaultTheme($phoenixLastVersion);
 
         $this->info('Running migrations.');
         Artisan::call('migrate:fresh', [
@@ -134,9 +137,12 @@ class InstallCommand extends BaseCommand
             $this->info(Artisan::output());
         }
 
-        $themeService = new ThemeService;
         $adminTheme = $themeService->getThemeByNamespace('com.reimaginedworks.atlas');
-        $this->info('Phoenix Backend: v' . $phoenixVersion . ', Atlas Admin: v' .  $adminTheme->version);
+        $this->info('Phoenix Backend: v' . $phoenixLastVersion . ', Atlas Admin: v' .  $adminTheme->version);
+
+        $websiteService->updateSetting('cms.phoenix', $phoenixLastVersion);
+        $websiteService->updateSetting('cms.atlas', $adminTheme->version);
+
         $this->info('Laraone CMS is now correctly installed!');
     }
 }

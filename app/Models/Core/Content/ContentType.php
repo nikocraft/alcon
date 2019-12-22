@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Core\Taxonomies\Taxonomy;
 use App\Models\Core\Settings\AdminMenu;
 
-use App\Models\Traits\HasSettings;
+use App\Models\Traits\HasSchemalessAttributes;
 
 class ContentType extends Model
 {
-    use HasSettings;
+    use HasSchemalessAttributes;
     
     protected $fillable = ['name', 'name_singular', 'slug', 'front_slug', 'type', 'settings', 'locked'];
 

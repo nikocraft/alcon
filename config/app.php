@@ -220,7 +220,7 @@ return [
         'ImgManager' => Intervention\Image\Facades\Image::class,
 
         // Laraone own models
-        'Website' => App\Models\Core\Settings\Website::class,
+        'Setting' => App\Models\Core\Settings\Setting::class,
         'Theme' => App\Models\Core\Design\Theme::class,
         'Admin' => App\Models\Core\Settings\Admin::class,
         'AdminMenu' => App\Models\Core\Settings\AdminMenu::class,
@@ -228,10 +228,7 @@ return [
         'Content' => App\Models\Core\Base\Content::class,
         // 'Image' => App\Models\Core\Media\Image::class,
         'WidgetGroup' => App\Models\Core\Design\WidgetGroup::class,
-
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'Module' => Caffeinated\Modules\Facades\Module::class,
-
         'Content' => App\Models\Core\Content\Content::class,
         'Menu' => App\Models\Core\Design\Menu::class,
         'MenuItem' => App\Models\Core\Design\MenuItem::class,

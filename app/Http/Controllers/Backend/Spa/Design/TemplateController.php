@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers\Backend\Spa\Design;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use App\Models\Core\Content\ContentType;
-use App\Models\Core\Content\Template;
-use App\Models\Core\Content\Block;
-use App\Models\Core\Base\Tag;
-use App\Models\Core\Settings\Website;
-
 use DB;
 use Session;
 use Auth;
 use Validator;
 use Carbon\Carbon;
-
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\TemplateResource;
 use App\Http\Resources\TemplateBlockResource;
 use App\Http\Resources\TagResource;
+
+use App\Models\Core\Content\ContentType;
+use App\Models\Core\Content\Template;
+use App\Models\Core\Content\Block;
+use App\Models\Core\Base\Tag;
 
 class TemplateController extends Controller
 {

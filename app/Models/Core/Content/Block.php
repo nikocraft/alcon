@@ -3,11 +3,13 @@
 namespace App\Models\Core\Content;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSettings;
+use App\Models\Traits\HasSchemalessAttributes;
 
 class Block extends Model
 {
-    use HasSettings;
+    use HasSchemalessAttributes;
+
+    protected $table = "blocks";
 
     protected $fillable = ['content', 'unique_id', 'type', 'order', 'settings', 'user_id', 'parent_id', 'meta'];
 

@@ -42,7 +42,7 @@ class ThemeUpdateCommand extends BaseCommand
         $themeName = $this->option('theme');
 
         $websiteService = new WebsiteService;
-        $phoenixVersion = get_website_setting('laraone.phoenix');
+        $phoenixVersion = get_website_setting('cms.phoenix');
 
         $themeService = new ThemeService;
         $theme = $themeService->getThemeByFolderName($themeName);

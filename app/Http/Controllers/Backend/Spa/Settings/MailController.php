@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Artisan;
-use App\Models\Core\Settings\Website;
 use App\Services\WebsiteService;
 
 class MailController extends Controller

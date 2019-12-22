@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Spa\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Website;
 use App\Services\WebsiteService;
 
 class CommentsController extends Controller
@@ -18,18 +17,17 @@ class CommentsController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('comments');
+        $settings = get_website_setting('website.comments');
 
         return response()->json([
-            'status' => 'success',
             'data' => $settings
-        ], 200);
+        ]);
     }
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('comments', $request->settings);
+        $this->websiteService->updateSettings('website.comments', $request->settings);
 
-        return response()->json(['status' => 'success'], 200);
+        return response()->json([], 200);
     }
 }

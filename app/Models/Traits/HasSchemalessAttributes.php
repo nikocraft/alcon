@@ -5,7 +5,7 @@ namespace App\Models\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\SchemalessAttributes\SchemalessAttributes;
 
-trait HasSettings
+trait HasSchemalessAttributes
 {
     public function getSettingsAttribute(): SchemalessAttributes
     {

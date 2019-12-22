@@ -1,6 +1,8 @@
-MIT License
+## MIT License
 
-Copyright (c) 2019 Reimagined Works AB, Niko Craft
+Phoenix software is provided under MIT license. Phoenix is backend built for [Laraone CMS](https://www.laraone.com)
+
+Copyright (c) 2017-2020 Reimagined Works
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

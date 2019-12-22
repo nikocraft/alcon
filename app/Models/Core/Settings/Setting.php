@@ -3,15 +3,28 @@
 namespace App\Models\Core\Settings;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
 
 class Setting extends Model
 {
     protected $table = "settings";
 
-    protected $fillable = ['section', 'key', 'value', 'type'];
+    protected $fillable = ['key', 'value', 'meta'];
 
-    public function has_settings()
+    public $casts = [
+        'meta' => 'array',
+    ];
+
+    public function getMetaAttribute(): SchemalessAttributes
     {
-        return $this->morphTo();
+        $columnName = 'meta';
+        return SchemalessAttributes::createForModel($this, $columnName);
+    }
+
+    public function scopeWithMeta(): Builder
+    {
+        $columnName = 'meta';
+        return SchemalessAttributes::scopeWithSchemalessAttributes($columnName);
     }
 }

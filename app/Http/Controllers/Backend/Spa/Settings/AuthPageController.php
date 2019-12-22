@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Backend\Spa\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Core\Settings\Website;
 use App\Services\WebsiteService;
 
-class LoginController extends Controller
+class AuthPageController extends Controller
 {
     protected $websiteService;
 
@@ -18,7 +17,7 @@ class LoginController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('adminCustomLogin');
+        $settings = get_website_setting('website.adminAuthPage');
 
         return response()->json([
             'data' => $settings
@@ -27,8 +26,8 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('adminCustomLogin', $request->settings);
+        $this->websiteService->updateSettings('website.adminAuthPage', $request->settings);
 
-        return response()->json(['status' => 'success'], 200);
+        return response()->json([], 200);
     }
 }

@@ -2,53 +2,54 @@
 
 namespace App\Services;
 
-use App\Models\Core\Settings\Website;
+use App\Models\Core\Settings\Setting;
 use App\Models\Core\Design\ThemeSetting;
 
 class WebsiteService
 {
-    public function updateSettings($section, $settings)
+    public function updateSettings($path, $settings)
     {
-        foreach ($settings as $key => $value) {
-            $this->updateSetting($section, $key, $value);
-        }
+        list($section, $settingPath) = $this->extractSection($path);
 
-        $settings = get_theme_setting($section);
-        return $settings;
+        $setting = Setting::where('key', $section)->first();
+
+        foreach ($settings as $key => $value) {
+            $keysPath = $settingPath ? $settingPath . '.' . $key : $key;
+            $setting->meta->set($keysPath, $value);
+            $setting->save();
+        }
     }
 
-    public function updateSetting($section, $key, $value)
+    public function updateSetting($path, $value)
     {
-        $section = Website::where('key', $section)->first();
-        $setting = Website::where('key', $key)->where('parent_id', $section->id)->update(['value' => $value]);
-
-        return $setting;
+        list($section, $settingPath) = $this->extractSection($path);
+        $setting = Setting::where('key', $section)->first();
+        $setting->meta->set($settingPath, $value);
+        $setting->save();
     }
 
     public function getSettings() {
-        $websiteSettings = Website::with('settings')->where('type', 'section')->get();
+        $websiteSettings = Setting::all();
         $websiteSettings = collect($websiteSettings->toArray());
 
         $websiteSettings = $websiteSettings->mapWithKeys(function ($item) {
-            $settings = collect($item['settings']);
-            $settings = $settings->mapWithKeys(function ($setting) {
-                $value = null;
-                switch ($setting['type']) {
-                    case 'string':
-                        $value = $setting['value'];
-                    break;
-                    case 'integer':
-                        $value = (int)$setting['value'];
-                    break;
-                    case 'boolean':
-                        $value = filter_var($setting['value'], FILTER_VALIDATE_BOOLEAN);
-                    break;
-                }
-                return [$setting['key']=> $value];
-            });
-            return [$item['key'] => $settings];
+            $meta = collect($item['meta']);
+            return [$item['key'] => $meta];
         });
 
         return $websiteSettings;
+    }
+
+    private function extractSection($path) {
+        $section = null;
+        $settingPath = null;
+
+        if (strpos($path, '.') !== false) {
+            $exp = explode('.', $path, 2);
+            $section = $exp[0];
+            $settingPath = $exp[1];
+        }
+
+        return array($section, $settingPath);
     }
 }

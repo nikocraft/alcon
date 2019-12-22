@@ -43,7 +43,7 @@ class UpdateCommand extends BaseCommand
     {
         $websiteService = new WebsiteService;
         $themeService = new ThemeService;
-        $phoenixCurrentVersion = get_website_setting('laraone.phoenix');
+        $phoenixCurrentVersion = get_website_setting('cms.phoenix');
         $phoenixLastVersion = $this->getPhoenixLastVersion();
 
         Artisan::call('config:clear');
@@ -105,11 +105,6 @@ class UpdateCommand extends BaseCommand
 
             // fetch admin and active theme
             // $this->fetchThemes($phoenixLastVersion);
-
-            // update versions
-            $websiteService->updateSetting('laraone', 'phoenix', $phoenixLastVersion);
-            
-
             $this->info('Phoenix updated to v' . $phoenixLastVersion);
         } else {
             // fetch admin and active theme
@@ -117,12 +112,16 @@ class UpdateCommand extends BaseCommand
         }
 
         $this->fetchAdmin($phoenixLastVersion);
+
         if($this->option('fetch-active-theme')) {
             $this->fetchActiveTheme($phoenixLastVersion);
         }
         $adminTheme = $themeService->getThemeByFolderName('admin');
-        $websiteService->updateSetting('laraone', 'admin', $adminTheme->version);
-        $this->info('Phoenix: v' . $phoenixLastVersion . ', SPA Admin: v' .  $adminTheme->version);
+        $this->info('Phoenix: v' . $phoenixLastVersion . ', Atlas: v' .  $adminTheme->version);
+
+        $websiteService->updateSetting('cms.phoenix', $phoenixLastVersion);
+        $websiteService->updateSetting('cms.atlas', $adminTheme->version);
+
         $this->info('Laraone updated!');
     }
 

@@ -194,20 +194,12 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
-            'name' => 'Content',
-            'unique_id' =>'core.settings.content',
-            'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'route' => 'settings.content',
-            'order' => 30,
-        ]);
-
-        AdminMenu::create([
             'name' => 'Admin',
             'unique_id' =>'core.settings.admin',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.admin',
             'visible' => 0,
-            'order' => 40,
+            'order' => 30,
         ]);
 
         AdminMenu::create([
@@ -216,7 +208,7 @@ class AdminMenuSeeder extends Seeder
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.cache',
             'visible' => 0,
-            'order' => 50,
+            'order' => 40,
         ]);
 
         AdminMenu::create([
@@ -225,7 +217,7 @@ class AdminMenuSeeder extends Seeder
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.security',
             'visible' => 0,
-            'order' => 60,
+            'order' => 50,
         ]);
 
         AdminMenu::create([
@@ -233,15 +225,15 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.mail',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.mail',
-            'order' => 70,
+            'order' => 60,
         ]);
 
         AdminMenu::create([
-            'name' => 'Login',
-            'unique_id' =>'core.settings.login',
+            'name' => 'Auth Page',
+            'unique_id' =>'core.settings.authpage',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'route' => 'settings.login',
-            'order' => 80,
+            'route' => 'settings.auth',
+            'order' => 70,
         ]);
 
         AdminMenu::create([
@@ -249,7 +241,7 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.members',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.members',
-            'order' => 90,
+            'order' => 80,
         ]);
 
         AdminMenu::create([
@@ -257,7 +249,7 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.comments',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.comments',
-            'order' => 100,
+            'order' => 90,
         ]);
 
         AdminMenu::create([
@@ -265,7 +257,8 @@ class AdminMenuSeeder extends Seeder
             'unique_id' =>'core.settings.urls',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
             'route' => 'settings.urls',
-            'order' => 110,
+            'order' => 100,
+            'visible' => 0
         ]);
         /** Settings End */
     }

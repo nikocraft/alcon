@@ -3,8 +3,6 @@
 namespace App\Models\Core\Design;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Core\Settings\Website;
-use App\Http\Resources\ThemeResource;
 
 class Theme extends Model
 {
