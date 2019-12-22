@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Artisan;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 
 class MailController extends Controller
 {
     protected $websiteService;
 
-    public function __construct(WebsiteService $websiteService)
+    public function __construct(SettingsService $websiteService)
 	{
         $this->websiteService = $websiteService;
     }

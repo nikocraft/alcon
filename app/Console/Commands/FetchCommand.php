@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Artisan;
 use Illuminate\Console\Command;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 
 class FetchCommand extends BaseCommand
 {

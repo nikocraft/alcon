@@ -8,7 +8,7 @@ use Config;
 use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class InstallCommand extends BaseCommand
@@ -44,7 +44,7 @@ class InstallCommand extends BaseCommand
      */
     public function handle()
     {
-        $websiteService = new WebsiteService;
+        $websiteService = new SettingsService;
         $themeService = new ThemeService;
         $phoenixLastVersion = $this->getPhoenixLastVersion();
 

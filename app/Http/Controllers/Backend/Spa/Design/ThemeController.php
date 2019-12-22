@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Core\Design\Theme;
 use App\Http\Resources\ThemeResource;
 
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class ThemeController extends Controller
@@ -18,7 +18,7 @@ class ThemeController extends Controller
     protected $websiteService;
     protected $themeservice;
 
-    public function __construct(WebsiteService $websiteService, ThemeService $themeservice)
+    public function __construct(SettingsService $websiteService, ThemeService $themeservice)
     {
         $this->websiteService = $websiteService;
         $this->themeservice = $themeservice;
@@ -31,7 +31,7 @@ class ThemeController extends Controller
         $themes = Theme::where('folder', '!=', config('laraone.admin_theme.name'))->get();
 
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
+        $activeThemeId = data_get($websiteSettings, 'website.general.activeTheme');
 
         return ThemeResource::collection($themes)
             ->additional([
@@ -41,7 +41,7 @@ class ThemeController extends Controller
 
     public function setActive(Request $request)
     {
-        $this->websiteService->updateSetting('website', 'activeTheme', $request->id);
+        $this->websiteService->updateSetting('website.general.activeTheme', $request->id);
         return response()->json(null, 200);
     }
 

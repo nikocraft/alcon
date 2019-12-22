@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 
 class DatabaseSeeder extends Seeder
 {
     protected $websiteService;
 
-    public function __construct(WebsiteService $websiteService)
+    public function __construct(SettingsService $websiteService)
     {
         $this->websiteService = $websiteService;
     }

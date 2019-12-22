@@ -26,7 +26,7 @@ use App\Http\Resources\ContentTypeResource;
 use App\Http\Resources\ContentCollection;
 use App\Http\Resources\SettingResource;
 
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class ContentController extends Controller
@@ -34,7 +34,7 @@ class ContentController extends Controller
     protected $websiteService;
     protected $themeservice;
 
-    public function __construct(WebsiteService $websiteService, ThemeService $themeservice)
+    public function __construct(SettingsService $websiteService, ThemeService $themeservice)
 	{
         $this->websiteService = $websiteService;
         $this->themeservice = $themeservice;

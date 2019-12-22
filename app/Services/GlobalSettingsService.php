@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Core\Design\ThemeSetting;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class GlobalSettingsService
@@ -18,7 +18,7 @@ class GlobalSettingsService
 
     public function __construct()
 	{
-        $this->websiteService = new WebsiteService();
+        $this->websiteService = new SettingsService();
         $this->themeService = new ThemeService();
 
         // Initialise settings with null value first

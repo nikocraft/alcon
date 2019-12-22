@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class ThemeUpdateCommand extends BaseCommand
@@ -41,7 +41,7 @@ class ThemeUpdateCommand extends BaseCommand
     {
         $themeName = $this->option('theme');
 
-        $websiteService = new WebsiteService;
+        $websiteService = new SettingsService;
         $phoenixVersion = get_website_setting('cms.phoenix');
 
         $themeService = new ThemeService;
