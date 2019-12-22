@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Artisan;
 use Illuminate\Console\Command;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 use App\Services\ZipArchiveService;
 
@@ -41,7 +41,7 @@ class UpdateCommand extends BaseCommand
      */
     public function handle()
     {
-        $websiteService = new WebsiteService;
+        $websiteService = new SettingsService;
         $themeService = new ThemeService;
         $phoenixCurrentVersion = get_website_setting('cms.phoenix');
         $phoenixLastVersion = $this->getPhoenixLastVersion();
@@ -137,7 +137,7 @@ class UpdateCommand extends BaseCommand
     private function fetchActiveTheme($phoenixLastVersion)
     {
         // download active theme and update
-        $activeThemeId = get_website_setting('website.activeTheme');
+        $activeThemeId = get_website_setting('website.general.activeTheme');
         $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
     }
 
@@ -151,7 +151,7 @@ class UpdateCommand extends BaseCommand
         $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
 
         // download active theme and update
-        $activeThemeId = get_website_setting('website.activeTheme');
+        $activeThemeId = get_website_setting('website.general.activeTheme');
         $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
     }
 

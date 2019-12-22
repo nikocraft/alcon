@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Core\Settings\Setting;
 use App\Models\Core\Design\ThemeSetting;
 
-class WebsiteService
+class SettingsService
 {
     public function updateSettings($path, $settings)
     {

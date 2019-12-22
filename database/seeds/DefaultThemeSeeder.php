@@ -4,14 +4,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
 use App\Services\ThemeService;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 
 class DefaultThemeSeeder extends Seeder
 {
     protected $themeservice;
     protected $websiteService;
 
-    public function __construct(ThemeService $themeservice, WebsiteService $websiteService)
+    public function __construct(ThemeService $themeservice, SettingsService $websiteService)
     {
         $this->themeservice = $themeservice;
         $this->websiteService = $websiteService;

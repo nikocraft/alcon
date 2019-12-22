@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Core\Design\Theme;
 use App\Models\Core\Design\ThemeSetting;
 use App\Services\ZipArchiveService;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use File;
 
 class ThemeService
@@ -16,9 +16,9 @@ class ThemeService
 
     public function __construct()
 	{
-        $this->websiteService = new WebsiteService();
+        $this->websiteService = new SettingsService();
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
+        $activeThemeId = data_get($websiteSettings, 'website.general.activeTheme');
         $this->activeTheme = Theme::with('sections.settings')->find($activeThemeId);
     }
 

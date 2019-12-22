@@ -10,7 +10,7 @@ use App\Models\Core\Design\MenuItem;
 use App\Http\Resources\Design\MenuResource;
 use App\Http\Resources\Design\MenuItemResource;
 use App\Http\Resources\ThemeSettingsResource;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use App\Services\ThemeService;
 
 class MenuController extends Controller
@@ -18,7 +18,7 @@ class MenuController extends Controller
     protected $websiteService;
     protected $themeservice;
 
-    public function __construct(WebsiteService $websiteService, ThemeService $themeservice)
+    public function __construct(SettingsService $websiteService, ThemeService $themeservice)
     {
         $this->websiteService = $websiteService;
         $this->themeservice = $themeservice;
@@ -51,7 +51,7 @@ class MenuController extends Controller
     public function locations()
     {
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
+        $activeThemeId = data_get($websiteSettings, 'website.general.activeTheme');
         $locations = $this->themeservice->getSection($activeThemeId, 'menuLocations');
 
         return ThemeSettingsResource::collection($locations);

@@ -10,7 +10,7 @@ use Artisan;
 use DB;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\WebsiteService;
+use App\Services\SettingsService;
 use Carbon\Carbon;
 
 class InstallerController extends Controller
@@ -22,7 +22,7 @@ class InstallerController extends Controller
      *
      * @return void
      */
-    public function __construct(WebsiteService $websiteService)
+    public function __construct(SettingsService $websiteService)
 	{
         $this->websiteService = $websiteService;
     }
@@ -109,7 +109,7 @@ class InstallerController extends Controller
     private function saveSiteSettings($request)
     {
         if($request->siteTitle) {
-            $this->websiteService->updateSetting('website', 'title', $request->siteTitle);
+            $this->websiteService->updateSetting('website.general.title', $request->siteTitle);
         }
         $super = Role::find(1);
         $user = User::create([
