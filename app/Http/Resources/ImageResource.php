@@ -21,6 +21,7 @@ class ImageResource extends JsonResource
             'title' => $this->title,
             'alt' => $this->alt,
             'caption' => $this->caption,
+            'description' => $this->description,
             'slug' => $this->slug,
             'path' => $this->path,
             'extension' => $this->extension,
