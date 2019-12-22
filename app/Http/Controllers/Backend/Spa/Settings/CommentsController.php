@@ -26,8 +26,7 @@ class CommentsController extends Controller
 
     public function store(Request $request)
     {
-        $settings = [ 'comments' => $request->settings ];
-        $this->websiteService->updateSettings('website', $settings);
+        $this->websiteService->updateSettings('website.comments', $request->settings);
 
         return response()->json([], 200);
     }

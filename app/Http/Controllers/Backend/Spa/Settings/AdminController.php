@@ -26,8 +26,8 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('admin', $request->settings);
+        $this->websiteService->updateSettings('atlas.general', $request->settings);
 
-        return response()->json(['status' => 'success'], 200);
+        return response()->json([], 200);
     }
 }

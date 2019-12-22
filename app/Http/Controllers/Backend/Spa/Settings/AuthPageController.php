@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\WebsiteService;
 
-class LoginController extends Controller
+class AuthPageController extends Controller
 {
     protected $websiteService;
 
@@ -17,7 +17,7 @@ class LoginController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('website.userLogin');
+        $settings = get_website_setting('website.adminAuthPage');
 
         return response()->json([
             'data' => $settings
@@ -26,8 +26,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-        $settings = [ 'userLogin' => $request->settings ];
-        $this->websiteService->updateSettings('website', $settings);
+        $this->websiteService->updateSettings('website.adminAuthPage', $request->settings);
 
         return response()->json([], 200);
     }

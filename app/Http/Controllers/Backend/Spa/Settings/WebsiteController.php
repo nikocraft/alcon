@@ -26,8 +26,7 @@ class WebsiteController extends Controller
 
     public function store(Request $request)
     {
-        $settings = [ 'general' => $request->settings ];
-        $this->websiteService->updateSettings('website', $settings);
+        $this->websiteService->updateSettings('website.general', $request->settings);
 
         return response()->json([], 200);
     }

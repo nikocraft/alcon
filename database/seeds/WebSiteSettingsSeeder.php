@@ -32,11 +32,12 @@ class WebSiteSettingsSeeder extends Seeder
                 'paginationType' => 'simple',
                 'paginationPerPage' => 12
             ],
-            'userLogin' => [
+            'adminAuthPage' => [
                 'theme' => 'light',
                 'logoType' => 'text',
                 'logoText' => 'LaraOne',
                 'logoImage' => '',
+                'backgroundColor' => '',
                 'backgroundImage' => '',
                 'termsUrl' => '',
                 'privacyPolicyUrl' => '',

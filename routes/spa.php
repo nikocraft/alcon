@@ -108,7 +108,7 @@ Route::group(['namespace' => 'Backend\Spa', 'as' => 'api.', 'middleware' => ['au
         Route::resource('content', 'ContentController')->only(['index', 'store']);
         Route::resource('mail', 'MailController')->only(['index', 'store']);
         Route::resource('admin', 'AdminController')->only(['index', 'store']);
-        Route::resource('login', 'LoginController')->only(['index', 'store']);
+        Route::resource('auth', 'AuthPageController')->only(['index', 'store']);
         Route::resource('members', 'MembersController')->only(['index', 'store']);
         Route::resource('comments', 'CommentsController')->only(['index', 'store']);
 

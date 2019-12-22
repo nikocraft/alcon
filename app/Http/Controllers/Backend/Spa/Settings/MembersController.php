@@ -26,8 +26,7 @@ class MembersController extends Controller
 
     public function store(Request $request)
     {
-        $settings = [ 'members' => $request->settings ];
-        $this->websiteService->updateSettings('website', $settings);
+        $this->websiteService->updateSettings('website.members', $request->settings);
 
         return response()->json([], 200);
     }

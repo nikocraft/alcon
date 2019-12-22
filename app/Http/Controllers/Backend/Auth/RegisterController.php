@@ -48,7 +48,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->allowRegistrations = get_website_setting('members.allowRegistrations');
+        $this->allowRegistrations = get_website_setting('website.members.allowRegistrations');
     }
 
     /**
@@ -107,11 +107,11 @@ class RegisterController extends Controller
         ]);
 
         $validator->sometimes('firstname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', true);
+            return get_website_setting('website.members.requireFullname', true);
         });
 
         $validator->sometimes('lastname', 'required|alpha|min:2|max:25', function ($input) {
-            return get_website_setting('members.requireFullname', true);
+            return get_website_setting('website.members.requireFullname', true);
         });
 
         return $validator;
@@ -132,7 +132,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'approved' => get_website_setting('members.autoApprove', false)
+            'approved' => get_website_setting('website.members.autoApprove', false)
         ]);
 
         // attach default role

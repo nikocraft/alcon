@@ -229,10 +229,10 @@ class AdminMenuSeeder extends Seeder
         ]);
 
         AdminMenu::create([
-            'name' => 'Login',
-            'unique_id' =>'core.settings.login',
+            'name' => 'Auth Page',
+            'unique_id' =>'core.settings.authpage',
             'parent' => AdminMenu::where('unique_id', 'core.settings')->value('id'),
-            'route' => 'settings.login',
+            'route' => 'settings.auth',
             'order' => 70,
         ]);
 
