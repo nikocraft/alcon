@@ -40,7 +40,7 @@ class MenuTest extends DuskTestCase
                     ->press('Create')
                     ->pause(1000)
                     ->assertPathIs('/admin/content/pages/create')
-                    ->type('title', strtolower($pageName))
+                    ->type('postTitle', strtolower($pageName))
                     ->press('Save')
                     ->pause(2000);
 

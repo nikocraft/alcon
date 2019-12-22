@@ -40,7 +40,7 @@ class FrontPageTest extends DuskTestCase
                     ->press('Create')
                     ->pause(1000)
                     ->assertPathIs('/admin/content/pages/create')
-                    ->type('title', strtolower($pageName))
+                    ->type('postTitle', strtolower($pageName))
                     ->pause(2000)
                     ->press('Headline')
                     ->type('#pane-content > div > div.components > div > div > div.content-block-body > h2', $testString)
@@ -88,7 +88,7 @@ class FrontPageTest extends DuskTestCase
                     ->press('Create')
                     ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', $postName)
+                    ->type('postTitle', $postName)
                     ->pause(2000)
                     ->press('Save')
                     ->pause(2000);

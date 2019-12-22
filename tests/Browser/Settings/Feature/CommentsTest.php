@@ -36,7 +36,7 @@ class CommentsTest extends DuskTestCase
                     ->press('Create')
                     ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', $postName)
+                    ->type('postTitle', $postName)
                     ->press('Save')
                     ->pause(1000);
 
@@ -84,7 +84,7 @@ class CommentsTest extends DuskTestCase
                     ->press('Create')
                     ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', $postName)
+                    ->type('postTitle', $postName)
                     ->press('Save')
                     ->pause(1000);
 
@@ -124,7 +124,7 @@ class CommentsTest extends DuskTestCase
                     ->press('Create')
                     ->pause(2000)
                     ->assertPathIs('/admin/content/posts/create')
-                    ->type('title', $postName)
+                    ->type('postTitle', $postName)
                     ->press('Save')
                     ->pause(1000);
 
