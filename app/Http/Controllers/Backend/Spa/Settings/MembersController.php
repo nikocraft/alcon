@@ -17,7 +17,7 @@ class MembersController extends Controller
     
     public function index()
     {
-        $settings = get_website_setting('members');
+        $settings = get_website_setting('website.members');
 
         return response()->json([
             'data' => $settings
@@ -26,8 +26,9 @@ class MembersController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('members', $request->settings);
+        $settings = [ 'members' => $request->settings ];
+        $this->websiteService->updateSettings('website', $settings);
 
-        return response()->json(['status' => 'success'], 200);
+        return response()->json([], 200);
     }
 }

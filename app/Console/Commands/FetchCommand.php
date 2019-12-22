@@ -41,7 +41,7 @@ class FetchCommand extends BaseCommand
     {
         $this->fetchLatestReleaseData();
         
-        $currentVersion = get_website_setting('laraone.phoenix');
+        $currentVersion = get_website_setting('cms.phoenix');
         $lastVersion = $this->getPhoenixLastVersion();
 
         if($currentVersion != $lastVersion) {

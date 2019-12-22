@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $settings = get_website_setting('admin');
+        $settings = get_website_setting('atlas.general');
 
         return response()->json([
             'data' => $settings

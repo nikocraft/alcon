@@ -9,13 +9,11 @@ trait HasSchemalessAttributes
 {
     public function getSettingsAttribute(): SchemalessAttributes
     {
-        $columnName = isset($this->schemalessAttributesColumn) ? $this->schemalessAttributesColumn : 'settings';
-        return SchemalessAttributes::createForModel($this, $columnName);
+        return SchemalessAttributes::createForModel($this, 'settings');
     }
 
     public function scopeWithSettings(): Builder
     {
-        $columnName = isset($this->schemalessAttributesColumn) ? $this->schemalessAttributesColumn: 'settings';
-        return SchemalessAttributes::scopeWithSchemalessAttributes($columnName);
+        return SchemalessAttributes::scopeWithSchemalessAttributes('settings');
     }
 }

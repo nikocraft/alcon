@@ -27,7 +27,7 @@ class GlobalSettingsService
         $this->settings[self::THEME_FOLDER] = config('laraone.default_theme.name');
 
         $websiteSettings = $this->websiteService->getSettings();
-        $activeThemeId = data_get($websiteSettings, 'website.activeTheme');
+        $activeThemeId = data_get($websiteSettings, 'website.general.activeTheme');
         $cmsInstalled = data_get($websiteSettings, 'cms.installed');
 
         // If website installation has been completed, init the global settings otherwise do nothing.
