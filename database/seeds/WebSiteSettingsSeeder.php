@@ -12,7 +12,7 @@ class WebSiteSettingsSeeder extends Seeder
      */
     public function run()
     {
-        $section = Setting::create(['key' => 'cms', 'value' => 'CMS']);
+        $section = Setting::create(['key' => 'cms']);
         $section->meta = [
             'installed' => false,
             'phoenix' => '1.0.0',
@@ -20,7 +20,7 @@ class WebSiteSettingsSeeder extends Seeder
         ];
         $section->save();
 
-        $section = Setting::create(['key' => 'website', 'value' => 'Website']);
+        $section = Setting::create(['key' => 'website']);
         $section->meta = [
             'general' => [
                 'title' => 'Laraone',
@@ -67,7 +67,7 @@ class WebSiteSettingsSeeder extends Seeder
         ];
         $section->save();
 
-        $section = Setting::create(['key' => 'atlas', 'value' => 'Atlas']);
+        $section = Setting::create(['key' => 'atlas']);
         $section->meta = [
             'general' => [
                 'language' => 'en',
