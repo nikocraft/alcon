@@ -50,12 +50,12 @@ class FrontPageTest extends DuskTestCase
             // Change frontpage setting to single page
 
             $browser->loginAs($user)
-                    ->visit('/admin/settings/content')
+                    ->visit('/admin/settings/website')
                     ->pause(2000)
                     ->select('frontPageType', 'single-page')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/admin/settings/content')
+                    ->visit('/admin/settings/website')
                     ->pause(2000)
                     ->assertSelected('frontPageType', 'single-page');
 
@@ -96,13 +96,13 @@ class FrontPageTest extends DuskTestCase
             // Change frontpage setting to index page
 
             $browser->loginAs($user)
-                    ->visit('/admin/settings/content')
+                    ->visit('/admin/settings/website')
                     ->pause(2000)
                     ->select('frontPageType', 'index-page')
                     ->select('frontPageMeta', '2')
                     ->press('save')
                     ->pause(2000)
-                    ->visit('/admin/settings/content')
+                    ->visit('/admin/settings/website')
                     ->pause(2000)
                     ->assertSelected('frontPageType', 'index-page')
                     ->assertSelected('frontPageMeta', '2');

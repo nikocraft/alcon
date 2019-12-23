@@ -44,7 +44,7 @@ abstract class DuskTestCase extends BaseTestCase
             Artisan::call('laraone:install');
         }
     }
-    
+
     /**
      * Create the RemoteWebDriver instance.
      *
@@ -53,11 +53,11 @@ abstract class DuskTestCase extends BaseTestCase
     protected function driver()
     {
         $options = (new ChromeOptions)->addArguments([
-            '--disable-gpu',
-            '--headless',
+            // '--disable-gpu',
+            // '--headless',
             '--window-size=1220,1080',
             '--log-level=3',
-            '--silent'
+            // '--silent'
         ]);
 
         return RemoteWebDriver::create(

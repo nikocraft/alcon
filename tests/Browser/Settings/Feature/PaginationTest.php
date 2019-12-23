@@ -49,13 +49,13 @@ class PaginationTest extends DuskTestCase
                 // Set pagination per page setting to 5
 
                 $browser->loginAs($user)
-                        ->visit('/admin/settings/content')
+                        ->visit('/admin/settings/website')
                         ->pause(2000)
                         ->clear('paginationPerPage')
                         ->type('paginationPerPage', '5')
                         ->press('Save')
                         ->pause(2000)
-                        ->visit('/admin/settings/content')
+                        ->visit('/admin/settings/website')
                         ->pause(2000)
                         ->assertInputValue('paginationPerPage', '5');
 

@@ -4,7 +4,6 @@ namespace Tests\Browser\Settings;
 
 use App\Models\User;
 use App\Models\Role;
-use App\Models\Core\Settings\Website;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -60,7 +59,6 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_display_name_setting()
     {
-        Website::where('key', 'allowRegistrations')->update(['value' => true]);
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -82,7 +80,6 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_default_role_setting()
     {
-        Website::where('key', 'allowRegistrations')->update(['value' => true]);
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -104,7 +101,6 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_require_full_name_setting()
     {
-        Website::where('key', 'allowRegistrations')->update(['value' => true]);
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -126,7 +122,6 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_registration_status_setting()
     {
-        Website::where('key', 'allowRegistrations')->update(['value' => true]);
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

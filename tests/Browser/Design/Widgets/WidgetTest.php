@@ -32,7 +32,7 @@ class WidgetTest extends DuskTestCase
                     ->click('#pane-content > div > div:nth-child(2) > div > div.form-group-sub > div:nth-child(1) > div > div.form-group-sub > div > div > div > div > div:nth-child(3)')
                     ->press('Save')
                     ->pause(2000)
-                    ->visit('/admin/settings/content')
+                    ->visit('/admin/settings/website')
                     ->pause(2000)
                     ->select('frontPageType', 'index-page')
                     ->select('frontPageMeta', '2')

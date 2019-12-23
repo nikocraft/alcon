@@ -28,11 +28,7 @@ class CommentsSettingsTest extends DuskTestCase
                     ->visit('/admin/settings/comments')
                     ->pause(2000)
                     ->assertPathIs('/admin/settings/comments')
-                    ->assertSee('Comments Type')
-                    ->assertSee('Logged in to Comment')
-                    ->assertSee('Nested Comments')
-                    ->assertSee('Nested Depth')
-                    ->assertSee('Comments Order');
+                    ->assertSelected('type', 'off');
         });
     }
 
@@ -206,7 +202,4 @@ class CommentsSettingsTest extends DuskTestCase
                     ->assertInputValue('disqusChannel', 'disqusTesting');
         });
     }
-
-
-    // disqusChannel
 }
