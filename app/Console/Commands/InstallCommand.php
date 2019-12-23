@@ -44,8 +44,6 @@ class InstallCommand extends BaseCommand
      */
     public function handle()
     {
-        $websiteService = new SettingsService;
-        $themeService = new ThemeService;
         $phoenixLastVersion = $this->getPhoenixLastVersion();
 
         if($this->option('create-user')) {
@@ -136,6 +134,9 @@ class InstallCommand extends BaseCommand
         if($this->option('artisan-output')) {
             $this->info(Artisan::output());
         }
+
+        $websiteService = new SettingsService;
+        $themeService = new ThemeService;
 
         $adminTheme = $themeService->getThemeByNamespace('com.reimaginedworks.atlas');
         $this->info('Phoenix Backend: v' . $phoenixLastVersion . ', Atlas Admin: v' .  $adminTheme->version);
