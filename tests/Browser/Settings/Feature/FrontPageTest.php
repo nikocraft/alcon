@@ -19,7 +19,7 @@ class FrontPageTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "FrontPageTest:";
             $this->setupOnce = true;
         }
     }

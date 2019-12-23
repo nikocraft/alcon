@@ -16,7 +16,7 @@ class WidgetTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "WidgetTest:";
             $this->setupOnce = true;
         }
     }

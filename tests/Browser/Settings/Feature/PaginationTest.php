@@ -20,7 +20,7 @@ class PaginationTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "PaginationTest:";
             $this->setupOnce = true;
         }
     }

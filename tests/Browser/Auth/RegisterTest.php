@@ -22,7 +22,7 @@ class RegisterTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "RegisterTest:";
             $this->setupOnce = true;
         }
     }

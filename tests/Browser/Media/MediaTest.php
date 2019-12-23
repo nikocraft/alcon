@@ -16,7 +16,7 @@ class MediaTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "MediaTest:";
             $this->setupOnce = true;
         }
     }

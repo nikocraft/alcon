@@ -20,7 +20,7 @@ class PostsTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "PostsTest:";
             $this->setupOnce = true;
         }
     }

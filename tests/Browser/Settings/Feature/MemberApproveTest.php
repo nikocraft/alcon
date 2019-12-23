@@ -21,7 +21,7 @@ class MemberApproveTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "MemberApproveTest:";
             $this->setupOnce = true;
         }
     }

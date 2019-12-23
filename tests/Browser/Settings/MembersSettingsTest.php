@@ -16,7 +16,7 @@ class MembersSettingsTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "MembersSettingsTest:";
             $this->setupOnce = true;
         }
     }

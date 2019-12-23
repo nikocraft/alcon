@@ -20,7 +20,7 @@ class MenuTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "MenuTest:";
             $this->setupOnce = true;
         }
     }

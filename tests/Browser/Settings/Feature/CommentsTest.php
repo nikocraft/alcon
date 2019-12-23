@@ -20,7 +20,7 @@ class CommentsTest extends DuskTestCase
     {
         parent::setUp();
         if(!$this->setupOnce) {
-            echo "LoginTest:";
+            echo "CommentsTest:";
             $this->setupOnce = true;
         }
     }
