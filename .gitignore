@@ -7,12 +7,13 @@
 /tests/Browser/console/*
 /tests/Browser/Pages/*
 /tests/Browser/ExampleTest.php
+/tests/sqlite.testing.database-journal
 /
 Homestead.json
 Homestead.yaml
 debug.log
 .env
-.env.dusk.local
+.env.dusk
 .env.backup
 tests/sqlite.testing.database
 .phpunit.result.cache
