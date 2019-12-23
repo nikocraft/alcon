@@ -14,13 +14,20 @@ class PagesTest extends DuskTestCase
 
     use WithFaker;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_super_user_can_create_empty_page()
     {
+        echo "test_super_user_can_create_empty_page\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -48,6 +55,7 @@ class PagesTest extends DuskTestCase
 
     public function test_super_user_can_create_page()
     {
+        echo "test_super_user_can_create_page\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -80,6 +88,7 @@ class PagesTest extends DuskTestCase
 
     public function test_admin_user_can_create_page()
     {
+        echo "test_admin_user_can_create_page\r\n";
         $admin = Role::find(2);
         $user = factory(User::class)->create([
             'activated' => true
@@ -112,6 +121,7 @@ class PagesTest extends DuskTestCase
 
     public function test_client_can_create_page()
     {
+        echo "test_client_can_create_page\r\n";
         $client = Role::find(3);
         $user = factory(User::class)->create([
             'activated' => true

@@ -13,13 +13,20 @@ class LoginTest extends DuskTestCase
 {
     use EmailTrait;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_login_and_logout()
     {
+        echo "test_user_can_login_and_logout\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -43,6 +50,7 @@ class LoginTest extends DuskTestCase
 
     public function test_guest_cannot_view_admin_page()
     {
+        echo "test_guest_cannot_view_admin_page\r\n";
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/content/pages')
                     ->pause(200)
@@ -51,6 +59,7 @@ class LoginTest extends DuskTestCase
     }
 
     public function test_user_enters_wrong_password_and_fails_logging_in() {
+        echo "test_user_enters_wrong_password_and_fails_logging_in\r\n";
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/login')
                     ->type('email', 'super@gmail.com')
@@ -62,6 +71,7 @@ class LoginTest extends DuskTestCase
     }
 
     public function test_non_existing_user_fails_reseting_password() {
+        echo "test_non_existing_user_fails_reseting_password\r\n";
         $this->browse(function (Browser $browser) {
             $browser->visit('/auth/login')
                     ->click('a[href="/auth/password/reset"]')
@@ -73,6 +83,7 @@ class LoginTest extends DuskTestCase
     }
 
     public function test_user_successfully_resets_password() {
+        echo "test_user_successfully_resets_password\r\n";
 
         $this->deleteEmails();
 

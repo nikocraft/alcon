@@ -14,13 +14,20 @@ class CommentsTest extends DuskTestCase
 
     use WithFaker;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_posts_a_native_comment()
     {
+        echo "test_user_posts_a_native_comment\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -69,6 +76,7 @@ class CommentsTest extends DuskTestCase
 
     public function test_user_posts_a_disqus_comment()
     {
+        echo "test_user_posts_a_disqus_comment\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -109,6 +117,7 @@ class CommentsTest extends DuskTestCase
 
     public function test_user_turns_off_comments()
     {
+        echo "test_user_turns_off_comments\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

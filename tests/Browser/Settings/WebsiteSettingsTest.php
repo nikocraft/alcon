@@ -10,14 +10,20 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class WebsiteSettingsTest extends DuskTestCase
 {
+    public $setupOnce = false;
 
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_see_website_settings()
     {
+        echo "test_user_can_see_website_settings\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -38,6 +44,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_title_setting()
     {
+        echo "test_user_can_change_title_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -59,6 +66,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_tagline_setting()
     {
+        echo "test_user_can_change_tagline_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -81,6 +89,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_url_setting()
     {
+        echo "test_user_can_change_url_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -103,6 +112,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_see_content_settings()
     {
+        echo "test_user_can_see_content_settings\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -122,6 +132,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_frontpage_setting()
     {
+        echo "test_user_can_change_frontpage_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -145,6 +156,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_pagination_type_setting()
     {
+        echo "test_user_can_change_pagination_type_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -166,6 +178,7 @@ class WebsiteSettingsTest extends DuskTestCase
 
     public function test_user_can_change_items_per_page_setting()
     {
+        echo "test_user_can_change_items_per_page_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

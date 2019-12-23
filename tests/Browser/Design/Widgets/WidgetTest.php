@@ -10,13 +10,20 @@ use Tests\DuskTestCase;
 
 class WidgetTest extends DuskTestCase
 {
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_add_new_widget_on_sidebar()
     {
+        echo "test_user_can_add_new_widget_on_sidebar\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

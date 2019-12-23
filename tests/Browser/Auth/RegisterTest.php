@@ -16,14 +16,20 @@ class RegisterTest extends DuskTestCase
     use WithFaker;
     use EmailTrait;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_register()
     {
-
+        echo "test_user_can_register\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -54,6 +60,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_user_can_register_and_activate_account()
     {
+        echo "test_user_can_register_and_activate_account\r\n";
 
         $this->deleteEmails();
 
@@ -93,6 +100,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_user_cannot_register_if_last_name_field_is_empty()
     {
+        echo "test_user_cannot_register_if_last_name_field_is_empty\r\n";
 
         $super = Role::find(1);
         $user = factory(User::class)->create([
@@ -122,7 +130,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_user_cannot_register_if_username_field_is_empty()
     {
-
+        echo "test_user_cannot_register_if_username_field_is_empty\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -151,7 +159,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_user_cannot_register_if_email_field_is_empty()
     {
-
+        echo "test_user_cannot_register_if_email_field_is_empty\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -180,7 +188,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_user_cannot_register_if_password_field_is_empty()
     {
-
+        echo "test_user_cannot_register_if_password_field_is_empty\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -209,6 +217,7 @@ class RegisterTest extends DuskTestCase
 
     public function test_logged_in_user_cannot_access_registration_form()
     {
+        echo "test_logged_in_user_cannot_access_registration_form\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

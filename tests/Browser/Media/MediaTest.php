@@ -10,13 +10,20 @@ use Tests\DuskTestCase;
 
 class MediaTest extends DuskTestCase
 {
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
-    public function test_user_uploads_and_deletes_image_in_media_library() {
-
+    public function test_user_uploads_and_deletes_image_in_media_library()
+    {
+        echo "test_user_uploads_and_deletes_image_in_media_library\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -45,8 +52,9 @@ class MediaTest extends DuskTestCase
         });
     }
 
-    public function test_user_modifies_image_settings_in_media_library() {
-
+    public function test_user_modifies_image_settings_in_media_library()
+    {
+        echo "test_user_modifies_image_settings_in_media_library\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

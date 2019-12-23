@@ -14,13 +14,20 @@ class MenuTest extends DuskTestCase
 
     use WithFaker;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_create_new_menu()
     {
+        echo "test_user_can_create_new_menu\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

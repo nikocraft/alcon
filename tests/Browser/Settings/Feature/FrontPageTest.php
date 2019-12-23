@@ -13,13 +13,20 @@ class FrontPageTest extends DuskTestCase
 {
     use WithFaker;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_single_page_frontpage()
     {
+        echo "test_single_page_frontpage\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -69,6 +76,7 @@ class FrontPageTest extends DuskTestCase
 
     public function test_index_page_frontpage()
     {
+        echo "test_index_page_frontpage\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

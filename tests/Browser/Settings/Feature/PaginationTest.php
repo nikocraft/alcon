@@ -14,13 +14,20 @@ class PaginationTest extends DuskTestCase
 
     use WithFaker;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_pagination_on_frontend()
     {
+        echo "test_pagination_on_frontend\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

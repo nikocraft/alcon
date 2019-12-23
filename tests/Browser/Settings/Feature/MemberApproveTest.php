@@ -15,13 +15,20 @@ class MemberApproveTest extends DuskTestCase
     use WithFaker;
     use Emailtrait;
 
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_register_and_be_autoapproved()
     {
+        echo "test_user_can_register_and_be_autoapproved\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

@@ -10,13 +10,20 @@ use Tests\DuskTestCase;
 
 class MembersSettingsTest extends DuskTestCase
 {
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_see_members_settings()
     {
+        echo "test_user_can_see_members_settings\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -34,6 +41,7 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_allow_registration_setting()
     {
+        echo "test_user_can_change_allow_registration_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -59,6 +67,7 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_display_name_setting()
     {
+        echo "test_user_can_change_display_name_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -84,6 +93,7 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_default_role_setting()
     {
+        echo "test_user_can_change_default_role_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -109,6 +119,7 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_require_full_name_setting()
     {
+        echo "test_user_can_change_require_full_name_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -134,6 +145,7 @@ class MembersSettingsTest extends DuskTestCase
 
     public function test_user_can_change_registration_status_setting()
     {
+        echo "test_user_can_change_registration_status_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true

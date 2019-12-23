@@ -10,13 +10,20 @@ use Tests\DuskTestCase;
 
 class CommentsSettingsTest extends DuskTestCase
 {
+    public $setupOnce = false;
+
     public function setUp(): void
     {
         parent::setUp();
+        if(!$this->setupOnce) {
+            echo "LoginTest:";
+            $this->setupOnce = true;
+        }
     }
 
     public function test_user_can_see_comments_settings()
     {
+        echo "test_user_can_see_comments_settings\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -34,6 +41,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_logged_in_to_comment_setting()
     {
+        echo "test_user_can_change_logged_in_to_comment_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -59,6 +67,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_nested_comments_setting()
     {
+        echo "test_user_can_change_nested_comments_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -84,6 +93,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_nested_depth_setting()
     {
+        echo "test_user_can_change_nested_depth_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -111,6 +121,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_comments_order_setting()
     {
+        echo "test_user_can_change_comments_order_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -136,6 +147,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_comments_type_setting_to_off()
     {
+        echo "test_user_can_change_comments_type_setting_to_off\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -158,6 +170,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_comments_type_setting_to_disqus()
     {
+        echo "test_user_can_change_comments_type_setting_to_disqus\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
@@ -180,6 +193,7 @@ class CommentsSettingsTest extends DuskTestCase
 
     public function test_user_can_change_disqus_channel_setting()
     {
+        echo "test_user_can_change_disqus_channel_setting\r\n";
         $super = Role::find(1);
         $user = factory(User::class)->create([
             'activated' => true
