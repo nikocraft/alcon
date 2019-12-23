@@ -14,6 +14,7 @@ Homestead.yaml
 debug.log
 .env
 .env.dusk
+.env.dusk.local
 .env.backup
 tests/sqlite.testing.database
 .phpunit.result.cache
