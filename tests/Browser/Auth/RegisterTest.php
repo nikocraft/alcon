@@ -57,8 +57,22 @@ class RegisterTest extends DuskTestCase
 
         $this->deleteEmails();
 
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/auth/register')
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/admin/settings/members')
+                    ->pause(2000)
+                    ->select('allowRegistrations', 'true')
+                    ->press('save')
+                    ->pause(2000)
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->visit('/auth/register')
                     ->pause(1000)
                     ->type('firstname', $this->faker->lexify('??????'))
                     ->type('lastname', $this->faker->lexify('??????'))
@@ -80,8 +94,22 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_register_if_last_name_field_is_empty()
     {
 
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/auth/register')
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/admin/settings/members')
+                    ->pause(2000)
+                    ->select('allowRegistrations', 'true')
+                    ->press('save')
+                    ->pause(2000)
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->visit('/auth/register')
                     ->pause(2000)
                     ->type('firstname', $this->faker->lexify('??????'))
                     ->type('username', $this->faker->lexify('??????'))
@@ -95,8 +123,22 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_register_if_username_field_is_empty()
     {
 
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/auth/register')
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/admin/settings/members')
+                    ->pause(2000)
+                    ->select('allowRegistrations', 'true')
+                    ->press('save')
+                    ->pause(2000)
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->visit('/auth/register')
                     ->pause(2000)
                     ->type('firstname', $this->faker->lexify('??????'))
                     ->type('lastname', $this->faker->lexify('??????'))
@@ -110,8 +152,22 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_register_if_email_field_is_empty()
     {
 
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/auth/register')
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/admin/settings/members')
+                    ->pause(2000)
+                    ->select('allowRegistrations', 'true')
+                    ->press('save')
+                    ->pause(2000)
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->visit('/auth/register')
                     ->pause(2000)
                     ->type('firstname', $this->faker->lexify('??????'))
                     ->type('lastname', $this->faker->lexify('??????'))
@@ -125,8 +181,22 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_register_if_password_field_is_empty()
     {
 
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/auth/register')
+        $super = Role::find(1);
+        $user = factory(User::class)->create([
+            'activated' => true
+        ]);
+        $user->attachRole($super);
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/admin/settings/members')
+                    ->pause(2000)
+                    ->select('allowRegistrations', 'true')
+                    ->press('save')
+                    ->pause(2000)
+                    ->assertSelected('allowRegistrations', 'true')
+                    ->logout()
+                    ->visit('/auth/register')
                     ->pause(2000)
                     ->type('firstname', $this->faker->lexify('??????'))
                     ->type('lastname', $this->faker->lexify('??????'))
