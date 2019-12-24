@@ -2,10 +2,6 @@
 
 $baseUrl = 'https://github.com/laraone/';
 $adminTheme = 'atlas';
-
-$themeBaseUrl = 'https://github.com/laraone/';
-
-// default theme to be installed
 $defaultTheme = 'ikigai';
 
 return [
@@ -17,8 +13,8 @@ return [
     | Used by install and update commands to fetch latest backend for Laraone
     */
     'phoenix' => [
-        'releases_url' => $baseUrl . 'phoenix/raw/master/releases.json',
-        'download_url' => $baseUrl . 'phoenix/archive/',
+        'releases_url' => env('PHOENIX_RELEASES', $baseUrl . 'phoenix/raw/master/releases.json'),
+        'archive_url' => env('PHOENIX_ARCHIVE', $baseUrl . 'phoenix/archive/'),
     ],
 
     /*
@@ -29,8 +25,8 @@ return [
     | Used by install and update commands to fetch latest admin spa for Laraone
     */
     'admin_theme' => [
-        'releases_url' => $baseUrl . 'atlas/raw/master/releases.json',
-        'download_url' => $baseUrl . 'atlas/releases/download',
+        'releases_url' => env('ATLAS_RELEASES', $baseUrl . 'atlas/raw/master/releases.json'),
+        'download_url' => env('ATLAS_DOWNLOAD', $baseUrl . 'atlas/releases/download'),
         'name' => 'atlas',
     ],
 
@@ -43,8 +39,8 @@ return [
     / Note: This is not necessary active theme
     */
     'default_theme' => [
-        'releases_url' => $themeBaseUrl . $defaultTheme .'/raw/master/releases.json',
-        'download_url' => $themeBaseUrl . $defaultTheme. '/releases/download',
-        'name' => $defaultTheme,
+        'releases_url' => env('DEFAULT_THEME_RELEASES', $baseUrl . $defaultTheme .'/raw/master/releases.json'),
+        'download_url' => env('DEFAULT_THEME_DOWNLOAD', $baseUrl . $defaultTheme. '/releases/download'),
+        'name' => env('DEFAULT_THEME_NAME', $defaultTheme),
     ],
 ];
