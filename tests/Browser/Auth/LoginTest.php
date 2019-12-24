@@ -27,23 +27,26 @@ class LoginTest extends DuskTestCase
     public function test_user_can_login_and_logout()
     {
         echo "test_user_can_login_and_logout\r\n";
-        $super = Role::find(1);
-        $user = factory(User::class)->create([
-            'activated' => true
-        ]);
-        $user->attachRole($super);
+
+        $user = User::where('email', 'super@gmail.com')->first();
 
         $this->browse(function (Browser $browser) use ($user) {
-            $browser->loginAs($user)
-                    ->visit('/auth/login')
-                    ->pause(200)
+            $browser->visit('/auth/login')
+                    ->pause(400)
+                    ->type('email', 'super@gmail.com')
+                    ->type('password', '12345678')
+                    ->press('#auth > div > div.box-body > div > div.auth-button > button')
+                    ->pause(2000)
                     ->assertPathIs('/admin/content/pages')
                     ->assertSee('Pages')
                     ->assertAuthenticatedAs($user)
-                    ->logout()
+                    ->visit('/admin/content/pages')
+                    ->pause(800)
+                    ->mouseover('#app > header > div > div > div.notifications-area > div > a')
+                    ->click('#app > header > div > div > div.notifications-area > div > div > div > a')
                     ->pause(200)
                     ->visit('/admin/content/pages')
-                    ->pause(200)
+                    ->pause(600)
                     ->assertPathIs('/auth/login');
         });
     }
@@ -92,7 +95,7 @@ class LoginTest extends DuskTestCase
                     ->click('a[href="/auth/password/reset"]')
                     ->type('email', 'admin@gmail.com')
                     ->press('.btn-auth')
-                    ->pause(4700)
+                    ->pause(5000)
                     ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
                     ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
                     ->pause(1500);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Settings\Feature;
 
 use App\Models\User;
 use App\Models\Role;
@@ -36,6 +36,9 @@ class MemberApproveTest extends DuskTestCase
         $user->attachRole($super);
 
         $this->browse(function (Browser $browser) use ($user) {
+
+            // Go to member settings, allow registrations and auto-approve
+
             $browser->loginAs($user)
                     ->visit('/admin/settings/members')
                     ->pause(2000)
@@ -49,6 +52,8 @@ class MemberApproveTest extends DuskTestCase
                     ->logout();
 
                     $this->deleteEmails();
+
+            // Register new account and activate it
 
             $browser->visit('/auth/register')
                     ->pause(1000)

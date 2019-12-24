@@ -75,7 +75,7 @@ class PostsTest extends DuskTestCase
                     ->assertPathIs('/admin/content/posts/create')
                     ->type('postTitle', $postName)
                     ->pause(2000)
-                    ->press('Headline')
+                    ->press('HeadlineButton')
                     ->type('#pane-content > div > div.components > div > div > div.content-block-body > h2', $testString)
                     ->press('Save')
                     ->pause(2000)

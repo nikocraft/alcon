@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Design\Widgets;
 
 use App\Models\User;
 use App\Models\Role;

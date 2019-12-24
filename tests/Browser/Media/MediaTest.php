@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Media;
 
 use App\Models\User;
 use App\Models\Role;
@@ -39,7 +39,7 @@ class MediaTest extends DuskTestCase
                     ->pause(200)
                     ->attach('#file', base_path('public/themes/ikigai/images/screenshot.jpg'))
                     ->pause(3000)
-                    ->press('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content.modal-content_auto-responsive.modal-content_image-upload-modal > div.modal-footer > button.btn.btn-primary')
+                    ->press('uploadImages')
                     ->pause(5000)
                     ->press('Close')
                     ->pause(3000)
@@ -70,30 +70,30 @@ class MediaTest extends DuskTestCase
                     ->pause(200)
                     ->attach('#file', base_path('public/themes/ikigai/images/screenshot.jpg'))
                     ->pause(3000)
-                    ->press('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content.modal-content_auto-responsive.modal-content_image-upload-modal > div.modal-footer > button.btn.btn-primary')
+                    ->press('uploadImages')
                     ->pause(5000)
                     ->press('Close')
                     ->pause(3000)
                     ->assertSourceHas('screenshot_medium.jpg')
-                    ->press('#app > div > div > section > div > div > div > div.box-body > div.images > div > div > button:nth-child(1)')
+                    ->press('.images > div:nth-child(1) > div > button:nth-child(1)')
                     ->pause(2000)
-                    ->type('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(1) > input', 'Test title')
-                    ->type('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(2) > div > div > input', 'test tag')
-                    ->keys('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(2) > div > div > input', ['{enter}'])
-                    ->type('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(3) > input', 'Test alt text')
-                    ->type('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(4) > input', 'Test caption')
-                    ->type('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(5) > textarea', 'Test description')
+                    ->type('imageTitle', 'Test title')
+                    ->type('.imagetags > div > input', 'test tag')
+                    ->keys('.imagetags > div > input', ['{enter}'])
+                    ->type('imageAlt', 'Test alt text')
+                    ->type('imageCaption', 'Test caption')
+                    ->type('imageDescription', 'Test description')
                     ->press('Save')
                     ->pause(2000)
                     ->visit('/admin/media/images')
                     ->pause(2000)
-                    ->press('#app > div > div > section > div > div > div > div.box-body > div.images > div > div > button:nth-child(1)')
+                    ->press('.images > div:nth-child(1) > div > button:nth-child(1)')
                     ->pause(2000)
-                    ->assertInputValue('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(1) > input', 'Test title')
-                    ->assertInputValue('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(2) > div > div > span', 'test tag ×')
-                    ->assertInputValue('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(3) > input', 'Test alt text')
-                    ->assertInputValue('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(4) > input', 'Test caption')
-                    ->assertInputValue('#app > div > div > section > div > div > div > div.v--modal-overlay > div.v--modal-box.v--modal.modal-content > div.modal-body > div:nth-child(5) > textarea', 'Test description');
+                    ->assertInputValue('imageTitle', 'Test title')
+                    ->assertInputValue('.imagetags > div > span', 'test tag ×')
+                    ->assertInputValue('imageAlt', 'Test alt text')
+                    ->assertInputValue('imageCaption', 'Test caption')
+                    ->assertInputValue('imageDescription', 'Test description');
         });
     }
 }

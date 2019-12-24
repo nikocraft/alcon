@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Design\Menus;
 
 use App\Models\User;
 use App\Models\Role;
