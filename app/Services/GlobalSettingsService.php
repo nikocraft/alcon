@@ -38,7 +38,7 @@ class GlobalSettingsService
             $this->settings = [];
             $this->settings[self::WEBSITE_SETTINGS] = $websiteSettings;
             $this->settings[self::THEME_SETTINGS] = $themeSettings;
-            $this->settings[self::THEME_FOLDER] = optional($theme)->name;
+            $this->settings[self::THEME_FOLDER] = optional($theme)->folder;
         }
     }
 
