@@ -188,7 +188,7 @@ if (!function_exists('get_theme_folder')) {
         $globalSettings = App\Services\GlobalSettingsService::class;
         $folder = app($globalSettings)->get($globalSettings::THEME_FOLDER);
 
-        return $folder ? $folder : config('laraone.default_theme.name');
+        return $folder ? strtolower($folder) : config('laraone.default_theme.name');
     }
 }
 
