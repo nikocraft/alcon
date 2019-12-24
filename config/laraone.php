@@ -14,7 +14,7 @@ return [
     */
     'phoenix' => [
         'releases_url' => env('PHOENIX_RELEASES', $baseUrl . 'phoenix/raw/master/releases.json'),
-        'download_url' => env('PHOENIX_DOWNLOAD', $baseUrl . 'phoenix/archive/'),
+        'archive_url' => env('PHOENIX_ARCHIVE', $baseUrl . 'phoenix/archive/'),
     ],
 
     /*

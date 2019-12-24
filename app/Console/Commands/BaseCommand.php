@@ -171,7 +171,7 @@ class BaseCommand extends Command
      */
     protected function fetchRelease($version)
     {
-        $releaseUrl = config('laraone.phoenix.download_url') . $version . '.zip';
+        $releaseUrl = config('laraone.phoenix.archive_url') . $version . '.zip';
 
         if($this->urlExists($releaseUrl)) {
             $this->info('Fetching release: ' . $releaseUrl);
