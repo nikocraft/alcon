@@ -116,7 +116,7 @@ class UpdateCommand extends BaseCommand
         if($this->option('fetch-active-theme')) {
             $this->fetchActiveTheme($phoenixLastVersion);
         }
-        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $adminTheme = $themeService->getThemeByFolderName('atlas');
         $this->info('Phoenix: v' . $phoenixLastVersion . ', Atlas: v' .  $adminTheme->version);
 
         $websiteService->updateSetting('cms.phoenix', $phoenixLastVersion);
@@ -129,7 +129,7 @@ class UpdateCommand extends BaseCommand
     {
         $themeService = new ThemeService;
         // download admin theme and update
-        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $adminTheme = $themeService->getThemeByFolderName('atlas');
         $adminThemeId = $adminTheme->id;
         $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
     }
@@ -146,7 +146,7 @@ class UpdateCommand extends BaseCommand
         $themeService = new ThemeService;
 
         // download admin theme and update
-        $adminTheme = $themeService->getThemeByFolderName('admin');
+        $adminTheme = $themeService->getThemeByFolderName('atlas');
         $adminThemeId = $adminTheme->id;
         $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
 
