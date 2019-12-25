@@ -25,7 +25,7 @@ class CreateCommentsTable extends Migration
             $table->biginteger('content_id')->unsigned();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->ipAddress('visitor_ip')->nullable();
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -3,11 +3,11 @@
 namespace App\Models\Core\Content;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\HasSchemalessAttributes;
+use App\Models\Traits\HasSchemalessSettings;
 
 class Block extends Model
 {
-    use HasSchemalessAttributes;
+    use HasSchemalessSettings;
 
     protected $table = "blocks";
 

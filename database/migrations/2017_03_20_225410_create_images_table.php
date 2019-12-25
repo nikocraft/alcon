@@ -24,7 +24,7 @@ class CreateImagesTable extends Migration
             $table->string('filename');
             $table->string('extension');
             $table->unsignedBigInteger('user_id');
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

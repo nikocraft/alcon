@@ -17,7 +17,7 @@ class CreateMenusTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('location')->nullable();
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

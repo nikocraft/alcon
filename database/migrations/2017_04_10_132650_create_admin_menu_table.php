@@ -25,7 +25,7 @@ class CreateAdminMenuTable extends Migration
             $table->integer('order')->nullable();
             $table->boolean('visible')->default(true);
             $table->string('permission')->nullable();
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }
