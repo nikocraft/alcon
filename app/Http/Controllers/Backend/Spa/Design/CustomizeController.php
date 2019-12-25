@@ -26,9 +26,7 @@ class CustomizeController extends Controller
     public function updateActive(Request $request)
     {
         $theme = $this->themeservice->getActiveTheme();
-        $themeName = $theme->name;
-
-        ThemeManager::set($themeName);
+        ThemeManager::set($theme->folder);
 
         foreach ($request->settings as $key => $setting) {
             $theme->updateSetting($setting['id'], $setting['value']);
@@ -45,7 +43,6 @@ class CustomizeController extends Controller
 
     private function buildThemeStyles($theme, $settings)
     {
-        $themeName = $theme->name;
         $customizeCss = view('helpers.theme-css-customizer', compact(['settings']))->render();
 
         // beautify css
@@ -56,7 +53,7 @@ class CustomizeController extends Controller
         $customizeCss = str_replace(['}'], ["}\r\n"], $customizeCss);
 
         // save customized theme css into a file that can be loaded at run time
-        file_put_contents(public_path().'/themes/'.$themeName.'/css/customize.css', $customizeCss);
+        file_put_contents(public_path() . DIRECTORY_SEPARATOR .'themes' . DIRECTORY_SEPARATOR . $theme->folder . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'customize.css', $customizeCss);
         return true;
     }
 }
