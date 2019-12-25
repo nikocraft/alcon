@@ -23,7 +23,6 @@ class WidgetGroupResource extends JsonResource
             'filter_data' => $this->filter_data,
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
-            'settings' => $this->settings,
             'widgets' => BlockResource::collection($this->whenLoaded('widgets')),
         ];
     }
