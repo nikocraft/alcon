@@ -19,8 +19,8 @@ class CreateWidgetGroupsTable extends Migration
             $table->string('layout');
             $table->string('location')->nullable();
             $table->string('filter_mode')->default('show');
-            $table->mediumText('filter_data')->nullable();
-            $table->json('settings')->nullable();
+            $table->json('filter_data')->nullable();
+            $table->json('meta')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

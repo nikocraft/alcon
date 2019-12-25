@@ -20,6 +20,7 @@ class CreateContentTemplatesTable extends Migration
             $table->string('description')->nullable();
             $table->string('screenshot')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

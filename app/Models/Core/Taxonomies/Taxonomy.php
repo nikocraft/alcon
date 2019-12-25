@@ -8,12 +8,12 @@ use Spatie\SchemalessAttributes\SchemalessAttributes;
 
 use App\Models\Core\Content\ContentType;
 use App\Models\Traits\Sluggable;
-use App\Models\Traits\HasSchemalessAttributes;
+use App\Models\Traits\HasSchemalessSettings;
 
 class Taxonomy extends Model
 {
     use Sluggable;
-    use HasSchemalessAttributes;
+    use HasSchemalessSettings;
 
     protected $fillable = ['content_type_id', 'name', 'name_singular', 'placeholder', 'slug', 'order', 'settings'];
 

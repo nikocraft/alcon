@@ -20,7 +20,7 @@ class CreateCommentsSubscribersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email');
             $table->tinyInteger('subscribe')->default(0);
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
             $table->timestamps();
         });
     }

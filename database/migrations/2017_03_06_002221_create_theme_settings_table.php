@@ -20,7 +20,7 @@ class CreateThemeSettingsTable extends Migration
             $table->string('key', 60);
             $table->string('label', 60);
             $table->string('value')->nullable();
-            $table->string('type', 15)->default('string');
+            $table->string('type', 30)->default('string');
             $table->json('meta')->nullable();
 
             $table->foreign('theme_id')->references('id')->on('themes')->onDelete('cascade')->onUpdate('cascade');

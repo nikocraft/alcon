@@ -22,10 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->boolean('activated')->default(false);
             $table->boolean('approved')->default(false);
             $table->string('timezone')->nullable();
-            $table->json('settings')->nullable();
+            $table->json('meta')->nullable();
             $table->rememberToken();
             $table->timestamp('activated_at')->nullable();
             $table->timestamps();

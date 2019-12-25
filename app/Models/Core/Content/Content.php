@@ -14,11 +14,11 @@ use App\Models\Core\Media\Image;
 use App\Models\Core\Comments\Comment;
 use App\Models\Traits\Sluggable;
 use App\Models\Traits\HasBlocks;
-use App\Models\Traits\HasSchemalessAttributes;
+use App\Models\Traits\HasSchemalessSettings;
 
 class Content extends Model
 {
-    use Sluggable, HasBlocks, HasSchemalessAttributes;
+    use Sluggable, HasBlocks, HasSchemalessSettings;
 
     protected $table = "content";
 

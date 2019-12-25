@@ -5,20 +5,18 @@ namespace App\Models\Core\Design;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Traits\HasWidgets;
-use App\Models\Traits\HasSchemalessAttributes;
 
 class WidgetGroup extends Model
 {
     use HasWidgets;
-    use HasSchemalessAttributes;
 
     protected $table = "widget_groups";
 
-    protected $fillable = ['id'];
+    protected $fillable = ['id', 'title', 'layout', 'location', 'filter_mode', 'filter_data', 'meta'];
 
     protected $casts = [
         'filter_data' => 'array',
-        'settings' => 'array',
+        'meta' => 'array',
     ];
 
     protected $dates = [
