@@ -37,6 +37,8 @@ class ContentEditorTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user, $postName) {
             $testHeadline = 'Testing headline';
             $testText = 'Testing text component by populating it with random text';
+            $day = date("d");
+            $month = date('m');
 
             // Start creating a new post
 
@@ -118,10 +120,10 @@ class ContentEditorTest extends DuskTestCase
                     ->visit('/posts/' . $postName)
                     ->assertSee($testHeadline)
                     ->assertSee($testText)
-                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
+                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
                     ->assertPresent('div.slider-block > span:nth-child(1) > div > div')
                     ->assertSourceHas('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/W-fFHeTX70Q" style="border: 0px;">');
         });
@@ -140,6 +142,8 @@ class ContentEditorTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user, $pageName) {
             $testHeadline = 'Testing headline';
             $testText = 'Testing text component by populating it with random text';
+            $day = date("d");
+            $month = date('m');
 
             // Start creating a new page
 
@@ -221,10 +225,10 @@ class ContentEditorTest extends DuskTestCase
                     ->visit('/' . $pageName)
                     ->assertSee($testHeadline)
                     ->assertSee($testText)
-                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
+                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
                     ->assertPresent('div.slider-block > span:nth-child(1) > div > div')
                     ->assertSourceHas('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/W-fFHeTX70Q" style="border: 0px;">');
         });
@@ -241,6 +245,8 @@ class ContentEditorTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $testHeadline = 'Testing headline';
             $testText = 'Testing text component by populating it with random text';
+            $day = date("d");
+            $month = date('m');
 
             // Create widget and make it visible
 
@@ -332,10 +338,10 @@ class ContentEditorTest extends DuskTestCase
                     ->visit('/')
                     ->assertSee($testHeadline)
                     ->assertSee($testText)
-                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
-                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/12/25/screenshot.jpg"]')
+                    ->assertPresent('div.image-block > span > img[src="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
+                    ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/2019/' . $month . '/' . $day . '/screenshot.jpg"]')
                     ->assertPresent('div.slider-block > span:nth-child(1) > div > div')
                     ->assertSourceHas('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/W-fFHeTX70Q" style="border: 0px;">');
         });
