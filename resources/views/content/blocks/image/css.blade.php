@@ -20,6 +20,11 @@
         width: 100%;
     @endif
 }
+
+.image-{{ $block->unique_id }} img {
+    border: {{ $settings->get('imageBorder') }};
+    border-radius: {{ $settings->get('imageBorderRadius') }};
+}
 @endpush
 
 @push('content-block-css-large')
