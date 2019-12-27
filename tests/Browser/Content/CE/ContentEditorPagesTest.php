@@ -149,21 +149,21 @@ class ContentEditorPagesTest extends DuskTestCase
 
             // Create 4 empty posts
 
-            // $i = 0;
-            // while($i < 4) {
-            //     $browser->loginAs($user)
-            //             ->visit('/admin/content/posts')
-            //             ->pause(3600)
-            //             ->assertPathIs('/admin/content/posts')
-            //             ->press('Create')
-            //             ->pause(2000)
-            //             ->assertPathIs('/admin/content/posts/create')
-            //             ->type('postTitle', $pageName)
-            //             ->press('Save')
-            //             ->pause(1000);
-            //     $pageName = $this->faker->lexify('??????');
-            //     $i++;
-            // }
+            $i = 0;
+            while($i < 4) {
+                $browser->loginAs($user)
+                        ->visit('/admin/content/posts')
+                        ->pause(3600)
+                        ->assertPathIs('/admin/content/posts')
+                        ->press('Create')
+                        ->pause(2000)
+                        ->assertPathIs('/admin/content/posts/create')
+                        ->type('postTitle', $pageName)
+                        ->press('Save')
+                        ->pause(1000);
+                $pageName = $this->faker->lexify('??????');
+                $i++;
+            }
 
             // Start creating a new page
 

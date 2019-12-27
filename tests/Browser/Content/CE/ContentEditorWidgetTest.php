@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser;
+namespace Tests\Browser\Content;
 
 use App\Models\User;
 use App\Models\Role;
@@ -111,18 +111,8 @@ class ContentEditorWidgetTest extends DuskTestCase
                     ->click('div.b-masonry-list > div > img')
                     ->press('Insert Image')
                     ->pause(1000)
-
-            // Add youtube component
-
-                    ->press('Youtube')
-                    ->pause(200)
-                    ->click('div.content-block.content-block_youtube > div.content-block-body > div > div')
-                    ->pause(200)
-                    ->type('div.modal-body > div > input', 'https://www.youtube.com/watch?v=W-fFHeTX70Q')
-                    ->press('Close')
-                    ->pause(1600)
                     ->press('Save')
-                    ->pause(2600)
+                    ->pause(2000)
 
             // Assert that page renders correctly on frontend
 
@@ -133,8 +123,7 @@ class ContentEditorWidgetTest extends DuskTestCase
                     ->assertPresent('div.images-block > div > div:nth-child(1) > span[href="/uploads/' . $year . '/' . $month . '/' . $day . '/screenshot.jpg"]')
                     ->assertPresent('div.images-block > div > div:nth-child(2) > span[href="/uploads/' . $year . '/' . $month . '/' . $day . '/screenshot.jpg"]')
                     ->assertPresent('div.images-block > div > div:nth-child(3) > span[href="/uploads/' . $year . '/' . $month . '/' . $day . '/screenshot.jpg"]')
-                    ->assertPresent('div.slider-block > span:nth-child(1) > div > div')
-                    ->assertSourceHas('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/W-fFHeTX70Q" style="border: 0px;">');
+                    ->assertPresent('div.slider-block > span:nth-child(1) > div > div');
         });
     }
 }
