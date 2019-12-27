@@ -108,7 +108,7 @@ class MailSettingsTest extends DuskTestCase
                     ->type('email', 'admin@gmail.com')
                     ->press('#auth > div > div.box-body > div > div.auth-button > button')
                     ->pause(5200)
-                    ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
+                    ->assertSee('An email with instructions on how to reset your password should be arriving soon.')
                     ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
                     ->pause(1500);
 
