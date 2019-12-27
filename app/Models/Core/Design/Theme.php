@@ -25,10 +25,10 @@ class Theme extends Model
 
     public function updateSetting($id, $value)
     {
-        if(is_array($value) || is_object($value)) {
-            $type = 'json';
-            $value = json_encode($value);
-        }
+        // if(is_array($value) || is_object($value)) {
+        //     $type = 'json';
+        //     $value = json_encode($value);
+        // }
 
         $setting = $this->settings()->updateOrCreate(
             [ 'theme_id' => $this->id, 'id' => $id ],

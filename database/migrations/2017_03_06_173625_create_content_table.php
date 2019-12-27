@@ -27,8 +27,8 @@ class CreateContentTable extends Migration
             $table->unsignedBigInteger('views')->default(0);
             $table->unsignedBigInteger('order')->nullable();
             $table->boolean('sticky')->default(false);
-            $table->text('js')->nullable();
-            $table->text('css')->nullable();
+            $table->json('js')->nullable();
+            $table->json('css')->nullable();
             $table->json('seo')->nullable();
             $table->json('resources')->nullable();
             $table->json('settings')->nullable();

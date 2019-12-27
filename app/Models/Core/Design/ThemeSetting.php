@@ -14,6 +14,7 @@ class ThemeSetting extends Model
 
     protected $casts = [
         'meta' => 'array',
+        'value' => 'array'
     ];
 
     public function theme()
