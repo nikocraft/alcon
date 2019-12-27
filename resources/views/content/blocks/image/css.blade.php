@@ -9,21 +9,20 @@
     align-items: center;
     padding: {{ $settings->get('padding') }};
     margin: {{ $settings->get('margin') }};
-    width: {{ $settings->get('width') }};
     background-color: {{ $settings->get('backgroundColor') }};
 
     @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
         flex: {{ $settings->get('flex') }};
-        width: {{ $settings->get('width') }};
         align-self: {{ $settings->get('alignSelf') }};
-    @else
-        width: 100%;
     @endif
 }
 
 .image-{{ $block->unique_id }} img {
     border: {{ $settings->get('imageBorder') }};
     border-radius: {{ $settings->get('imageBorderRadius') }};
+    @if($settings->get('imageResponsive') == false)
+        width: {{ $settings->get('width') }};
+    @endif
 }
 @endpush
 
@@ -34,7 +33,6 @@
 
     @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayLarge') == 'flex'))
         flex: {{ $settings->get('flexLarge') }};
-        width: {{ $settings->get('widthLarge') }};
         align-self: {{ $settings->get('alignSelfLarge') }};
     @endif
 }
@@ -47,7 +45,6 @@
 
     @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayMedium') == 'flex'))
         flex: {{ $settings->get('flexMedium') }};
-        width: {{ $settings->get('widthMedium') }};
         align-self: {{ $settings->get('alignSelfMedium') }};
     @endif
 }
@@ -60,7 +57,6 @@
 
     @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displaySmall') == 'flex'))
         flex: {{ $settings->get('flexSmall') }};
-        width: {{ $settings->get('widthSmall') }};
         align-self: {{ $settings->get('alignSelfSmall') }};
     @endif
 }
@@ -73,7 +69,6 @@
 
     @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayExtraSmall') == 'flex'))
         flex: {{ $settings->get('flexExtraSmall') }};
-        width: {{ $settings->get('widthExtraSmall') }};
         align-self: {{ $settings->get('alignSelfExtraSmall') }};
     @endif
 }
