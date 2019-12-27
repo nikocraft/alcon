@@ -96,7 +96,7 @@ class LoginTest extends DuskTestCase
                     ->type('email', 'admin@gmail.com')
                     ->press('.btn-auth')
                     ->pause(5600)
-                    ->assertSee('An email with instructions on how to reset your password should be arriving soon. If you do not recieve the email, get in touch with us so we can help.')
+                    ->assertSee('An email with instructions on how to reset your password should be arriving soon.')
                     ->visit($this->getUrlFromEmail())->assertPresent('.button-primary')
                     ->pause(1500);
 

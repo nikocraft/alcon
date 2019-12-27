@@ -59,6 +59,8 @@ class AuthSettingsTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $day = date("d");
             $month = date('m');
+            $year = date('Y');
+
             $browser->loginAs($user)
                     ->visit('/admin/settings/auth')
                     ->pause(2000)
@@ -78,7 +80,7 @@ class AuthSettingsTest extends DuskTestCase
                     ->logout()
                     ->visit('/auth/login')
                     ->pause(2000)
-                    ->assertSourceHas('<img src="/uploads/2019/'. $month . '/' . $day . '/screenshot.jpg" class="logo-image img-responsive">');
+                    ->assertSourceHas('<img src="/uploads/' . $year . '/' . $month . '/' . $day . '/screenshot.jpg" class="logo-image img-responsive">');
         });
     }
 }
