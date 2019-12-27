@@ -19,7 +19,7 @@ class CreateThemeSettingsTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->string('key', 60);
             $table->string('label', 60);
-            $table->string('value')->nullable();
+            $table->json('value')->nullable();
             $table->string('type', 30)->default('string');
             $table->json('meta')->nullable();
 
