@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Settings\AdminMenu;
 use App\Models\Core\Content\ContentType;
+use Illuminate\Support\Arr;
 
 class SpaController extends Controller
 {
@@ -13,6 +14,7 @@ class SpaController extends Controller
     public function index()
     {
         $adminMenu = AdminMenu::get();
+        $adminMenu = $adminMenu->sortBy('order');
         $contentTypesList = ContentType::all()->toArray();
         $adminMenuArray = $adminMenu->toArray();
         $menuTree = $this->buildMenuTree($adminMenuArray);
