@@ -72,7 +72,7 @@ class InstallCommand extends BaseCommand
         Artisan::call('config:cache');
 
         $this->info('Generating new app key');
-        Artisan::call('key:generate');
+        Artisan::call('key:generate --force');
 
         $this->info('About to download & install admin and default frontend theme.');
         $this->fetchAdminTheme($phoenixLastVersion);

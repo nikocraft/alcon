@@ -40,7 +40,6 @@ class InstallerController extends Controller
         }
 
         $envData = [
-            'APP_ENV' => 'local',
             'APP_KEY' => $this->generateRandomKey(),
             'APP_URL' => request()->root()
         ];
@@ -58,7 +57,7 @@ class InstallerController extends Controller
     public function saveEnvironmentSettings(Request $request)
     {
         $envData = [
-            'APP_DEBUG' => false,
+            'APP_DEBUG' => "false",
             'APP_ENV' => 'production',
             'DB_DATABASE' => $request->database,
             'DB_USERNAME' => $request->username,
