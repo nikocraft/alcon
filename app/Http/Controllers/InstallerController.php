@@ -11,6 +11,7 @@ use DB;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\SettingsService;
+use App\Services\LaraOneInstallUpdateService;
 use Carbon\Carbon;
 
 class InstallerController extends Controller
@@ -25,6 +26,7 @@ class InstallerController extends Controller
     public function __construct(SettingsService $websiteService)
 	{
         $this->websiteService = $websiteService;
+        $this->installService = new LaraOneInstallUpdateService;
     }
 
     /**
@@ -85,13 +87,11 @@ class InstallerController extends Controller
         $errorMessage = '';
 
         try {
-            Artisan::call('migrate', [
-                '--force' => true,
-            ]);
-            Artisan::call('db:seed', [
-                '--class' => 'DatabaseSeeder',
-                '--force' => true,
-            ]);
+            $phoenixLastVersion = $this->installService->getPhoenixLastVersion();
+            $this->installService->fetchAdminTheme($phoenixLastVersion);
+            $this->installService->fetchDefaultTheme($phoenixLastVersion);
+            Artisan::call('migrate', [ '--force' => true ]);
+            Artisan::call('db:seed', [ '--class' => 'DatabaseSeeder', '--force' => true ]);
             $this->saveSiteSettings($request);
         } catch (\Exception $e) {
             $success = false;

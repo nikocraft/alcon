@@ -44,7 +44,7 @@ class InstallCommand extends BaseCommand
      */
     public function handle()
     {
-        $phoenixLastVersion = $this->getPhoenixLastVersion();
+        $phoenixLastVersion = $this->updateService->getPhoenixLastVersion();
 
         if($this->option('create-user')) {
             $username = $this->askWithValidation('Enter username', null, function ($value) {
@@ -56,15 +56,15 @@ class InstallCommand extends BaseCommand
             });
 
             $password = $this->askWithValidation('Enter secure password', null, function ($value) {
-                return $this->validateInput('password', 'required|min:6', $value);
+                return $this->validateInput('password', 'required|min:8', $value);
             });
 
             $firstname = $this->askWithValidation('Enter firstname', null, function ($value) {
-                return $this->validateInput('password', 'required|alpha|min:3', $value);
+                return $this->validateInput('firstname', 'required|alpha|min:3', $value);
             });
 
             $lastname = $this->askWithValidation('Enter lastname', null, function ($value) {
-                return $this->validateInput('password', 'required|alpha|min:3', $value);
+                return $this->validateInput('lastname', 'required|alpha|min:3', $value);
             });
         }
 
@@ -72,16 +72,14 @@ class InstallCommand extends BaseCommand
         Artisan::call('config:cache');
 
         $this->info('Generating new app key');
-        Artisan::call('key:generate --force');
+        Artisan::call('key:generate', [ '--force' => true ]);
 
         $this->info('About to download & install admin and default frontend theme.');
-        $this->fetchAdminTheme($phoenixLastVersion);
-        $this->fetchDefaultTheme($phoenixLastVersion);
+        $this->updateService->fetchAdminTheme($phoenixLastVersion);
+        $this->updateService->fetchDefaultTheme($phoenixLastVersion);
 
         $this->info('Running migrations.');
-        Artisan::call('migrate:fresh', [
-            '--force' => true,
-        ], null, null);
+        Artisan::call('migrate:fresh', [ '--force' => true ]);
 
         if($this->option('artisan-output'))
             $this->info(Artisan::output());

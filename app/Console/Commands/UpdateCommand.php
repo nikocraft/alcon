@@ -15,14 +15,14 @@ class UpdateCommand extends BaseCommand
      *
      * @var string
      */
-    protected $signature = 'laraone:update {--fetch-latest-phoenix} {--fetch-active-theme}';
+    protected $signature = 'laraone:update {--update-active-theme}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update Laraone by running new migrations and seeds. Latest version should be pulled by git before running this command. Option --fetch-latest-phoenix should only be used if not using git to deploy.';
+    protected $description = 'Updates Laraone by running new migrations and seeds. Latest code should be pulled by git before running this command.';
 
     /**
      * Create a new command instance.
@@ -44,38 +44,18 @@ class UpdateCommand extends BaseCommand
         $websiteService = new SettingsService;
         $themeService = new ThemeService;
         $phoenixCurrentVersion = get_website_setting('cms.phoenix');
-        $phoenixLastVersion = $this->getPhoenixLastVersion();
+        $phoenixLastVersion = $this->updateService->getPhoenixLastVersion();
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
         // $this->info('composer dump-autoload');
         // exec('composer dump-autoload');
 
-        $phoenixCurrentReleaseIndex = $this->getReleaseIndex($phoenixCurrentVersion);
-        $phoenixLastReleaseIndex = $this->getLastIndex();
+        $phoenixCurrentReleaseIndex = $this->updateService->getReleaseIndex($phoenixCurrentVersion);
+        $phoenixLastReleaseIndex = $this->updateService->getLastIndex();
 
         if($phoenixCurrentReleaseIndex != $phoenixLastReleaseIndex) {
             $this->info('Update started, current version is ' . $phoenixCurrentVersion);
-
-            if($this->option('fetch-latest-phoenix')) {
-                $this->fetchLatestRelease();
-                $zip = new ZipArchiveService;
-    
-                if ($zip->open(storage_path('releases'. DIRECTORY_SEPARATOR . $phoenixLastVersion . '.zip')) === TRUE) {
-                    $base = 'phoenix-' . $phoenixLastVersion . DIRECTORY_SEPARATOR;
-                    $this->info('Unpacking latest release.');
-                    $zip->extractSubdirTo($base .'app', base_path('app'));
-                    $zip->extractSubdirTo($base .'database', base_path('database'));
-                    $zip->extractSubdirTo($base .'resources', base_path('resources'));
-                    $zip->extractSubdirTo($base .'routes', base_path('routes'));
-                    $zip->extractSubdirTo($base .'config', base_path('config'));
-                    $zip->extractSubdirTo($base .'public' . DIRECTORY_SEPARATOR . 'install', base_path('public' . DIRECTORY_SEPARATOR . 'install'));
-                    exec('composer dump-autoload');
-                    $this->info('Successfully unpacked the release.');
-                } else {
-                    $this->info('Not able to unpack zip and proceed with the update. Please report this problem.');
-                }
-            }
 
             $updatesData = array_slice($this->releasesData, $phoenixCurrentReleaseIndex);
             $seeded = 0;
@@ -103,18 +83,16 @@ class UpdateCommand extends BaseCommand
             }
             // exec('composer dump-autoload');
 
-            // fetch admin and active theme
-            // $this->fetchThemes($phoenixLastVersion);
             $this->info('Phoenix updated to v' . $phoenixLastVersion);
         } else {
             // fetch admin and active theme
             $this->info('Phoenix already up to date!');
         }
 
-        $this->fetchAdmin($phoenixLastVersion);
+        $this->updateService->fetchAndUpdateAdminTheme($phoenixLastVersion);
 
-        if($this->option('fetch-active-theme')) {
-            $this->fetchActiveTheme($phoenixLastVersion);
+        if($this->option('update-active-theme')) {
+            $this->updateService->fetchAndUpdateActiveTheme($phoenixLastVersion);
         }
         $adminTheme = $themeService->getThemeByFolderName('atlas');
         $this->info('Phoenix: v' . $phoenixLastVersion . ', Atlas: v' .  $adminTheme->version);
@@ -123,58 +101,6 @@ class UpdateCommand extends BaseCommand
         $websiteService->updateSetting('cms.atlas', $adminTheme->version);
 
         $this->info('Laraone updated!');
-    }
-
-    private function fetchAdmin($phoenixLastVersion)
-    {
-        $themeService = new ThemeService;
-        // download admin theme and update
-        $adminTheme = $themeService->getThemeByFolderName('atlas');
-        $adminThemeId = $adminTheme->id;
-        $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
-    }
-
-    private function fetchActiveTheme($phoenixLastVersion)
-    {
-        // download active theme and update
-        $activeThemeId = get_website_setting('website.general.activeTheme');
-        $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
-    }
-
-    private function fetchThemes($phoenixLastVersion)
-    {
-        $themeService = new ThemeService;
-
-        // download admin theme and update
-        $adminTheme = $themeService->getThemeByFolderName('atlas');
-        $adminThemeId = $adminTheme->id;
-        $this->fetchAndUpdateTheme($phoenixLastVersion, $adminThemeId);
-
-        // download active theme and update
-        $activeThemeId = get_website_setting('website.general.activeTheme');
-        $this->fetchAndUpdateTheme($phoenixLastVersion, $activeThemeId);
-    }
-
-    private function fetchAndUpdateTheme($phoenixLastVersion, $themeId)
-    {
-        $themeService = new ThemeService;
-        $theme = $themeService->getTheme($themeId);
-        $themeFileName = $theme->folder . '.zip';
-        $fetch = $this->fetchTheme($phoenixLastVersion, $theme->releases_url, $theme->download_url, $theme->folder);
-        if($fetch) {
-            $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . $themeFileName);
-            $return = $themeService->updateTheme($themePath);
-            $this->info($return->message);
-        }
-    }
-
-    protected function fetchLatestRelease()
-    {
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-        $this->fetchLatestReleaseData();
-        $phoenixLastVersion = $this->getPhoenixLastVersion();
-        $this->fetchRelease($phoenixLastVersion);
     }
 
     protected function getSeedFileName($version)
