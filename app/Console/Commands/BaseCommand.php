@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 use Artisan;
 use Validator;
-use App\Services\LaraOneInstallUpdateService;
+use App\Services\LaraOneService;
 
 class BaseCommand extends Command
 {
@@ -42,7 +42,7 @@ class BaseCommand extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->updateService = new LaraOneInstallUpdateService;
+        $this->updateService = new LaraOneService;
     }
 
     /**

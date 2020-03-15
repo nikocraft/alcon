@@ -43,21 +43,21 @@ class UpdateCommand extends BaseCommand
     {
         $websiteService = new SettingsService;
         $themeService = new ThemeService;
-        $phoenixCurrentVersion = get_website_setting('cms.phoenix');
-        $phoenixLastVersion = $this->updateService->getPhoenixLastVersion();
+        $cmsCurrentVersion = get_website_setting('cms.version');
+        $lastVersion = $this->updateService->getLastVersion();
 
         Artisan::call('config:clear');
         Artisan::call('config:cache');
         // $this->info('composer dump-autoload');
         // exec('composer dump-autoload');
 
-        $phoenixCurrentReleaseIndex = $this->updateService->getReleaseIndex($phoenixCurrentVersion);
-        $phoenixLastReleaseIndex = $this->updateService->getLastIndex();
+        $currentReleaseIndex = $this->updateService->getReleaseIndex($cmsCurrentVersion);
+        $lastReleaseIndex = $this->updateService->getLastIndex();
 
-        if($phoenixCurrentReleaseIndex != $phoenixLastReleaseIndex) {
-            $this->info('Update started, current version is ' . $phoenixCurrentVersion);
+        if($currentReleaseIndex != $lastReleaseIndex) {
+            $this->info('Update started, current version is ' . $cmsCurrentVersion);
 
-            $updatesData = array_slice($this->releasesData, $phoenixCurrentReleaseIndex);
+            $updatesData = array_slice($this->releasesData, $currentReleaseIndex);
             $seeded = 0;
 
             Artisan::call('migrate', [
@@ -83,24 +83,18 @@ class UpdateCommand extends BaseCommand
             }
             // exec('composer dump-autoload');
 
-            $this->info('Phoenix updated to v' . $phoenixLastVersion);
+            $this->info('LaraOne updated to v' . $lastVersion);
         } else {
-            // fetch admin and active theme
-            $this->info('Phoenix already up to date!');
+            $this->info('LaraOne is already up to date!');
         }
-
-        $this->updateService->fetchAndUpdateAdminTheme($phoenixLastVersion);
 
         if($this->option('update-active-theme')) {
-            $this->updateService->fetchAndUpdateActiveTheme($phoenixLastVersion);
+            $this->updateService->fetchAndUpdateActiveTheme($lastVersion);
         }
-        $adminTheme = $themeService->getThemeByFolderName('atlas');
-        $this->info('Phoenix: v' . $phoenixLastVersion . ', Atlas: v' .  $adminTheme->version);
 
-        $websiteService->updateSetting('cms.phoenix', $phoenixLastVersion);
-        $websiteService->updateSetting('cms.atlas', $adminTheme->version);
+        $websiteService->updateSetting('cms.version', '1.2.1');
 
-        $this->info('Laraone updated!');
+        $this->info('LaraOne updated!');
     }
 
     protected function getSeedFileName($version)

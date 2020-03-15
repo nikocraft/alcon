@@ -27,8 +27,8 @@ class ThemeController extends Controller
     public function index(Request $request)
     {
         $per_page = $request->input('per_page', 25);
-        // $themes = Theme::paginate($per_page);
-        $themes = Theme::where('folder', '!=', config('laraone.admin_theme.name'))->get();
+        $themes = Theme::paginate($per_page);
+        // $themes = Theme::all();
 
         $websiteSettings = $this->websiteService->getSettings();
         $activeThemeId = data_get($websiteSettings, 'website.general.activeTheme');

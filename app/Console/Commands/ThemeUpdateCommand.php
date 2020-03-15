@@ -42,13 +42,13 @@ class ThemeUpdateCommand extends BaseCommand
         $themeName = $this->option('theme');
 
         $websiteService = new SettingsService;
-        $phoenixVersion = get_website_setting('cms.phoenix');
+        $cmsVersion = get_website_setting('cms.version');
 
         $themeService = new ThemeService;
         $theme = $themeService->getThemeByFolderName($themeName);
 
         if($theme) {
-            $this->fetchTheme($phoenixVersion, $theme->releases_url, $theme->download_url, $themeName);
+            $this->fetchTheme($cmsVersion, $theme->releases_url, $theme->download_url, $themeName);
             $themePath = storage_path('themes'. DIRECTORY_SEPARATOR . $themeName . '.zip');
             $return = $themeService->updateTheme($themePath);
 

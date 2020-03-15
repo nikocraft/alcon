@@ -94,7 +94,7 @@ class ContentController extends Controller
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $editorSettings = data_get($websiteSettings, 'atlas.content.editor');
+        $editorSettings = data_get($websiteSettings, 'admin.content.editor');
 
         $defaultContentLayout = get_theme_setting('content.' . lcfirst($contentType->slug) . '.layout.singlePage', null);
         $defaultContentSettings = get_theme_setting('content.' . lcfirst($contentType->slug) . '.settings', null);
@@ -109,7 +109,7 @@ class ContentController extends Controller
         $contentTaxonomies = $contentType->taxonomies->each->setAppends(['terms', 'settings']);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $editorSettings = data_get($websiteSettings, 'atlas.content.editor');
+        $editorSettings = data_get($websiteSettings, 'admin.content.editor');
         $defaultContentSettings = get_theme_setting('content.' . lcfirst($contentType->slug) . '.settings', null);
 
         // merge content settings with global theme settings

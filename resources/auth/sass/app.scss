@@ -1,0 +1,28 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+
+/** Bootstrap import start */
+
+// Core variables and mixins
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+// Reset and dependencies
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+
+// Core CSS
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+
+// Components
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/labels";
+
+/** Bootstrap import end */
+
+// element-ui checkbox
+@import "~element-ui/packages/theme-chalk/src/checkbox.scss";
+
+// auth css
+@import "./includes/base";

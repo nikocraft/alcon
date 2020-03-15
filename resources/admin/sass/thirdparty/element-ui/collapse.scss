@@ -1,0 +1,29 @@
+@import "~element-ui/packages/theme-chalk/src/collapse.scss";
+
+// Overridings
+.el-collapse {
+    border: 0px !important;
+    &-item {
+        &__header {
+            background-color: rgba(0,0,0, 0.09) !important;
+            border-bottom: 0px !important;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            color: inherit !important;
+            padding: 7px 10px;
+        }
+        &__arrow {
+            margin-right: 8px;
+            transition: transform .3s;
+            float: right;
+            font-weight: 300;
+            margin-right: 0px;
+            margin-top: 3px;
+            line-height: inherit;
+        }
+        &__content {
+            color: inherit !important;
+            padding-bottom: 0px;
+        }
+    }
+}

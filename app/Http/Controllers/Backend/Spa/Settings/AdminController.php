@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $settings = get_website_setting('atlas.general');
+        $settings = get_website_setting('admin.general');
 
         return response()->json([
             'data' => $settings
@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $this->websiteService->updateSettings('atlas.general', $request->settings);
+        $this->websiteService->updateSettings('admin.general', $request->settings);
 
         return response()->json([], 200);
     }
