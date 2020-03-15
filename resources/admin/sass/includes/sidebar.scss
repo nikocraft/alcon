@@ -1,0 +1,168 @@
+.main-sidebar,
+.left-side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 50px;
+    min-height: 100%;
+    width: 230px;
+    z-index: 810;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+@media(max-width: 767px) {
+    .main-sidebar,
+    .left-side {
+        padding-top: 100px;
+        transform: translate(-230px, 0);
+    }
+    .sidebar-open {
+        .main-sidebar,
+        .left-side {
+            transform: translate(0, 0);
+        }
+    }
+}
+@media(min-width: 768px) {
+    .sidebar-collapse {
+        .main-sidebar,
+        .left-side {
+            transform: translate(-230px, 0);
+        }
+    }
+}
+.sidebar {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    .table {
+        margin-bottom: 0;
+        > thead > tr > th, > tbody > tr > th,
+        > tfoot > tr > th, > thead > tr > td,
+        > tbody > tr > td, > tfoot > tr > td {
+            border-top: 0px solid #f4f4f4;
+            height: inherit !important;
+        }
+    }
+}
+.sidebar-form {
+    overflow: hidden;
+    text-overflow: clip;
+    input:focus {
+        border-color: transparent;
+    }
+}
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    > li {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        > a {
+            padding: 12px 5px 12px 15px;
+            display: block;
+            > {
+                .fa, .glyphicon, .ion, .lo-icon {
+                    width: 20px;
+                }
+            }
+        }
+        .label {
+            margin-right: 5px;
+        }
+        .badge {
+            margin-right: 5px;
+            margin-top: 3px;
+        }
+        &.header {
+            white-space: nowrap;
+            overflow: hidden;
+            overflow: hidden;
+            text-overflow: clip;
+        }
+    }
+    li {
+        &.header {
+            padding: 10px 25px 10px 15px;
+            font-size: 12px;
+        }
+        > a {
+            position: relative;
+            > {
+                .fa-angle-left {
+                    width: auto;
+                    height: auto;
+                    padding: 0;
+                    margin-right: 10px;
+                    position: absolute;
+                    top: 50%;
+                    right: 10px;
+                    margin-top: -8px;
+                }
+                .pull-right-container {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    margin-top: -7px;
+                    > .fa-angle-left {
+                        width: auto;
+                        height: auto;
+                        padding: 0;
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+        &.active {
+            > a > {
+                .fa-angle-left {
+                    transform: rotate(-90deg);
+                }
+                .pull-right-container > .fa-angle-left {
+                    transform: rotate(-90deg);
+                }
+            }
+            > .treeview-menu {
+                display: block;
+            }
+        }
+    }
+    .treeview-menu {
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        padding-left: 5px;
+        .treeview-menu {
+            padding-left: 20px;
+        }
+        > li {
+            margin: 0;
+            > a {
+                padding: 5px 5px 5px 15px;
+                display: block;
+                font-size: 13px;
+                > {
+                    .fa, .glyphicon, .ion, .lo-icon {
+                        width: 20px;
+                    }
+                    .fa-angle-left,
+                    .fa-angle-down {
+                        width: auto;
+                    }
+                    .pull-right-container > {
+                        .fa-angle-left,
+                        .fa-angle-down {
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &:hover {
+        overflow: visible;
+    }
+}

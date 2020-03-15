@@ -17,7 +17,7 @@ class ContentTypeController extends Controller
 
     public function show($contentTypeId) {
         $contentType = ContentType::whereId($contentTypeId)->first();
-        $settings = get_website_setting('atlas.content.indexPage');
+        $settings = get_website_setting('admin.content.indexPage');
 
         return (new ContentTypeResource($contentType))
             ->additional(compact('settings'));

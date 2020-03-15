@@ -17,18 +17,18 @@ class ContentSettingsController extends Controller
     }
     
     public function storeIndexSettings(Request $request) {
-        $this->websiteService->updateSettings('atlas.content.indexPage', $request->settings);
+        $this->websiteService->updateSettings('admin.content.indexPage', $request->settings);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $settings = data_get($websiteSettings, 'atlas.content.indexPage');
+        $settings = data_get($websiteSettings, 'admin.content.indexPage');
         return response()->json(['data' => $settings]);
     }
 
     public function storeEditorSettings(Request $request) {
-        $this->websiteService->updateSettings('atlas.content.editor', $request->settings);
+        $this->websiteService->updateSettings('admin.content.editor', $request->settings);
 
         $websiteSettings = $this->websiteService->getSettings();
-        $settings = data_get($websiteSettings, 'atlas.content.editor');
+        $settings = data_get($websiteSettings, 'admin.content.editor');
         return response()->json(['data' => $settings]);
     }
 }

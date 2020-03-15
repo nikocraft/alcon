@@ -1,0 +1,187 @@
+.main-header {
+    position: relative;
+    max-height: 135px;
+    // z-index: 1030;
+    z-index: unset;
+    .navbar {
+        transition: margin-left 0.3s ease-in-out;
+        margin-bottom: 0;
+        border: none;
+        min-height: 50px;
+        border-radius: 0;
+
+        height: 40px;
+        background-color: #222d32;
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        .nav > li {
+            &.user > a > {
+                .fa, .glyphicon, .ion, .lo-icon {
+                    margin-right: 5px;
+                }
+            }
+            > a > .label {
+                position: absolute;
+                top: 9px;
+                right: 7px;
+                text-align: center;
+                font-size: 9px;
+                padding: 2px 3px;
+                line-height: .9;
+            }
+        }
+    }
+    .navbar-right {
+        float: right;
+    }
+    .sidebar-toggle {
+        float: left;
+        background-color: transparent;
+        background-image: none;
+        padding: 15px;
+        font-family: fontAwesome;
+        &:before {
+            content: "\f0c9";
+        }
+        &:hover {
+            color: #fff;
+        }
+        &:focus {
+            background: transparent;
+        }
+        &:active {
+            background: transparent;
+        }
+        .icon-bar {
+            display: none;
+        }
+    }
+    .logo {
+        transition: width 0.3s ease-in-out;
+        display: block;
+        float: left;
+        height: 50px;
+        font-size: 20px;
+        line-height: 50px;
+        text-align: center;
+        width: 230px;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        padding: 0 15px;
+        font-weight: 300;
+        overflow: hidden;
+        .logo-lg {
+            display: block;
+        }
+        .logo-mini {
+            display: none;
+        }
+    }
+    .navbar-brand {
+        color: #fff;
+    }
+}
+@media(max-width: 991px) {
+    .main-header {
+        .navbar-right a {
+            color: inherit;
+            background: transparent;
+        }
+    }
+    .content-header > .breadcrumb {
+        position: relative;
+        margin-top: 5px;
+        top: 0;
+        right: 0;
+        float: none;
+        background: #d2d6de;
+        padding-left: 10px;
+        li:before {
+            color: #97a0b3;
+        }
+    }
+    .navbar-collapse.pull-left {
+        float: none !important;
+    }
+}
+@media(max-width: 767px) {
+    .main-header {
+        position: relative;
+        .navbar-right {
+            float: none;
+            > li {
+                color: inherit;
+                border: 0;
+            }
+        }
+        .logo {
+            width: 100%;
+            float: none;
+        }
+        .navbar {
+            width: 100%;
+            float: none;
+            margin: 0;
+        }
+    }
+    .navbar-collapse .main-header .navbar-right {
+        margin: 7.5px -15px;
+    }
+}
+.content-header {
+    position: relative;
+    padding: 15px;
+    min-height: 50px;
+    > h1 {
+        margin: 0;
+        font-size: 24px;
+        > small {
+            font-size: 15px;
+            display: inline-block;
+            padding-left: 4px;
+            font-weight: 300;
+        }
+    }
+    > .breadcrumb {
+        float: right;
+        background: transparent;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 12px;
+        padding: 7px 5px;
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        border-radius: 2px;
+        > li {
+            > a {
+                color: #444;
+                text-decoration: none;
+                display: inline-block;
+                > {
+                    .fa {
+                        margin-right: 5px;
+                    }
+                    .glyphicon {
+                        margin-right: 5px;
+                    }
+                    .ion {
+                        margin-right: 5px;
+                    }
+                    .lo-icon {
+                        margin-right: 5px;
+                    }
+                }
+            }
+            + li:before {
+                content: ' >\00a0';
+            }
+        }
+    }
+}
+.navbar-toggle {
+    color: #fff;
+    border: 0;
+    margin: 0;
+    padding: 15px;
+}

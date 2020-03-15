@@ -1,0 +1,61 @@
+.content-editor {
+    .component-buttons {
+        margin-top: 10px;
+        .btn {
+            margin-right: 3px;
+        }
+    }
+
+    .widget-component-buttons {
+        margin-top: 10px;
+        margin-left: 10px;
+        .btn {
+            margin-right: 5px;
+            margin-bottom: 5px;
+            padding: 10px 30px;
+        }
+    }
+
+    .featured-image {
+        cursor: pointer;
+    }
+
+    .set-featured-image {
+        text-align: center;
+        border: 1px dashed #3c8dbc;
+        padding: 35px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .remove-featured-image {
+        cursor: pointer;
+        margin-top: 5px;
+        padding: 5px;
+        font-size: 15px;
+        background-color: rgb(44, 107, 143);
+        color: white;
+    }
+}
+
+.box-body .css-textarea {
+    height: 400px;
+}
+
+// CSS Editor Overrides
+.prism-editor-wrapper {
+    background: #283339 !important;
+}
+
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+    background: #283339 !important;
+}
+
+.token.property, .token.tag, .token.constant, .token.symbol, .token.deleted {
+    color: #6dbaf3 !important;
+}
+
+.token.regex, .token.important {
+    color: #95ff74 !important;
+}

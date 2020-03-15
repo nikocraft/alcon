@@ -16,8 +16,7 @@ class SettingsSeeder extends Seeder
             'key' => 'cms',
             'meta' => [
                 'installed' => false,
-                'phoenix' => '1.0.0',
-                'atlas' => '1.0.0'
+                'version' => '1.0.0'
             ]
         ]);
 
@@ -28,7 +27,7 @@ class SettingsSeeder extends Seeder
                     'title' => 'Laraone',
                     'tagline' => 'Website tagline',
                     'url' => '',
-                    'activeTheme' => 2,
+                    'activeTheme' => 1,
                     'frontPageType' => 'welcome-page',
                     'frontPageMeta' => 1,
                     'paginationType' => 'simple',
@@ -71,7 +70,7 @@ class SettingsSeeder extends Seeder
         ]);
 
         $section = Setting::create([
-            'key' => 'atlas',
+            'key' => 'admin',
             'meta' => [
                 'general' => [
                     'language' => 'en',

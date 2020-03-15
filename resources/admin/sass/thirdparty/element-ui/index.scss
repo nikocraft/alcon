@@ -1,0 +1,179 @@
+$--color-primary: rgba(37, 128, 180, 0.66);
+$--color-default: rgba(244, 244, 244, 0.09);
+$--color-danger: #d9534f;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+$--color-text-primary: #b8c7ce !default;
+$--border-color: #28363c !default;
+
+$--select-dropdown-max-height: 174px !default;
+
+$--input-height: 32px !default;
+
+$--popover-border-color: rgba(17,17,17,0.39) !default;
+$--popover-fill: #283339 !default;
+
+$--collapse-content-fill: transparent !default;
+$--collapse-border-color: transparent !default;
+$--collapse-header-height: inherit !default;
+
+$--msgbox-border-radius: 2px !default;
+
+// Based on https://github.com/ElemeFE/element/blob/dev/packages/theme-chalk/src/index.scss
+// Read more about it: http://element.eleme.io/#/en-US/component/custom-theme
+
+@import "~element-ui/packages/theme-chalk/src/base.scss";
+@import "~element-ui/packages/theme-chalk/src/pagination.scss";
+@import "~element-ui/packages/theme-chalk/src/dropdown.scss";
+@import "~element-ui/packages/theme-chalk/src/dropdown-menu.scss";
+@import "~element-ui/packages/theme-chalk/src/dropdown-item.scss";
+@import "~element-ui/packages/theme-chalk/src/menu.scss";
+@import "~element-ui/packages/theme-chalk/src/submenu.scss";
+@import "~element-ui/packages/theme-chalk/src/menu-item.scss";
+@import "~element-ui/packages/theme-chalk/src/menu-item-group.scss";
+@import "~element-ui/packages/theme-chalk/src/input.scss";
+@import "./input-number.scss";
+@import "~element-ui/packages/theme-chalk/src/radio.scss";
+@import "~element-ui/packages/theme-chalk/src/radio-group.scss";
+@import "~element-ui/packages/theme-chalk/src/radio-button.scss";
+@import "~element-ui/packages/theme-chalk/src/checkbox.scss";
+@import "~element-ui/packages/theme-chalk/src/checkbox-button.scss";
+@import "~element-ui/packages/theme-chalk/src/checkbox-group.scss";
+@import "~element-ui/packages/theme-chalk/src/select.scss";
+@import "~element-ui/packages/theme-chalk/src/button.scss";
+@import "~element-ui/packages/theme-chalk/src/button-group.scss";
+@import "~element-ui/packages/theme-chalk/src/table.scss";
+@import "~element-ui/packages/theme-chalk/src/table-column.scss";
+@import "~element-ui/packages/theme-chalk/src/date-picker.scss";
+@import "~element-ui/packages/theme-chalk/src/time-select.scss";
+@import "~element-ui/packages/theme-chalk/src/time-picker.scss";
+@import "~element-ui/packages/theme-chalk/src/popover.scss";
+@import "~element-ui/packages/theme-chalk/src/tooltip.scss";
+@import "./tabs.scss";
+@import "~element-ui/packages/theme-chalk/src/tab-pane.scss";
+@import "~element-ui/packages/theme-chalk/src/notification.scss";
+@import "~element-ui/packages/theme-chalk/src/loading.scss";
+@import "~element-ui/packages/theme-chalk/src/upload.scss";
+@import "~element-ui/packages/theme-chalk/src/progress.scss";
+@import "~element-ui/packages/theme-chalk/src/spinner.scss";
+@import "~element-ui/packages/theme-chalk/src/message.scss";
+@import "./message-box.scss";
+@import "~element-ui/packages/theme-chalk/src/badge.scss";
+@import "~element-ui/packages/theme-chalk/src/scrollbar.scss";
+
+@import "~element-ui/packages/theme-chalk/src/steps.scss";
+@import "~element-ui/packages/theme-chalk/src/step.scss";
+
+@import "./collapse.scss";
+
+// Some overridings
+.el-select {
+    width: 100% !important;
+}
+
+.el-input-number {
+    width: 100% !important;
+}
+
+.el-input-number__decrease, .el-input-number__increase {
+    border-left: 1px solid #222c31 !important;
+}
+
+.el-input__inner {
+    background-color: #283339 !important;
+    border: 1px solid #20272b !important;
+    border-radius: 2px !important;
+    color: #1f2d3d !important;
+    color: #b3c5ce !important;
+}
+
+.el-select-dropdown {
+    border: 1px solid #222d32 !important;
+    background-color: #283339 !important;
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+    background-color: rgb(31, 40, 45) !important;
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+    background-color: #283339 !important;
+}
+
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected.hover {
+    background-color: #1f282d !important;
+}
+
+.el-tabs__item {
+    height: 29px !important;
+    line-height: 18px !important;
+    &:hover {
+        color: #e3e9ef !important;
+    }
+}
+
+.el-step__icon {
+    width: 35px;
+    height: 35px;
+    background: #3b5d71;
+}
+
+.el-step.is-horizontal .el-step__line {
+    top: 17px;
+}
+
+.el-step__icon-inner {
+    color: white;
+}
+
+.el-step__title.is-process {
+    font-weight: bold;
+    color: white;
+}
+
+.el-step__title.is-wait {
+    color: #f3f3f3;
+}
+
+.el-step__head.is-wait {
+    border-color: #ffffff;
+}
+
+.el-step__title.is-success {
+    color: #f3f3f3;
+}
+
+.el-step__head.is-success {
+    color: #67c23a;
+    border-color: #baeaa2;
+}
+
+.el-step__head.is-process {
+    color: #b8c7ce;
+    border-color: #ffffff;
+}
+
+.el-step__line {
+    position: absolute;
+    border-color: inherit;
+    background-color: white;
+}
+
+.el-notification {
+    border: 0px solid #3c8dbc6e;
+    background-color: #1a2529;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.0);
+    border-radius: 2px;
+}
+
+.content-editor-notification {
+    width: 157px;
+}
+
+.el-notification__content {
+    font-size: 14px;
+    color: #cecece;
+    font-weight: bold;
+}

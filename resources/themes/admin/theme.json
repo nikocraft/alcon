@@ -1,0 +1,9 @@
+{
+  "name"              : "Admin",
+  "description"       : "SPA Admin for Laraone CMS",
+  "author"            : "Reimagined Works",
+  "url"               : "https://www.laraone.com",
+  "extends"           : null,
+  "views-path"        : "admin",
+  "asset-path"        : "admin"
+}

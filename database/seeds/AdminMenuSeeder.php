@@ -18,7 +18,8 @@ class AdminMenuSeeder extends Seeder
             'name' => 'Dashboard',
             'unique_id' =>'core.dashboard',
             'route' => 'dashboard',
-            'order' => 10
+            'order' => 10,
+            'visible' => 0,
         ]);
 
         /** Content Types Start */

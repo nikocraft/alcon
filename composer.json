@@ -1,6 +1,6 @@
 {
-    "name": "laraone/phoenix",
-    "description": "Laraone Phoenix, backend for Laraone CMS",
+    "name": "laraone/laraone",
+    "description": "Laraone CMS",
     "keywords": ["laraone", "cms", "responsive", "web-design", "themes", "php", "javascript", "components"],
     "type": "project",
     "homepage": "https://laraone.com",

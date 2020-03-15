@@ -1,0 +1,25 @@
+.b-comp-list {
+    &_item {
+        background-color: rgba(87, 113, 128, 0.09);
+        float: left;
+        width: 19.1%;
+        padding: 15px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid transparent;
+        &:hover, &:active, &.hover {
+            background-color: rgba(87, 113, 128, 0.15);
+            border: 1px solid rgba(0,0,0, 0.25);
+        }
+        &.selected {
+            border: 1px solid #3c8dbc;
+        }
+    }
+    &_favorites &_item {
+        &.selected {
+            border: 1px solid #3c8dbc;
+        }
+    }
+}

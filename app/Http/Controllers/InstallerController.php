@@ -11,22 +11,23 @@ use DB;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\SettingsService;
-use App\Services\LaraOneInstallUpdateService;
+use App\Services\LaraOneService;
 use Carbon\Carbon;
+use Theme;
 
 class InstallerController extends Controller
 {
-    protected $websiteService;
+    protected $settingsService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(SettingsService $websiteService)
+    public function __construct(SettingsService $settingsService)
 	{
-        $this->websiteService = $websiteService;
-        $this->installService = new LaraOneInstallUpdateService;
+        $this->settingsService = $settingsService;
+        $this->installService = new LaraOneService;
     }
 
     /**
@@ -34,7 +35,7 @@ class InstallerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showInstallWizard()
     {
         $envPath = app()->environmentFilePath();
         if(!file_exists($envPath)) {
@@ -53,7 +54,9 @@ class InstallerController extends Controller
 
         $dbTestSuccess = $this->testDbConnection();
 
-        return view('install');
+        Theme::set('admin'); 
+
+        return view('installer');
     }
 
     public function saveEnvironmentSettings(Request $request)
@@ -87,9 +90,8 @@ class InstallerController extends Controller
         $errorMessage = '';
 
         try {
-            $phoenixLastVersion = $this->installService->getPhoenixLastVersion();
-            $this->installService->fetchAdminTheme($phoenixLastVersion);
-            $this->installService->fetchDefaultTheme($phoenixLastVersion);
+            $lastVersion = $this->installService->getLastVersion();
+            $this->installService->fetchDefaultTheme($lastVersion);
             Artisan::call('migrate', [ '--force' => true ]);
             Artisan::call('db:seed', [ '--class' => 'DatabaseSeeder', '--force' => true ]);
             $this->saveSiteSettings($request);
@@ -108,7 +110,7 @@ class InstallerController extends Controller
     private function saveSiteSettings($request)
     {
         if($request->siteTitle) {
-            $this->websiteService->updateSetting('website.general.title', $request->siteTitle);
+            $this->settingsService->updateSetting('website.general.title', $request->siteTitle);
         }
         $super = Role::find(1);
         $user = User::create([
@@ -122,6 +124,9 @@ class InstallerController extends Controller
             'approved' => true
         ]);
         $user->attachRole($super);
+        
+        $cmsLastVersion = $this->installService->getLastVersion();
+        $this->settingsService->updateSetting('cms.version', $cmsLastVersion);
 
         return response()->json([
             'status' => 'Success',
