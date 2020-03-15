@@ -1,0 +1,20 @@
+// import styles for medium editor
+@import url(~medium-editor/dist/css/medium-editor.min.css);
+@import url(~medium-editor/dist/css/themes/mani.min.css);
+
+.medium-editor-toolbar ul {
+    margin-bottom: -1px;
+}
+
+.medium-editor-toolbar li {
+    border-bottom: 1px solid #cdd6e0;
+    &:nth-child(8n+9) {
+        display: block;
+        clear: both;
+    }
+    &:nth-child(8n+8) {
+        button {
+            border-right: none;
+        }
+    }
+}

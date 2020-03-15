@@ -1,0 +1,144 @@
+<template>
+    <div :style="containerStyles">
+        <draggable
+            v-model="subItems"
+            :style="itemsWrapperStyles"
+            group="sub"
+            handle=".lo-icon-move"
+            chosenClass="dragging1">
+            <template v-for="block in subItems">
+                <component-wrapper
+                    :type="block.type"
+                    :uniqueId="block.uniqueId"
+                    :settings="block.settings"
+                    :isplay="settings.display"
+                    :show-headers="showBlockHeaders"
+                    :show-labels="showBlockLabels"
+                    v-on:remove="removeBlock(block.uniqueId)"
+                    :storePath="storePath"
+                    :key="block.uniqueId"
+                    :ancestorSettings="propagatedSettings"/>
+            </template>
+        </draggable>
+    </div>
+</template>
+
+<script>
+    import GeneralMixin from '../../mixins/GeneralMixin'
+    import ComponentWrapper from '../../ComponentWrapper'
+    import { mapGetters, mapActions } from 'vuex'
+    import draggable from 'vuedraggable'
+    import tinycolor from 'tinycolor2'
+    import { getComponentByName, processSettingsConfig } from '~/utils/helpers.js'
+
+    export default {
+        mixins: [GeneralMixin],
+        components: {
+            draggable,
+            ComponentWrapper
+        },
+        data() {
+            return {
+                enablePreviewMode: true,
+                showBlockHeaders: this.showHeaders,
+                showBlockLabels: this.showLabels,
+            }
+        },
+        computed: {
+            settings: {
+                get() {
+                    return this.$store.getters[`${this.storePath}/itemSettings`](this.uniqueId)
+                }
+            },
+            showPreview() {
+                if(this.settings.showPreview && this.settings.enablePreviewMode)
+                    return true
+                else
+                    return false
+            },
+            itemStyles() {
+                // let styles = ""
+                // if(this.settings.display == 'flex' && this.settings.flexDirection == 'row') {
+                //     styles = styles + 'flex: ' + this.settings.itemFlex+';'
+                //     styles = styles + 'min-width: ' + this.settings.itemMinWidth+';'
+                //     styles = styles + 'margin-right: ' + this.settings.itemSpacing+';'
+                // }
+                //
+                // return styles
+            },
+            itemsWrapperStyles() {
+                let styles = ""
+                styles = styles + 'min-height: 60px;'
+                styles = styles + 'flex-wrap: ' + this.settings.flexWrap + ';'
+                styles = styles + 'height: 100%;'
+                styles = styles + 'display: '+this.settings.display + ';'
+
+                if(this.settings.display == 'flex') {
+                    styles = styles + 'flex-direction: ' + this.settings.flexDirection + ';'
+                    styles = styles + 'align-items: ' + this.settings.alignItems + ';'
+                    styles = styles + 'justify-content: ' + this.settings.justifyContent + ';'
+                }
+
+                return styles
+            },
+            containerStyles() {
+                let styles = ""
+                // if(this.settings.display == 'none')
+                //     styles = styles + 'display: '+this.settings.display+';'
+                if(this.showPreview) {
+                    if(this.settings.backgroundImage) {
+                        // styles = styles + 'background: linear-gradient('+this.settings.backgroundColor+','+this.settings.backgroundColor+'), url('+this.settings.backgroundImage+');'
+                        styles = styles + 'background-image: url('+this.settings.backgroundImage+');'
+                        styles = styles + 'background-attachment: '+this.settings.backgroundStyle+';'
+                        styles = styles + 'background-position: '+this.settings.backgroundPosition+';'
+                        styles = styles + 'background-repeat: '+this.settings.backgroundRepeat+';'
+                        // styles = styles + 'box-shadow: inset 0 0 0 2000px '+this.settings.backgroundColor+';'
+                        styles = styles + 'background-size: '+this.settings.backgroundSize+';'
+                    }
+                    else {
+                        // styles = styles + 'background: linear-gradient('+this.settings.backgroundColor+','+this.settings.backgroundColor+');'
+                        styles = styles + 'background-color: '+this.settings.backgroundColor+';'
+                    }
+
+                    styles = styles + 'padding: '+this.settings.padding+';'
+                    // styles = styles + 'margin: '+this.settings.margin+';'
+                    styles = styles + 'minHeight: '+this.settings.minHeight+';'
+                    styles = styles + 'height: '+this.settings.height+';'
+                    styles = styles + 'overflow-x: '+this.settings.overflowX+';'
+                    styles = styles + 'overflow-y: '+this.settings.overflowY+';'
+                }
+                return styles
+            },
+            subItems: {
+                get() {
+                    return this.$store.getters[`${this.storePath}/items`](this.uniqueId)
+                },
+                set(object) {
+                    this.updateItemsList({list: _.map(object, 'uniqueId'), id: this.uniqueId})
+                }
+            }
+        },
+        watch: {
+            'settings.backgroundColor'(val, old) {
+                var color1 = tinycolor(val)
+            },
+            showPreview(val, old) {
+                //
+            },
+            showHeaders(val, old) {
+                this.showBlockHeaders = val
+            },
+            showLabels(val, old) {
+                this.showBlockLabels = val
+            }
+        },
+        methods: {
+            removeBlock(blockId) {
+                this.removeItem({
+                    id: blockId,
+                    parentId: this.uniqueId
+                })
+            }
+        }
+    }
+</script>
