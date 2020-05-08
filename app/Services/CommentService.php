@@ -24,12 +24,10 @@ class CommentService
             $status = Comment::APPROVED;
             $email = Auth::user()->email;
             $name = $username;
-            $website = $request->website;
         } else {
             $user_id = null;
             $email = $request->email;
             $name = $request->name;
-            $website = $request->website;
         }
 
         $contentId = $request->content_id;
@@ -42,9 +40,8 @@ class CommentService
             'content_id' => $contentId,
             'body' => $body,
             'parent_id' => $parentId,
-            'name' => $name,
-            'email' => $email,
-            'website' => $website,
+            'name' => $name ? $name : 'unknown',
+            'email' => $email ? $email : 'unknown',
             'visitor_ip' => $visitorIp,
             'status' => $status
         ]);

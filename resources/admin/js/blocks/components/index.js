@@ -8,8 +8,9 @@ import Column from './columns/column'
 import Text from './text'
 import Excerpt from './excerpt'
 // import Markdown from './markdown'
-// import Input from './input'
+import Input from './input'
 import Headline from './headline'
+import Code from './Code'
 import Image from './image'
 import Images from './images'
 import Youtube from './youtube'
@@ -32,6 +33,8 @@ export default {
     Column,
     Text,
     Excerpt,
+    Code,
+    Input,
     Headline,
     Image,
     Images,

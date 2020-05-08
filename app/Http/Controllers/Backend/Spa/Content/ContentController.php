@@ -146,14 +146,18 @@ class ContentController extends Controller
         $content->title = $request->title;
         $content->seo = $request->seo;
         $content->status = $request->status;
-        $content->published_at = $content->published_at ? $content->published_at : ($request->publishAt ? $request->publishAt : Carbon::now());
         $content->slug = $content->title;
         $content->css = $request->css;
         $content->js = $request->js;
         $content->layout = $request->layout == 'default' ? null : $request->layout;
-        $content->user_id = Auth::user()->id;
-        $content->settings = $request->settings;
-        $content->settings = $this->diffContentThemeSettings($request->settings, $contentType);
+        $content->user_id = $content->user_id ? $content->user_id : Auth::user()->id;
+
+        if($request->status == 1)
+            $content->published_at = Carbon::now();
+
+        if($request->settings) {
+            $content->settings = $this->diffContentThemeSettings($request->settings, $contentType);
+        }
         $content->save();
         $content->touch();
 

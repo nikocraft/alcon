@@ -65,7 +65,7 @@ class ContentController extends Controller
     public function index(Request $request, $contentTypeId)
     {
         $contentType = ContentType::findOrFail($contentTypeId);
-        $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->latest();
+        $posts = Content::with(['featuredimage', 'author', 'blocks'])->where('content_type_id', $contentTypeId)->published()->latest();
         $posts = ($this->paginationType == 'simple') ? $posts->simplePaginate($this->perPage) : $posts->paginate($this->perPage);
 
         return $this->renderService->renderIndex($contentType, $posts);

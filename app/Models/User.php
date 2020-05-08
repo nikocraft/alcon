@@ -7,9 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Core\Content\Content;
 
 use Laratrust\Traits\LaratrustUserTrait;
+use App\Models\Traits\Sluggable;
 
 class User extends Authenticatable
 {
+    use Sluggable;
     use Notifiable;
     use LaratrustUserTrait;
 
@@ -19,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'slug', 'username', 'email', 'password', 'bio', 'activated', 'approved' , 'approved_at'
+        'firstname', 'lastname', 'slug', 'username', 'email', 'password', 'bio', 'meta', 'activated', 'approved' , 'approved_at'
     ];
 
     protected $casts = [
@@ -32,6 +34,22 @@ class User extends Authenticatable
         'password', 
         'remember_token'
     ];
+
+    public function getMetaAttribute(): SchemalessAttributes
+    {
+        return SchemalessAttributes::createForModel($this, 'meta');
+    }
+
+    public function scopeWithMeta(): Builder
+    {
+        return SchemalessAttributes::scopeWithSchemalessAttributes('meta');
+    }
+
+    public function setUsernameAttribute($value)
+    {
+        $this->attributes['username'] = $value;
+        $this->attributes['slug'] = $this->slugify($value);
+    }
 
     /**
     * Get all user roles.

@@ -8,25 +8,7 @@ use App\Models\Core\Content\ContentType;
 | Localization route, this is WIP
 |--------------------------------------------------------------------------
 */
-Route::get('/js/lang.js', function () {
-    $strings = Cache::rememberForever('lang.js', function () {
-        $lang = config('app.locale');
-        $files   = glob(resource_path('lang/' . $lang . '/components/*.php'));
-        $strings = [];
-        foreach ($files as $file) {
-            $name           = basename($file, '.php');
-            $strings[$name] = require $file;
-        }
-        return $strings;
-    });
-    $javascript = 'window.i18n = ' . json_encode($strings) . ';';
-    return response($javascript, 200, [
-        'Cache-Control' => 'max-age=3600, public',
-        'Last-Modified' => Carbon\Carbon::now(),
-        'Content-Length' => strlen($javascript),
-        'Content-Type' => 'text/javascript'
-    ]);
-})->name('assets.lang');
+Route::get('/js/lang.js', 'Backend\Spa\Localization\LocalizationController@index')->name('assets.lang');
 
 
 /*
@@ -50,6 +32,7 @@ $activeThemeFolder = $activeThemeFolder ? $activeThemeFolder : "ikigai";
 |
 */
 Route::group(['namespace' => 'Frontend\Core', 'middleware'=>'setTheme:'.$activeThemeFolder], function () {
+    Route::get('user/{slug}', 'Users\UserController@show')->name('frontend.user');
     Route::group(['namespace' => 'Content'], function () {
         /*--------------------------------------------------------------------------
         | Repeatable content type routes, for example Posts, Projects, etc

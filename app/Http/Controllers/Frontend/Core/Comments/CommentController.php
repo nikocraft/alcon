@@ -16,6 +16,7 @@ use App\Models\Core\Comments\Subscriber;
 use App\Services\CommentService;
 
 use App\Http\Resources\Frontend\CommentResource;
+use App\Http\Requests\Frontend\PostCommentRequest;
 
 class CommentController extends Controller
 {
@@ -37,7 +38,7 @@ class CommentController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(PostCommentRequest $request)
     {
         $comment = $this->commentService->store($request);
 
