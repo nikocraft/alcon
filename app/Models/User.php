@@ -6,6 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Core\Content\Content;
 
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\SchemalessAttributes\SchemalessAttributes;
+
 use Laratrust\Traits\LaratrustUserTrait;
 use App\Models\Traits\Sluggable;
 
