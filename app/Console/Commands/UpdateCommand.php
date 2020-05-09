@@ -84,6 +84,7 @@ class UpdateCommand extends BaseCommand
             // exec('composer dump-autoload');
 
             $this->info('LaraOne updated to v' . $lastVersion);
+            $websiteService->updateSetting('cms.version', $lastVersion);
         } else {
             $this->info('LaraOne is already up to date!');
         }
@@ -91,10 +92,6 @@ class UpdateCommand extends BaseCommand
         if($this->option('update-active-theme')) {
             $this->updateService->fetchAndUpdateActiveTheme($lastVersion);
         }
-
-        $websiteService->updateSetting('cms.version', '1.2.1');
-
-        $this->info('LaraOne updated!');
     }
 
     protected function getSeedFileName($version)
