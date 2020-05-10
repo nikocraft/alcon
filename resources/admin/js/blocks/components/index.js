@@ -13,6 +13,7 @@ import Headline from './headline'
 import Code from './Code'
 import Image from './image'
 import Images from './images'
+import Vimeo from './vimeo'
 import Youtube from './youtube'
 import Button from './button'
 
@@ -38,6 +39,7 @@ export default {
     Headline,
     Image,
     Images,
+    Vimeo,
     Youtube,
     Button,
     Slider,
