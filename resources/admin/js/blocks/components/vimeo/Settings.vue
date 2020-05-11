@@ -23,21 +23,6 @@
                     </select>
                 </div>
 
-                <div v-if="!settings.paddingResponsive" class="form-group">
-                    <label>Padding</label> <i @click="settings.paddingResponsive = !settings.paddingResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                    <px :px.sync="settings.padding"></px>
-                </div>
-                <div v-else class="form-group">
-                    <label>Padding</label> <i @click="settings.paddingResponsive = !settings.paddingResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                    <px-responsive
-                        :extraLarge.sync="settings.padding"
-                        :large.sync="settings.paddingLarge"
-                        :medium.sync="settings.paddingMedium"
-                        :small.sync="settings.paddingSmall"
-                        :extraSmall.sync="settings.paddingExtraSmall">
-                    </px-responsive>
-                </div>
-
                 <div v-if="!settings.marginResponsive" class="form-group">
                     <label>Margin</label> <i @click="settings.marginResponsive = !settings.marginResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
                     <px :px.sync="settings.margin"></px>
