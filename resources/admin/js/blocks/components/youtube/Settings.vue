@@ -110,19 +110,6 @@
                     </px-responsive>
                 </div>
 
-                <div v-if="!settings.backgroundColorAdvanced" class="form-group">
-                    <label>Background Color</label> <i @click="settings.backgroundColorAdvanced = !settings.backgroundColorAdvanced" class="lo-icon lo-icon-plus-circled pull-right" title="Advanced"></i>
-                    <color-picker v-model="settings.backgroundColor"></color-picker>
-                </div>
-                <div v-else class="form-group">
-                    <label>Background Color</label> <i @click="settings.backgroundColorAdvanced = !settings.backgroundColorAdvanced" class="lo-icon lo-icon-minus-circled pull-right" title="Simple"></i>
-                    <color
-                        :standard.sync="settings.backgroundColor"
-                        :hover.sync="settings.backgroundColorHover"
-                        :active.sync="settings.backgroundColorActive">
-                    </color>
-                </div>
-
                 <div class="form-group">
                     <label>Custom Class</label>
                     <input type="text" class="form-control" v-model="settings.customClass">
@@ -156,14 +143,6 @@
             blockTitle: {type: String, default: 'Youtube'},
             renderTitle: {type: Boolean, default: false},
             customClass: {type: String, default: ''},
-
-            position: {type: String, default: 'center'},
-
-            backgroundColorAdvanced: {type: Boolean, default: false},
-            backgroundColor: {type: String, default: ''},
-            backgroundColorHover: {type: String, default: ''},
-            backgroundColorActive: {type: String, default: ''},
-            backgroundColorFocus: {type: String, default: ''},
 
             flexResponsive: {type: Boolean, default: false},
             flex: {type: String, default: '0 1 auto'},
