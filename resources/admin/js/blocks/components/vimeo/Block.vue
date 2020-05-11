@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative;">
         <div v-bind:style="vimeoStyles" @click="setVideo">
-            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0;"></iframe>
+            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0; position: absolute; left: 0; top: 0;"></iframe>
         </div>
 
         <v-modal ref="settingsModal"
@@ -50,11 +50,10 @@
         computed: {
             vimeoStyles() {
                 let styleObj = {
-                    display: 'flex',
+                    display: 'block',
                     cursor: 'pointer',
-                    justifyContent: this.settings.position,
-                    height: this.settings.height,
-                    padding: this.settings.padding,
+                    padding: '28.25%',
+                    position: 'relative',
                     // width: this.settings.width
                 }
                 return styleObj
