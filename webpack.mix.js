@@ -5,6 +5,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 mix.setPublicPath(path.normalize('public/laraone'));
 
+mix.options({
+    terser: {
+      extractComments: false,
+    }
+});
+
 mix.autoload({
     'lodash': ['_', 'window._']
 });
