@@ -54,7 +54,6 @@
                     cursor: 'pointer',
                     padding: '28.25%',
                     position: 'relative',
-                    // width: this.settings.width
                 }
                 return styleObj
             },

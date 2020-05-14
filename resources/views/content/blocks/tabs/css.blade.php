@@ -7,7 +7,6 @@
     height: {{ $settings->get('heightLarge') }};
     padding: {{ $settings->get('padding') }};
     margin: {{ $settings->get('margin') }};
-    {{-- padding: 1px; --}}
 
     @if($settings->get('tabNavPosition') != 'top')
         display: -webkit-box;
@@ -15,14 +14,6 @@
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
-    @endif
-
-    @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
-        flex: {{ $settings->get('flex') }};
-        width: {{ $settings->get('width') }};
-        align-self: {{ $settings->get('alignSelf') }};
-    @else
-        width: 100%;
     @endif
 }
 

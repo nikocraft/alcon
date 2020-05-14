@@ -1,8 +1,6 @@
 @php
     $block = $renderData->block;
     $settings = $block->settings;
-    $parentDisplay = isset($renderData->display) ? $renderData->display : 'block';
-    // $parentFlexDirection = $renderData->flexDirection;
 @endphp
 
 @includeIf('content.blocks.button.css')

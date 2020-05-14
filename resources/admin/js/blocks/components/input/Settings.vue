@@ -65,7 +65,6 @@
         mixins: [SettingsMixin],
         customSettings: {
             blockTitle: {type: String, default: 'Input'},
-            renderTitle: {type: Boolean, default: false},
             required: {type: Boolean, default: false},
             inputClass: {type: String, default: ''},
             minCharactersRequired: {type: Number, default: 1},

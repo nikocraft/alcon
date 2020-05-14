@@ -7,177 +7,6 @@
                     <input type="text" class="form-control" v-model="settings.blockTitle">
                 </div>
 
-                <div class="form-group">
-                    <label>Render Block Title</label>
-                    <select class="form-control" v-model="settings.renderTitle">
-                        <option :value="true">Yes</option>
-                        <option :value="false">No</option>
-                    </select>
-                </div>
-                
-                <div v-if="ancestorSettings.display == 'flex'">
-                    <div v-if="!settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <px :maxAllowed=1 :px.sync="settings.flex"></px>
-                    </div>
-                    <div v-if="settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.flex"
-                            :large.sync="settings.flexLarge"
-                            :medium.sync="settings.flexMedium"
-                            :small.sync="settings.flexSmall"
-                            :extraSmall.sync="settings.flexExtraSmall">
-                        </px-responsive>
-                    </div>
-
-                    <div v-if="!settings.alignSelfResponsive" class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.alignSelf">
-                            <option v-for="option in optionsAlignSelf" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select-responsive
-                            :options="optionsAlignSelf"
-                            :extraLarge.sync="settings.alignSelf"
-                            :large.sync="settings.alignSelfLarge"
-                            :medium.sync="settings.alignSelfMedium"
-                            :small.sync="settings.alignSelfSmall"
-                            :extraSmall.sync="settings.alignSelfExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <px :maxAllowed=1 :px.sync="settings.width"></px>
-                    </div>
-
-                    <div v-if="settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.width"
-                            :large.sync="settings.widthLarge"
-                            :medium.sync="settings.widthMedium"
-                            :small.sync="settings.widthSmall"
-                            :extraSmall.sync="settings.widthExtraSmall">
-                        </px-responsive>
-                    </div>
-                </div>
-
-                <div v-if="!settings.displayResponsive" class="form-group">
-                    <label>Display</label> <i @click="settings.displayResponsive = !settings.displayResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                    <select class="form-control" v-model="settings.display">
-                        <option v-for="option in optionsDisplay" :key="option.key" :value="option.key">{{ option.value }}</option>
-                    </select>
-                </div>
-
-                <div v-else class="form-group">
-                    <label>Display</label> <i @click="settings.displayResponsive = !settings.displayResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                    <select-responsive
-                        :options="optionsDisplay"
-                        :extraLarge.sync="settings.display"
-                        :large.sync="settings.displayLarge"
-                        :medium.sync="settings.displayMedium"
-                        :small.sync="settings.displaySmall"
-                        :extraSmall.sync="settings.displayExtraSmall">
-                    </select-responsive>
-                </div>
-
-                <div v-if="settings.display =='flex'">
-                    <div v-if="!settings.flexDirectionResponsive" class="form-group">
-                        <label>Flex Direction</label> <i @click="settings.flexDirectionResponsive = !settings.flexDirectionResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.flexDirection">
-                            <option v-for="option in optionsFlexDirection" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Flex Direction</label> <i @click="settings.flexDirectionResponsive = !settings.flexDirectionResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <select-responsive
-                            :options="optionsFlexDirection"
-                            :extraLarge.sync="settings.flexDirection"
-                            :large.sync="settings.flexDirectionLarge"
-                            :medium.sync="settings.flexDirectionMedium"
-                            :small.sync="settings.flexDirectionSmall"
-                            :extraSmall.sync="settings.flexDirectionExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.flexWrapResponsive" class="form-group">
-                        <label>Flex Wrap</label> <i @click="settings.flexWrapResponsive = !settings.flexWrapResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.flexWrap">
-                            <option v-for="option in optionsFlexWrap" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Flex Wrap</label> <i @click="settings.flexWrapResponsive = !settings.flexWrapResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <select-responsive
-                            :options="optionsFlexWrap"
-                            :extraLarge.sync="settings.flexWrap"
-                            :large.sync="settings.flexWrapLarge"
-                            :medium.sync="settings.flexWrapMedium"
-                            :small.sync="settings.flexWrapSmall"
-                            :extraSmall.sync="settings.flexWrapExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.justifyContentResponsive" class="form-group">
-                        <label>Justify Content</label> <i @click="settings.justifyContentResponsive = !settings.justifyContentResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.justifyContent">
-                            <option v-for="option in optionsJustifyContent" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Justify Content</label> <i @click="settings.justifyContentResponsive = !settings.justifyContentResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <select-responsive
-                            :options="optionsJustifyContent"
-                            :extraLarge.sync="settings.justifyContent"
-                            :large.sync="settings.justifyContentLarge"
-                            :medium.sync="settings.justifyContentMedium"
-                            :small.sync="settings.justifyContentSmall"
-                            :extraSmall.sync="settings.justifyContentExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.alignItemsResponsive" class="form-group">
-                        <label>Align Items</label> <i @click="settings.alignItemsResponsive = !settings.alignItemsResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.alignItems">
-                            <option v-for="option in optionsAlignItems" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Align Items</label> <i @click="settings.alignItemsResponsive = !settings.alignItemsResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <select-responsive
-                            :options="optionsAlignItems"
-                            :extraLarge.sync="settings.alignItems"
-                            :large.sync="settings.alignItemsLarge"
-                            :medium.sync="settings.alignItemsMedium"
-                            :small.sync="settings.alignItemsSmall"
-                            :extraSmall.sync="settings.alignItemsExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.alignContentResponsive" class="form-group">
-                        <label>Align Content</label> <i @click="settings.alignContentResponsive = !settings.alignContentResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.alignContent">
-                            <option v-for="option in optionsAlignItems" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Align Content</label> <i @click="settings.alignContentResponsive = !settings.alignContentResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <select-responsive
-                            :options="optionsAlignItems"
-                            :extraLarge.sync="settings.alignContent"
-                            :large.sync="settings.alignContentLarge"
-                            :medium.sync="settings.alignContentMedium"
-                            :small.sync="settings.alignContentSmall"
-                            :extraSmall.sync="settings.alignContentExtraSmall">
-                        </select-responsive>
-                        <small>This property has no effect when there is only one line of flex items.</small>
-                    </div>
-                </div>
-
                 <div v-if="!settings.widthResponsive" class="form-group">
                     <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
                     <px :px.sync="settings.width"></px>
@@ -238,38 +67,11 @@
                     </px-responsive>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label>Overflow X</label>
-                    <select class="form-control" v-model="settings.overflowX">
-                        <option value="visible">Visible</option>
-                        <option value="auto">Auto</option>
-                        <option value="scroll">Scroll</option>
-                        <option value="hidden">Hidden</option>
-                    </select>
-                </div>
-
                 <div class="form-group">
-                    <label>Overflow Y</label>
-                    <select class="form-control" v-model="settings.overflowY">
-                        <option value="visible">Visible</option>
-                        <option value="auto">Auto</option>
-                        <option value="scroll">Scroll</option>
-                        <option value="hidden">Hidden</option>
-                    </select>
-                </div> -->
-
-                <div v-if="!settings.backgroundColorAdvanced" class="form-group">
-                    <label>Background Color</label> <i @click="settings.backgroundColorAdvanced = !settings.backgroundColorAdvanced" class="lo-icon lo-icon-plus-circled pull-right" title="Advanced"></i>
+                    <label>Background Color</label>
                     <color-picker v-model="settings.backgroundColor"></color-picker>
                 </div>
-                <div v-else class="form-group">
-                    <label>Background Color</label> <i @click="settings.backgroundColorAdvanced = !settings.backgroundColorAdvanced" class="lo-icon lo-icon-minus-circled pull-right" title="Simple"></i>
-                    <color
-                        :standard.sync="settings.backgroundColor"
-                        :hover.sync="settings.backgroundColorHover"
-                        :active.sync="settings.backgroundColorActive">
-                    </color>
-                </div>
+
 
                 <div class="form-group">
                     <label>Background Image</label>
@@ -328,28 +130,6 @@
                     <input type="text" class="form-control" v-model="settings.customClass">
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="Actions" name="actions">
-                <div class="form-group">
-                    <label>On Click</label>
-                    <select class="form-control" v-model="settings.onClick">
-                        <option value='nothing'>Do Nothing</option>
-                        <option value='open-link'>Open Link</option>
-                    </select>
-                </div>
-
-                <div v-if="settings.onClick=='open-link'" class="form-group">
-                    <label>Target</label>
-                    <select class="form-control" v-model="settings.target">
-                        <option value='_blank'>New Tab</option>
-                        <option value='_self'>Same Tab</option>
-                    </select>
-                </div>
-
-                <div v-if="settings.onClick=='open-link'" class="form-group">
-                    <label>Link</label>
-                    <input type="text" class="form-control" v-model="settings.link">
-                </div>
-            </el-tab-pane>
 
             <el-tab-pane label="Css" name="css">
                 <div class="form-group">
@@ -369,19 +149,11 @@
         mixins: [SettingsMixin],
         customSettings: {
             blockTitle: {type: String, default: 'Section'},
-            renderTitle: {type: Boolean, default: false},
             blockRef: {type: String, default: ''},
             customClass: {type: String, default: ''},
             enablePreviewMode: {type: Boolean, default: true},
             showPreview: {type: Boolean, default: true},
 
-            flexResponsive: {type: Boolean, default: false},
-            flex: {type: String, default: '0 1 auto'},
-            flexLarge: {type: String, default: ''},
-            flexMedium: {type: String, default: ''},
-            flexSmall: {type: String, default: ''},
-            flexExtraSmall: {type: String, default: ''},
-
             widthResponsive: {type: Boolean, default: false},
             width: {type: String, default: 'auto'},
             widthLarge: {type: String, default: ''},
@@ -389,63 +161,7 @@
             widthSmall: {type: String, default: ''},
             widthExtraSmall: {type: String, default: ''},
 
-            alignSelfResponsive: {type: Boolean, default: false},
-            alignSelf: {type: String, default: 'auto'},
-            alignSelfLarge: {type: String, default: ''},
-            alignSelfMedium: {type: String, default: ''},
-            alignSelfSmall: {type: String, default: ''},
-            alignSelfExtraSmall: {type: String, default: ''},
-
-            displayResponsive: {type: Boolean, default: false},
-            display: {type: String, default: 'block', childPropagation: true},
-            displayLarge: {type: String, default: '', childPropagation: true},
-            displayMedium: {type: String, default: '', childPropagation: true},
-            displaySmall: {type: String, default: '', childPropagation: true},
-            displayExtraSmall: {type: String, default: '', childPropagation: true},
-
-            flexDirectionResponsive: {type: Boolean, default: false},
-            flexDirection: {type: String, default: 'column', childPropagation: true},
-            flexDirectionLarge: {type: String, default: '', childPropagation: true},
-            flexDirectionMedium: {type: String, default: '', childPropagation: true},
-            flexDirectionSmall: {type: String, default: '', childPropagation: true},
-            flexDirectionExtraSmall: {type: String, default: '', childPropagation: true},
-
-            flexWrapResponsive: {type: Boolean, default: false},
-            flexWrap: {type: String, default: 'nowrap'},
-            flexWrapLarge: {type: String, default: ''},
-            flexWrapMedium: {type: String, default: ''},
-            flexWrapSmall: {type: String, default: ''},
-            flexWrapExtraSmall: {type: String, default: ''},
-
-            justifyContentResponsive: {type: Boolean, default: false},
-            justifyContent: {type: String, default: 'center'},
-            justifyContentLarge: {type: String, default: ''},
-            justifyContentMedium: {type: String, default: ''},
-            justifyContentSmall: {type: String, default: ''},
-            justifyContentExtraSmall: {type: String, default: ''},
-
-            alignItemsResponsive: {type: Boolean, default: false},
-            alignItems: {type: String, default: 'center'},
-            alignItemsLarge: {type: String, default: ''},
-            alignItemsMedium: {type: String, default: ''},
-            alignItemsSmall: {type: String, default: ''},
-            alignItemsExtraSmall: {type: String, default: ''},
-
-            alignContentResponsive: {type: Boolean, default: false},
-            alignContent: {type: String, default: 'flex-start'},
-            alignContentLarge: {type: String, default: ''},
-            alignContentMedium: {type: String, default: ''},
-            alignContentSmall: {type: String, default: ''},
-            alignContentExtraSmall: {type: String, default: ''},
-
-            widthResponsive: {type: Boolean, default: false},
-            width: {type: String, default: 'auto'},
-            widthLarge: {type: String, default: ''},
-            widthMedium: {type: String, default: ''},
-            widthSmall: {type: String, default: ''},
-            widthExtraSmall: {type: String, default: ''},
-
-            minHeight: {type: String, default: '60px'},
+            minHeight: {type: String, default: '120px'},
 
             heightResponsive: {type: Boolean, default: false},
             height: {type: String, default: 'auto'},
@@ -468,13 +184,7 @@
             marginSmall: {type: String, default: ''},
             marginExtraSmall: {type: String, default: ''},
 
-            // overflowX: {type: String, default: 'hidden'},
-            // overflowY: {type: String, default: 'hidden'},
-
-            backgroundColorAdvanced: {type: Boolean, default: false},
             backgroundColor: {type: String, default: ''},
-            backgroundColorHover: {type: String, default: ''},
-            backgroundColorActive: {type: String, default: ''},
 
             backgroundImage: {type: String, default: ''},
             backgroundStyle: {type: String, default: 'scroll'},
@@ -483,7 +193,7 @@
             backgroundRepeat: {type: String, default: 'repeat'},
 
             onClick: {type: String, default: 'nothing'},
-            link: {type: String, default: 'http://www.laraone.app'},
+            link: {type: String, default: ''},
             target: {type: String, default: '_blank'},
 
             css: {type: String, default: ''},

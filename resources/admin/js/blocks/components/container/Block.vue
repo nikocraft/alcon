@@ -56,38 +56,19 @@
                 else
                     return false
             },
-            itemStyles() {
-                // let styles = ""
-                // if(this.settings.display == 'flex' && this.settings.flexDirection == 'row') {
-                //     styles = styles + 'flex: ' + this.settings.itemFlex+';'
-                //     styles = styles + 'min-width: ' + this.settings.itemMinWidth+';'
-                //     styles = styles + 'margin-right: ' + this.settings.itemSpacing+';'
-                // }
-                //
-                // return styles
-            },
             itemsWrapperStyles() {
-                let styles = ""
-                styles = styles + 'min-height: 60px;'
-                styles = styles + 'flex-wrap: ' + this.settings.flexWrap + ';'
-                styles = styles + 'height: 100%;'
-                styles = styles + 'display: '+this.settings.display + ';'
-
-                if(this.settings.display == 'flex') {
-                    styles = styles + 'flex-direction: ' + this.settings.flexDirection + ';'
-                    styles = styles + 'align-items: ' + this.settings.alignItems + ';'
-                    styles = styles + 'justify-content: ' + this.settings.justifyContent + ';'
+                let styles = {
+                    minHeight: '110px',
+                    height: '100%',
+                    display: 'block',
                 }
 
                 return styles
             },
             containerStyles() {
                 let styles = ""
-                // if(this.settings.display == 'none')
-                //     styles = styles + 'display: '+this.settings.display+';'
                 if(this.showPreview) {
                     if(this.settings.backgroundImage) {
-                        // styles = styles + 'background: linear-gradient('+this.settings.backgroundColor+','+this.settings.backgroundColor+'), url('+this.settings.backgroundImage+');'
                         styles = styles + 'background-image: url('+this.settings.backgroundImage+');'
                         styles = styles + 'background-attachment: '+this.settings.backgroundStyle+';'
                         styles = styles + 'background-position: '+this.settings.backgroundPosition+';'
@@ -96,16 +77,12 @@
                         styles = styles + 'background-size: '+this.settings.backgroundSize+';'
                     }
                     else {
-                        // styles = styles + 'background: linear-gradient('+this.settings.backgroundColor+','+this.settings.backgroundColor+');'
                         styles = styles + 'background-color: '+this.settings.backgroundColor+';'
                     }
 
                     styles = styles + 'padding: '+this.settings.padding+';'
-                    // styles = styles + 'margin: '+this.settings.margin+';'
                     styles = styles + 'minHeight: '+this.settings.minHeight+';'
                     styles = styles + 'height: '+this.settings.height+';'
-                    styles = styles + 'overflow-x: '+this.settings.overflowX+';'
-                    styles = styles + 'overflow-y: '+this.settings.overflowY+';'
                 }
                 return styles
             },

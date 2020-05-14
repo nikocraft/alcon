@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative;">
         <div v-bind:style="youtubeStyles" @click="setVideo">
-            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0;"></iframe>
+            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0; position: absolute; left: 0; top: 0;"></iframe>
             <!-- <img src="https://img.youtube.com/vi/TBoCOqsEoJQ/0.jpg" > -->
         </div>
 
@@ -51,12 +51,10 @@
         computed: {
             youtubeStyles() {
                 let styleObj = {
-                    display: 'flex',
+                    display: 'block',
                     cursor: 'pointer',
-                    justifyContent: this.settings.position,
-                    height: this.settings.height,
-                    padding: this.settings.padding,
-                    // width: this.settings.width
+                    padding: '28.25%',
+                    position: 'relative',
                 }
                 return styleObj
             },

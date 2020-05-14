@@ -1,6 +1,6 @@
 @push('content-block-css')
-.video-block-{{ $block->unique_id }} {
-    margin: {{ $settings->get('margin') }};
+.vimeo-block-{{ $block->unique_id }} {
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('margin') ]) @endcssproperty
     padding: 28.25%;
     position: relative;
     display: block;
@@ -9,25 +9,25 @@
 @endpush
 
 @push('content-block-css-large')
-.video-block-{{ $block->unique_id }} {
-    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginLarge') }};@endif
+.vimeo-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginLarge') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-medium')
-.video-block-{{ $block->unique_id }} {
-    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginMedium') }};@endif
+.vimeo-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginMedium') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-small')
-.video-block-{{ $block->unique_id }} {
-    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginSmall') }};@endif
+.vimeo-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginSmall') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.video-block-{{ $block->unique_id }} {
-    @if($settings->get('marginResponsive'))margin: {{ $settings->get('marginExtraSmall') }};@endif
+.vimeo-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginExtraSmall') ]) @endcssproperty
 }
 @endpush

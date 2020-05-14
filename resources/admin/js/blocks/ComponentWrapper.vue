@@ -1,6 +1,6 @@
 <template>
     <div :name="type + 'Component'" :class="containerClassList" ref="wrapper-container" :style="blockStyle">
-        <div v-if="showHeaders" class="content-block-header -full" :style="marginStyle">
+        <div v-if="showHeaders" class="content-block-header -full">
             <i v-if="allowDraggable" class="lo-icon lo-icon-move" title="Reorder"></i>
             <i v-if="blockType == 'normal'" class="lo-icon lo-icon-cog" title="Settings" name="openSettingsModal" @click="openSettingsModal"></i>
             {{ settings.blockTitle }}
@@ -76,52 +76,27 @@
         },
         computed: {
             contentBodyStyle() {
-                if(this.type == 'Column') {
-                    let styleObj = {
-                        display: 'flex',
-                        flex: '1',
-                        'flex-direction': 'column',
-                        width: '100%',
-                    }
-                    return styleObj
-                } else {
-                    let styleObj = {
-                        height: '100%',
-                        width: '100%',
-                    }
-                    return styleObj
-                }
-            },
-            blockStyle() {
-                let display = 'block'
-                if (this.type != 'Container' && this.type != 'Section' && this.type != 'Column') {
-                    display = this.settings.display
-                } else {
-                    if(this.settings.display == 'none') {
-                        display = 'none'
-                    }
-                }
-                let width = (this.type != 'Container') ? this.settings.width : ''
-                width = (this.type == 'Image') ? '' : width
-                width = (this.ancestorSettings && this.ancestorSettings.display == 'block') ? '100%' : width
-
                 let styleObj = {
-                    display: display,
-                    margin: this.settings.margin,
-                    flex: this.settings.flex,
-                    width: width,
-                    'align-self': this.settings.alignSelf,
-                    'flex-basis': this.settings.flexBasis,
+                    height: '100%',
+                    width: '100%',
                 }
                 return styleObj
             },
-            marginStyle() {
-                // return (this.type == 'Container') ? [{marginTop: '5px'}] : []
+            blockStyle() {
+                let width = this.settings.width ? this.settings.width : ''
+                width = (this.type == 'Image') ? '' : width
+
+                let styleObj = {
+                    display: 'block',
+                    margin: this.settings.margin,
+                    width: width,
+                }
+                return styleObj
             },
             containerClassList() {
                 return [
                     this.containerClass,
-                    this.containerClass+`_${this.type.toLowerCase()}`,
+                    this.containerClass + `_${this.type.toLowerCase()}`,
                     this.overlayed ? 'overlayed' : ''
                 ]
             },

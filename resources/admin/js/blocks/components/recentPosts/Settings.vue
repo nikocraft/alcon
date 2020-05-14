@@ -8,14 +8,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Render Block Title</label>
-                    <select class="form-control" v-model="settings.renderTitle">
-                        <option :value="true">Yes</option>
-                        <option :value="false">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label>Number Of Posts</label>
                     <input type="text" class="form-control" v-model="settings.numberOfPosts">
                 </div>
@@ -91,7 +83,6 @@
         },
         customSettings: {
             blockTitle: {type: String, default: 'Recent Posts'},
-            renderTitle: {type: Boolean, default: false},
             numberOfPosts: {type: String, default: '10'},
             postsType: {type: String, default: '2'},
             renderFeaturedImage: {type: Boolean, default: true},

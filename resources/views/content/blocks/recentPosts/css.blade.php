@@ -16,23 +16,23 @@
     }
 
     .recent-posts-block-{{ $block->unique_id }} .recent-post-featured-image .background-image {
-        height: {{ $settings->get('featuredImageHeight') }};
+        @cssproperty([ 'property' => 'height', 'value' => $settings->get('featuredImageHeight') ]) @endcssproperty
         background-position-x: center;
         background-size: cover;
     }
 
     .recent-posts-block-{{ $block->unique_id }} .recent-post-details .recent-post-title .recent-post-title-link {
-        color: {{ $settings->get('titleColor') }};
-        font-size: {{ $settings->get('titleFontSize') }};
+        @cssproperty([ 'property' => 'color', 'value' => $settings->get('titleColor') ]) @endcssproperty
+        @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('titleFontSize') ]) @endcssproperty
     }
 
     .recent-posts-block-{{ $block->unique_id }} .recent-post-details .recent-post-date {
-        color: {{ $settings->get('dateColor') }};
-        font-size: {{ $settings->get('dateFontSize') }};
+        @cssproperty([ 'property' => 'color', 'value' => $settings->get('dateColor') ]) @endcssproperty
+        @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('dateFontSize') ]) @endcssproperty
     }
 
     .recent-posts-block-{{ $block->unique_id }} .recent-post-no-background-image {
-        height: {{ $settings->get('featuredImageHeight') }};
+        @cssproperty([ 'property' => 'height', 'value' => $settings->get('featuredImageHeight') ]) @endcssproperty
         background-color: rgba(255, 255, 255, 0.03);
         justify-content: center;
         align-content: center;

@@ -6,11 +6,11 @@ export default {
 	settings: Settings,
 	type: 'layout',
 	parent: 'slider',
-    allowedList: [
-        'headline',
-        'text',
-        'button',
-        'image'
-    ],
-    topToolbar: ['addComponents']
+    // allowedList: [
+    //     'headline',
+    //     'text',
+    //     'button',
+    //     'image'
+    // ],
+    // topToolbar: ['addComponents']
 }

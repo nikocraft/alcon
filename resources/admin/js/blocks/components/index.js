@@ -1,7 +1,7 @@
 import Container from './container'
 import Section from './section'
-import Tabs from './tabs'
-import Tab from './tabs/tab'
+// import Tabs from './tabs'
+// import Tab from './tabs/tab'
 import Columns from './columns'
 import Column from './columns/column'
 
@@ -20,7 +20,7 @@ import Button from './button'
 import Slider from './slider'
 import Slide from './slider/slide'
 
-import Posts from './posts'
+// import Posts from './posts'
 
 import RecentPosts from './recentPosts'
 
@@ -28,8 +28,8 @@ export default {
     Container,
     RecentPosts,
     Section,
-    Tabs,
-    Tab,
+    // Tabs,
+    // Tab,
     Columns,
     Column,
     Text,
@@ -44,5 +44,5 @@ export default {
     Button,
     Slider,
     Slide,
-    Posts
+    // Posts
 }

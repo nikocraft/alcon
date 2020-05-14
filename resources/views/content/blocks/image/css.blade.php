@@ -5,71 +5,46 @@
 @push('content-block-css')
 .image-{{ $block->unique_id }} {
     display: flex;
-    justify-content: {{ $settings->get('imagePosition') }};
     align-items: center;
-    padding: {{ $settings->get('padding') }};
-    margin: {{ $settings->get('margin') }};
-    background-color: {{ $settings->get('backgroundColor') }};
-
-    @if(isset($parentSettings) && $parentSettings->get('display') == 'flex')
-        flex: {{ $settings->get('flex') }};
-        align-self: {{ $settings->get('alignSelf') }};
-    @endif
+    @cssproperty([ 'property' => 'justify-content', 'value' => $settings->get('imagePosition') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('padding') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('margin') ]) @endcssproperty
+    @cssproperty([ 'property' => 'background-color', 'value' => $settings->get('backgroundColor') ]) @endcssproperty
 }
 
 .image-{{ $block->unique_id }} img {
-    border: {{ $settings->get('imageBorder') }};
-    border-radius: {{ $settings->get('imageBorderRadius') }};
+    @cssproperty([ 'property' => 'border', 'value' => $settings->get('imageBorder') ]) @endcssproperty
+    @cssproperty([ 'property' => 'border-radius', 'value' => $settings->get('imageBorderRadius') ]) @endcssproperty
     @if($settings->get('imageResponsive') == false)
-        width: {{ $settings->get('width') }};
+        @cssproperty([ 'property' => 'width', 'value' => $settings->get('width') ]) @endcssproperty
     @endif
 }
 @endpush
 
 @push('content-block-css-large')
 .image-{{ $block->unique_id }} {
-    padding: {{ $settings->get('paddingLarge') }};
-    margin: {{ $settings->get('marginLarge') }};
-
-    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayLarge') == 'flex'))
-        flex: {{ $settings->get('flexLarge') }};
-        align-self: {{ $settings->get('alignSelfLarge') }};
-    @endif
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingLarge')]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginLarge') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-medium')
 .image-{{ $block->unique_id }} {
-    padding: {{ $settings->get('paddingMedium') }};
-    margin: {{ $settings->get('marginMedium') }};
-
-    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayMedium') == 'flex'))
-        flex: {{ $settings->get('flexMedium') }};
-        align-self: {{ $settings->get('alignSelfMedium') }};
-    @endif
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingMedium')]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginMedium') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-small')
 .image-{{ $block->unique_id }} {
-    padding: {{ $settings->get('paddingSmall') }};
-    margin: {{ $settings->get('marginSmall') }};
-
-    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displaySmall') == 'flex'))
-        flex: {{ $settings->get('flexSmall') }};
-        align-self: {{ $settings->get('alignSelfSmall') }};
-    @endif
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingSmall')]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginSmall') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-extra-small')
 .image-{{ $block->unique_id }} {
-    padding: {{ $settings->get('paddingExtraSmall') }};
-    margin: {{ $settings->get('marginExtraSmall') }};
-
-    @if(isset($parentSettings) && ($parentSettings->get('display') == 'flex' || $parentSettings->get('displayExtraSmall') == 'flex'))
-        flex: {{ $settings->get('flexExtraSmall') }};
-        align-self: {{ $settings->get('alignSelfExtraSmall') }};
-    @endif
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingExtraSmall')]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginExtraSmall') ]) @endcssproperty
 }
 @endpush

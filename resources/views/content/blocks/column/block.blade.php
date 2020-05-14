@@ -6,7 +6,7 @@
 
 @includeIf('content.blocks.column.css')
 
-<div class="column-block column-{{ $column->unique_id }} {{ $settings->get('customClass') }}" @if($settings->get('onClick') == 'open-link')onclick="window.open('{{ $settings->get('link') }}', '{{ $settings->get('target') }}');"@endif>
+<div class="column-block column-{{ $column->unique_id }} {{ $settings->get('customClass') }}">
     @component('content.render.blocks', [
         'renderData' => $renderData,
         'parentSettings' => $settings

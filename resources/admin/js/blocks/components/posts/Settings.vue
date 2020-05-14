@@ -9,9 +9,9 @@
 
                 <div class="form-group">
                     <label>Posts Type</label>
-                        <select class="form-control" v-model="settings.postsType">
-                            <option v-for="option in postsTypes" :key="option.key" :value="option.value">{{ option.text }}</option>
-                        </select>
+                    <select class="form-control" v-model="settings.postsType">
+                        <option v-for="option in postsTypes" :key="option.key" :value="option.value">{{ option.text }}</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -70,7 +70,6 @@
         },
         customSettings: {
             blockTitle: {type: String, default: 'Posts'},
-            renderTitle: {type: Boolean, default: false},
             postsType: {type: String, default: '1'},
             displayFeaturedImage: {type: Boolean, default: true},
             customClass: {type: String, default: ''},

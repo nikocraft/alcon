@@ -7,6 +7,6 @@
 
 @includeIf('content.blocks.text.css')
 
-<div class="text-block text-{{ $block->unique_id }} {{ $settings->get('customClass') }}" @if($settings->onClick == 'open-link')onclick="window.open('{{ $settings->get('link') }}', '{{ $settings->get('target') }}');"@endif>
+<div class="text-block text-{{ $block->unique_id }} {{ $settings->get('customClass') }}">
     {!! $block->content !!}
 </div>

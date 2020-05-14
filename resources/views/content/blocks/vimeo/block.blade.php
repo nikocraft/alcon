@@ -12,7 +12,7 @@
         $settings->get('allowFullscreen') ? $allowFullscreenAttribute = 'allowfullscreen' : null;
 @endphp
 
-<div class="video-block video-block-{{ $block->unique_id }}">
+<div class="vimeo-block vimeo-block-{{ $block->unique_id }}">
     @if(isset($video))
             <iframe width="100%" height="100%" 
             src="https://player.vimeo.com/video/{{ $video }}?&autoplay={{ $settings->get('autoplay') }}" 

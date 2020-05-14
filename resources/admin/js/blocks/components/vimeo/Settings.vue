@@ -69,7 +69,6 @@
         mixins: [SettingsMixin],
         customSettings: {
             blockTitle: {type: String, default: 'Vimeo'},
-            renderTitle: {type: Boolean, default: false},
             allowFullscreen: {type: Boolean, default: false},
             autoplay: {type: Boolean, default: false},
             customClass: {type: String, default: ''},

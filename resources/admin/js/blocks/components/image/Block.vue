@@ -1,11 +1,9 @@
 <template>
     <div class="image-block-body" style="display: flex;" :style="imageBlockStyles">
-        <div>
             <img v-if="image.id" :src="imageUrl" @click.stop="openMediaModal" :class="[settings.imageResponsive ? 'img-responsive' : '' , settings.customClass]" :style="imgStyles">
             <div v-else @click.stop="openMediaModal" class="text-center no-image" style="width: 100%;">
                 <h3 style="height: 30px;">Image</h3>
             </div>
-        </div>
     </div>
 </template>
 
@@ -140,7 +138,7 @@
 
 <style scoped lang="scss">
     .no-image {
-        padding: 20px;
+        padding: 70px;
         border: 1px dashed rgba(0, 0, 0, 0.2);
         background-color: rgba(0,0,0, 0.12);
         cursor: pointer;

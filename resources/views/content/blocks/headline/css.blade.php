@@ -3,92 +3,50 @@
 @endpush
 
 @push('content-block-css')
-.headline-{{ $block->unique_id }} {
-    @if($settings->get('onClick') == 'open-link')cursor: pointer;@endif
-    font-size: {{ $settings->get('fontSize') }};
-    font-weight: {{ $settings->get('fontWeight') }};
-    color: {{ $settings->get('textColor') }};
-    text-shadow: {{ $settings->get('textShadow') }};
-    margin: {{ $settings->get('margin') }};
-    padding: {{ $settings->get('padding') }};
-    background-color: {{ $settings->get('backgroundColor') }};
-    line-height: {{ $settings->get('fontLineHeight') }};
-    font-family: "{{ $settings->get('fontFamily') }}";
-
-    @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->get('flex') }};
-        width: {{ $settings->get('width') }};
-        align-self: {{ $settings->get('alignSelf') }};
-    @else
-        width: 100%;
-    @endif
-}
-
-.headline-{{ $block->unique_id }}:hover {
-    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorHover') }};@endif
-    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
-    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowHover') }};@endif
-}
-
-.headline-{{ $block->unique_id }}:active {
-    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorActive') }};@endif
-    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
-    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowActive') }};@endif
+.headline-block-{{ $block->unique_id }} {
+    @cssproperty([ 'property' => 'font-family', 'value' => $settings->get('fontFamily') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontSize') ]) @endcssproperty
+    @cssproperty([ 'property' => 'color', 'value' => $settings->get('textColor') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-weight', 'value' => $settings->get('fontWeight') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('margin') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('padding') ]) @endcssproperty
+    @cssproperty([ 'property' => 'background-color', 'value' => $settings->get('backgroundColor') ]) @endcssproperty
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontLineHeight') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-large')
-.headline-{{ $block->unique_id }} {
-    font-size: {{ $settings->get('fontSizeLarge') }};
-    line-height: {{ $settings->get('fontLineHeightLarge') }};
-    padding: {{ $settings->get('paddingLarge') }};
-    margin: {{ $settings->get('marginLarge') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->get('flexLarge') }};
-        align-self: {{ $settings->get('alignSelfLarge') }};
-    @endif
-    width: {{ $settings->get('widthLarge') }};
+.headline-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('fontSizeResponsive'), 'property' => 'font-size', 'value' => $settings->get('fontSizeLarge') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('fontLineHeightResponsive'), 'property' => 'line-height', 'value' => $settings->get('fontLineHeightLarge') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('paddingResponsive'), 'property' => 'padding', 'value' => $settings->get('paddingLarge') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginLarge') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-medium')
-.headline-{{ $block->unique_id }} {
-    font-size: {{ $settings->get('fontSizeMedium') }};
-    line-height: {{ $settings->get('fontLineHeightMedium') }};
-    padding: {{ $settings->get('paddingMedium') }};
-    margin: {{ $settings->get('marginMedium') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->get('flexMedium') }};
-        align-self: {{ $settings->get('alignSelfMedium') }};
-    @endif
-    width: {{ $settings->get('widthMedium') }};
+.headline-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('fontSizeResponsive'), 'property' => 'font-size', 'value' => $settings->get('fontSizeMedium') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('fontLineHeightResponsive'), 'property' => 'line-height', 'value' => $settings->get('fontLineHeightMedium') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('paddingResponsive'), 'property' => 'padding', 'value' => $settings->get('paddingMedium') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginMedium') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-small')
-.headline-{{ $block->unique_id }} {
-    font-size: {{ $settings->get('fontSizeSmall') }};
-    line-height: {{ $settings->get('fontLineHeightSmall') }};
-    padding: {{ $settings->get('paddingSmall') }};
-    margin: {{ $settings->get('marginSmall') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->get('flexSmall') }};
-        align-self: {{ $settings->get('alignSelfSmall') }};
-    @endif
-    width: {{ $settings->get('widthSmall') }};
+.headline-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('fontSizeResponsive'), 'property' => 'font-size', 'value' => $settings->get('fontSizeSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('fontLineHeightResponsive'), 'property' => 'line-height', 'value' => $settings->get('fontLineHeightSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('paddingResponsive'), 'property' => 'padding', 'value' => $settings->get('paddingSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginSmall') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-extra-small')
-.headline-{{ $block->unique_id }} {
-    font-size: {{ $settings->get('fontSizeExtraSmall') }};
-    line-height: {{ $settings->get('fontLineHeightExtraSmall') }};
-    padding: {{ $settings->get('paddingExtraSmall') }};
-    margin: {{ $settings->get('marginExtraSmall') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->get('flexExtraSmall') }};
-        align-self: {{ $settings->get('alignSelfExtraSmall') }};
-    @endif
-    width: {{ $settings->get('widthExtraSmall') }};
+.headline-block-{{ $block->unique_id }} {
+    @cssproperty([ 'render' => $settings->get('fontSizeResponsive'), 'property' => 'font-size', 'value' => $settings->get('fontSizeExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('fontLineHeightResponsive'), 'property' => 'line-height', 'value' => $settings->get('fontLineHeightExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('paddingResponsive'), 'property' => 'padding', 'value' => $settings->get('paddingExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('marginResponsive'), 'property' => 'margin', 'value' => $settings->get('marginExtraSmall') ]) @endcssproperty
 }
 @endpush

@@ -7,80 +7,6 @@
                     <input type="text" class="form-control" v-model="settings.blockTitle">
                 </div>
 
-                <div class="form-group">
-                    <label>Render Block Title</label>
-                    <select class="form-control" v-model="settings.renderTitle">
-                        <option :value="true">Yes</option>
-                        <option :value="false">No</option>
-                    </select>
-                </div>
-
-                <div v-if="ancestorSettings.display == 'flex'">
-                    <div v-if="!settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <input type="text" v-model="settings.flex" class="form-control">
-                    </div>
-                    <div v-if="settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.flex"
-                            :large.sync="settings.flexLarge"
-                            :medium.sync="settings.flexMedium"
-                            :small.sync="settings.flexSmall"
-                            :extraSmall.sync="settings.flexExtraSmall">
-                        </px-responsive>
-                    </div>
-
-                    <div v-if="!settings.alignSelfResponsive" class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.alignSelf">
-                            <option v-for="option in optionsAlignSelf" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-                    <div v-else class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select-responsive
-                            :options="optionsAlignSelf"
-                            :extraLarge.sync="settings.alignSelf"
-                            :large.sync="settings.alignSelfLarge"
-                            :medium.sync="settings.alignSelfMedium"
-                            :small.sync="settings.alignSelfSmall"
-                            :extraSmall.sync="settings.alignSelfExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <px :maxAllowed=1 :px.sync="settings.width"></px>
-                    </div>
-                    <div v-if="settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.width"
-                            :large.sync="settings.widthLarge"
-                            :medium.sync="settings.widthMedium"
-                            :small.sync="settings.widthSmall"
-                            :extraSmall.sync="settings.widthExtraSmall">
-                        </px-responsive>
-                    </div>
-                </div>
-
-                <div v-if="!settings.heightResponsive" class="form-group">
-                    <label>Height</label> <i @click="settings.heightResponsive = !settings.heightResponsive" class="lo-icon lo-icon-desktop" title="Responsive"></i>
-                    <px :px.sync="settings.height"></px>
-                </div>
-                <div v-else class="form-group">
-                    <label>Height</label> <i @click="settings.heightResponsive = !settings.heightResponsive" class="lo-icon lo-icon-desktop" title="Responsive"></i>
-                    <px-responsive
-                        :extraLarge.sync="settings.height"
-                        :large.sync="settings.heightLarge"
-                        :medium.sync="settings.heightMedium"
-                        :small.sync="settings.heightSmall"
-                        :extraSmall.sync="settings.heightExtraSmall"
-                    >
-                    </px-responsive>
-                </div>
-
                 <div v-if="!settings.paddingResponsive" class="form-group">
                     <label>Padding</label> <i @click="settings.paddingResponsive = !settings.paddingResponsive" class="lo-icon lo-icon-desktop" title="Responsive"></i>
                     <px :px.sync="settings.padding"></px>
@@ -114,71 +40,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Columns Spacing</label>
-                    <px :px.sync="settings.columnSpacing"></px>
-                </div>
-
-                <div class="form-group">
                     <label>Background Color</label>
                     <color-picker v-model="settings.backgroundColor"></color-picker>
-                </div>
-
-                <div class="form-group">
-                    <label>Background Image</label>
-                    <div class="input-group">
-                        <input placeholder="None" type="text" v-model="settings.backgroundImage" class="form-control"/>
-                        <span @click="openMediaModal()" class="input-group-addon" style="cursor: pointer; border-left: 0;">Select</span>
-                    </div>
-                </div>
-
-                <div v-if="settings.backgroundImage" class="form-group">
-                    <label>Background Style</label>
-                    <select class="form-control" v-model="settings.backgroundStyle">
-                        <option value="scroll">Scroll</option>
-                        <option value="fixed">Fixed</option>
-                        <option value="local">Local</option>
-                        <option value="initial">Initial</option>
-                        <option value="inherit">Inherit</option>
-                    </select>
-                </div>
-
-                <div v-if="settings.backgroundImage" class="form-group">
-                    <label>Background Size</label>
-                    <select class="form-control" v-model="settings.backgroundSize">
-                        <option value="cover">Cover</option>
-                        <option value="contain">Contain</option>
-                        <option value="manual">Manual</option>
-                        <option value="initial">Initial</option>
-                        <option value="inherit">Inherit</option>
-                    </select>
-                </div>
-                <div v-if="settings.backgroundSize=='manual'" class="form-group">
-                    <input v-model="settings.backgroundSizeManual"  type="text" class="form-control" placeholder="Set background width and height using % or px">
-                </div>
-
-                <div v-if="settings.backgroundImage" class="form-group">
-                    <label>Background Position</label>
-                    <select class="form-control" v-model="settings.backgroundPosition">
-                        <option value="center">Center</option>
-                        <option value="left">Left</option>
-                        <option value="right">Right</option>
-                        <option value="top">Top</option>
-                        <option value="bototm">Bottom</option>
-                        <option value="initial">Initial</option>
-                        <option value="inherit">Inherit</option>
-                    </select>
-                </div>
-
-                <div v-if="settings.backgroundImage" class="form-group">
-                    <label>Background Repeat</label>
-                    <select class="form-control" v-model="settings.backgroundRepeat">
-                        <option value="no-repeat">No Repeat</option>
-                        <option value="repeat">Repeat</option>
-                        <option value="repeat-x">Repeat X</option>
-                        <option value="repeat-y">Repeat Y</option>
-                        <option value="initial">Initial</option>
-                        <option value="inherit">Inherit</option>
-                    </select>
                 </div>
 
                 <div class="form-group">
@@ -249,36 +112,7 @@
         customSettings: {
             blockTitle: {type: String, default: 'Columns'},
             blockRef: {type: String, default: ''},
-            renderTitle: {type: Boolean, default: false},
             customClass: {type: String, default: ''},
-
-            flexResponsive: {type: Boolean, default: false},
-            flex: {type: String, default: '0 1 auto'},
-            flexLarge: {type: String, default: '0 1 auto'},
-            flexMedium: {type: String, default: '0 1 auto'},
-            flexSmall: {type: String, default: '0 1 auto'},
-            flexExtraSmall: {type: String, default: '0 1 auto'},
-
-            alignSelfResponsive: {type: Boolean, default: false},
-            alignSelf: {type: String, default: 'auto'},
-            alignSelfLarge: {type: String, default: 'auto'},
-            alignSelfMedium: {type: String, default: 'auto'},
-            alignSelfSmall: {type: String, default: 'auto'},
-            alignSelfExtraSmall: {type: String, default: 'auto'},
-
-            widthResponsive: {type: Boolean, default: false},
-            width: {type: String, default: 'auto'},
-            widthLarge: {type: String, default: 'auto'},
-            widthMedium: {type: String, default: 'auto'},
-            widthSmall: {type: String, default: 'auto'},
-            widthExtraSmall: {type: String, default: 'auto'},
-
-            heightResponsive: {type: Boolean, default: false},
-            height: {type: String, default: 'auto'},
-            heightLarge: {type: String, default: ''},
-            heightMedium: {type: String, default: ''},
-            heightSmall: {type: String, default: ''},
-            heightExtraSmall: {type: String, default: ''},
 
             paddingResponsive: {type: Boolean, default: false},
             padding: {type: String, default: '0px'},
@@ -294,21 +128,9 @@
             marginSmall: {type: String, default: ''},
             marginExtraSmall: {type: String, default: ''},
 
-            columnSpacing: {type: String, default: '2px'},
             selectedColumns: {type: String, default: 'two-equal'},
-
-            backgroundImage: {type: String, default: ''},
-            backgroundStyle: {type: String, default: 'scroll'},
-            backgroundSize: {type: String, default: 'cover'},
-            backgroundSizeManual: {type: String, default: ''},
-            backgroundPosition: {type: String, default: 'center'},
-            backgroundRepeat: {type: String, default: 'repeat'},
             backgroundColor: {type: String, default: ''},
-
             css: {type: String, default: ''},
-
-            // template specific settings
-            // canAddBlocks: {type: Boolean, default: true},
         },
         computed: {
             modalTitle() {

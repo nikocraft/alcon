@@ -1,7 +1,7 @@
 @php
     $block = $renderData->block;
     $settings = $block->settings;
-    
+
     $subBlocksIds = $renderData->subBlocksIds;
     $allBlocks = $renderData->allBlocks;
 
@@ -12,7 +12,7 @@
 
 @includeIf('content.blocks.container.css')
 
-<div id="{{ $settings->get('blockRef') }}" class="{{$containerClass}} container-{{ $block->unique_id }} {{ $settings->get('customClass') }}" @if($settings->get('onClick') == 'open-link')onclick="window.open('{{ $settings->get('link') }}', '{{ $settings->get('target') }}');"@endif>
+<div id="{{ $settings->get('blockRef') }}" class="{{ $containerClass }} container-{{ $block->unique_id }} {{ $settings->get('customClass') }}">
     @component('content.render.blocks', [
         'renderData' => $renderData,
         'parentSettings' => $settings

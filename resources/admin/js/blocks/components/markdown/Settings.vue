@@ -22,7 +22,6 @@
         mixins: [SettingsMixin],
         customSettings: {
             blockTitle: {type: String, default: 'Markdown'},
-            renderTitle: {type: Boolean, default: false},
             showToolbar: {type: Boolean, default: true},
         }
     }

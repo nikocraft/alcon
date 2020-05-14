@@ -66,42 +66,16 @@
             itemsWrapperStyles() {
                 let styles = ""
                 styles = styles + 'min-height: 120px;'
-                styles = styles + 'display: '+this.settings.display+';'
-                //
-                if(this.settings.display == 'flex') {
-                    styles = styles + 'flex-direction: '+this.settings.flexDirection+';'
-                    styles = styles + 'align-items: '+this.settings.alignItems+';'
-                    styles = styles + 'justify-content: '+this.settings.justifyContent+';'
-                }
-
+                styles = styles + 'display: block;'
                 return styles
             },
             columnStyles() {
                 let styles = ""
                 if(this.containerPreview) {
-                    if(this.settings.backgroundImage) {
-                        styles = styles + 'background-image: url('+this.settings.backgroundImage+');'
-                        styles = styles + 'background-attachment: '+this.settings.backgroundStyle+';'
-                        styles = styles + 'background-position: '+this.settings.backgroundPosition+';'
-                        styles = styles + 'background-repeat: '+this.settings.backgroundRepeat+';'
-                        styles = styles + 'box-shadow: inset 0 0 0 2000px '+this.settings.backgroundColor+';'
-                        switch (this.settings.backgroundSize) {
-                            case 'manual':
-                                styles = styles + 'background-size: '+this.settings.backgroundSizeManual+';'
-                            break;
-                            default:
-                                styles = styles + 'background-size: '+this.settings.backgroundSize+';'
-                        }
-                    }
-                    else {
-                        styles = styles + 'background-color: '+this.settings.backgroundColor+';'
-                    }
-
-                    styles = styles + 'height: '+this.settings.height+';'
-                    styles = styles + 'padding: '+this.settings.padding+';'
-                    styles = styles + 'margin: '+this.settings.margin+';'
-                    styles = styles + 'display: flex;'
-                    styles = styles + 'flex: 1;'
+                    styles = styles + 'background-color: ' + this.settings.backgroundColor+';'
+                    styles = styles + 'height: ' + this.settings.height+';'
+                    styles = styles + 'padding: ' + this.settings.padding+';'
+                    styles = styles + 'margin: ' + this.settings.margin+';'
                 }
                 return styles
             },

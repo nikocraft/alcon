@@ -7,10 +7,10 @@
         $video = substr($content, strpos($content, "=") + 1);
 @endphp
 
-<div class="video-block-{{ $block->unique_id }}">
+<div class="youtube-block youtube-block-{{ $block->unique_id }}">
     @if(isset($video))
         <div style="width: 100%; height: 100%;">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $video }}" style="border: 0;"></iframe>
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $video }}" style="position:absolute; top:0; left: 0; border: 0;"></iframe>
         </div>
     @endif
 </div>

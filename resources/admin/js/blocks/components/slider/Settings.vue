@@ -8,73 +8,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Render Block Title</label>
-                    <select class="form-control" v-model="settings.renderTitle">
-                        <option :value="true">Yes</option>
-                        <option :value="false">No</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Content</label>
+                    <label>Style</label>
                     <select class="form-control" v-model="settings.contentRenderStyle">
                         <option value='fluid'>Fluid</option>
                         <option value='boxed'>Boxed</option>
                     </select>
-                    <small>Should content inside each slide be fluid or boxed.</small>
-                </div>
-
-                <div v-if="ancestorSettings.display == 'flex'">
-                    <div v-if="!settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <input type="text" v-model="settings.flex" class="form-control">
-                    </div>
-
-                    <div v-if="settings.flexResponsive" class="form-group">
-                        <label>Flex</label> <i @click="settings.flexResponsive = !settings.flexResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.flex"
-                            :large.sync="settings.flexLarge"
-                            :medium.sync="settings.flexMedium"
-                            :small.sync="settings.flexSmall"
-                            :extraSmall.sync="settings.flexExtraSmall">
-                        </px-responsive>
-                    </div>
-
-                    <div v-if="!settings.alignSelfResponsive" class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select class="form-control" v-model="settings.alignSelf">
-                            <option v-for="option in optionsAlignSelf" :key="option.key" :value="option.key">{{ option.value }}</option>
-                        </select>
-                    </div>
-
-                    <div v-else class="form-group">
-                        <label>Align Self</label> <i @click="settings.alignSelfResponsive = !settings.alignSelfResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <select-responsive
-                            :options="optionsAlignSelf"
-                            :extraLarge.sync="settings.alignSelf"
-                            :large.sync="settings.alignSelfLarge"
-                            :medium.sync="settings.alignSelfMedium"
-                            :small.sync="settings.alignSelfSmall"
-                            :extraSmall.sync="settings.alignSelfExtraSmall">
-                        </select-responsive>
-                    </div>
-
-                    <div v-if="!settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive"></i>
-                        <px :maxAllowed=1 :px.sync="settings.width"></px>
-                    </div>
-
-                    <div v-if="settings.widthResponsive" class="form-group">
-                        <label>Width</label> <i @click="settings.widthResponsive = !settings.widthResponsive" class="lo-icon lo-icon-desktop pull-right" title="Responsive Off"></i>
-                        <px-responsive
-                            :extraLarge.sync="settings.width"
-                            :large.sync="settings.widthLarge"
-                            :medium.sync="settings.widthMedium"
-                            :small.sync="settings.widthSmall"
-                            :extraSmall.sync="settings.widthExtraSmall">
-                        </px-responsive>
-                    </div>
                 </div>
 
                 <div v-if="!settings.heightResponsive" class="form-group">
@@ -212,10 +150,7 @@
         },
         customSettings: {
             blockTitle: {type: String, default: 'Slider'},
-            renderTitle: {type: Boolean, default: false},
             contentRenderStyle: {type: String, default: 'fluid'},
-            position: {type: String, default: 'absolute'},
-            // width: {type: String, default: '100%'},
 
             showArrows: {type: String, default: 'always'},
             showButtons: {type: String, default: 'always'},
@@ -225,27 +160,6 @@
             transition: {type: String, default: 'slideHorisontal'},
             showProgressBar: {type: Boolean, default: false},
             progressBarColor: {type: String, default: '#007AFF'},
-
-            flexResponsive: {type: Boolean, default: false},
-            flex: {type: String, default: '0 1 auto'},
-            flexLarge: {type: String, default: ''},
-            flexMedium: {type: String, default: ''},
-            flexSmall: {type: String, default: ''},
-            flexExtraSmall: {type: String, default: ''},
-
-            alignSelfResponsive: {type: Boolean, default: false},
-            alignSelf: {type: String, default: 'auto'},
-            alignSelfLarge: {type: String, default: ''},
-            alignSelfMedium: {type: String, default: ''},
-            alignSelfSmall: {type: String, default: ''},
-            alignSelfExtraSmall: {type: String, default: ''},
-
-            widthResponsive: {type: Boolean, default: false},
-            width: {type: String, default: '100%'},
-            widthLarge: {type: String, default: ''},
-            widthMedium: {type: String, default: ''},
-            widthSmall: {type: String, default: ''},
-            widthExtraSmall: {type: String, default: ''},
 
             heightResponsive: {type: Boolean, default: false},
             height: {type: String, default: '450px'},

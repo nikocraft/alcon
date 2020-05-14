@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('helpers.taxonomy');
         Blade::include('helpers.style-renderer', 'style');
         Blade::include('helpers.css-value-renderer', 'css_value');
+        Blade::component('helpers.css', 'cssproperty');
     }
 
     /**

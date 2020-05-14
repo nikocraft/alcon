@@ -4,24 +4,17 @@
 
 @push('content-block-css')
 .button-{{ $block->unique_id }} {
-    line-height: {{ $settings->get('fontLineHeight') }};
-    font-size: {{ $settings->get('fontSize') }};
-    font-weight: {{ $settings->get('fontWeight') }};
-    color: {{ $settings->get('textColor') }};
-    background-color: {{ $settings->get('backgroundColor') }};
-    text-shadow: {{ $settings->get('textShadow') }};
-    box-shadow: {{ $settings->get('boxShadow') }};
-    border: {{ $settings->get('border') }};
-    border-radius: {{ $settings->get('borderRadius') }};
-    margin: {{ $settings->get('margin') }};
-    padding: {{ $settings->get('padding') }};
-    @if(isset($parentSettings) && $parentSettings->display == 'flex')
-        flex: {{ $settings->get('flex') }};
-        width: {{ $settings->get('width') }};
-        align-self: {{ $settings->get('alignSelf') }};
-    @else
-        width: 100%;
-    @endif
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontLineHeight') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontSize') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-weight', 'value' => $settings->get('fontWeight') ]) @endcssproperty
+    @cssproperty([ 'property' => 'color', 'value' => $settings->get('textColor') ]) @endcssproperty
+    @cssproperty([ 'property' => 'background-color', 'value' => $settings->get('backgroundColor') ]) @endcssproperty
+    @cssproperty([ 'property' => 'text-shadow', 'value' => $settings->get('textShadow') ]) @endcssproperty
+    @cssproperty([ 'property' => 'box-shadow', 'value' => $settings->get('boxShadow') ]) @endcssproperty
+    @cssproperty([ 'property' => 'border', 'value' => $settings->get('border') ]) @endcssproperty
+    @cssproperty([ 'property' => 'border-radius', 'value' => $settings->get('borderRadius') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('margin') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('padding') ]) @endcssproperty
 }
 
 .button-{{ $block->unique_id }}:hover a {
@@ -34,84 +27,62 @@
 }
 
 .button-{{ $block->unique_id }}.btn:hover {
-    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorHover') }};@endif
-    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorHover') }};@endif
-    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowHover') }};@endif
-    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowHover') }};@endif
-    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderHover') }};@endif
+    @cssproperty([ 'render' => $settings->get('textColorAdvanced'), 'property' => 'color', 'value' => $settings->get('textColorHover') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('backgroundColorAdvanced'), 'property' => 'background-color', 'value' => $settings->get('backgroundColorHover') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('textShadowAdvanced'), 'property' => 'text-shadow', 'value' => $settings->get('textShadowHover') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('boxShadowAdvanced'), 'property' => 'box-shadow', 'value' => $settings->get('boxShadowHover') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('borderAdvanced'), 'property' => 'border', 'value' => $settings->get('borderHover') ]) @endcssproperty
 }
 
 .button-{{ $block->unique_id }}.btn:active {
-    @if($settings->get('textColorAdvanced'))color: {{ $settings->get('textColorActive') }};@endif
-    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorActive') }};@endif
-    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowActive') }};@endif
-    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowActive') }};@endif
-    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderActive') }};@endif
+    @cssproperty([ 'render' => $settings->get('textColorAdvanced'), 'property' => 'color', 'value' => $settings->get('textColorActive') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('backgroundColorAdvanced'), 'property' => 'background-color', 'value' => $settings->get('backgroundColorActive') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('textShadowAdvanced'), 'property' => 'text-shadow', 'value' => $settings->get('textShadowActive') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('boxShadowAdvanced'), 'property' => 'box-shadow', 'value' => $settings->get('boxShadowActive') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('borderAdvanced'), 'property' => 'border', 'value' => $settings->get('borderActive') ]) @endcssproperty
 }
 
 .button-{{ $block->unique_id }}.btn:focus {
-    @if($settings->textColorAdvanced)color: {{ $settings->get('textColorFocus') }};@endif
-    @if($settings->get('backgroundColorAdvanced'))background-color: {{ $settings->get('backgroundColorFocus') }};@endif
-    @if($settings->get('textShadowAdvanced'))text-shadow: {{ $settings->get('textShadowFocus') }};@endif
-    @if($settings->get('boxShadowAdvanced'))box-shadow: {{ $settings->get('boxShadowFocus') }};@endif
-    @if($settings->get('borderAdvanced'))border: {{ $settings->get('borderFocus') }};@endif
+    @cssproperty([ 'render' => $settings->get('textColorAdvanced'), 'property' => 'color', 'value' => $settings->get('textColorFocus') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('backgroundColorAdvanced'), 'property' => 'background-color', 'value' => $settings->get('backgroundColorFocus') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('textShadowAdvanced'), 'property' => 'text-shadow', 'value' => $settings->get('textShadowFocus') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('boxShadowAdvanced'), 'property' => 'box-shadow', 'value' => $settings->get('boxShadowFocus') ]) @endcssproperty
+    @cssproperty([ 'render' => $settings->get('borderAdvanced'), 'property' => 'border', 'value' => $settings->get('borderFocus') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-large')
 .button-{{ $block->unique_id }} .btn {
-    font-size: {{ $settings->get('fontSizeLarge') }};
-    line-height: {{ $settings->get('fontLineHeightLarge') }};
-    padding: {{ $settings->get('paddingLarge') }};
-    margin: {{ $settings->get('marginLarge') }};
-
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayLarge == 'flex'))
-        flex: {{ $settings->get('flexLarge') }};
-        align-self: {{ $settings->get('alignSelfLarge') }};
-    @endif
-    width: {{ $settings->get('widthLarge') }};
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontLineHeightLarge') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontSizeLarge') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingLarge') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginLarge') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-medium')
 .button-{{ $block->unique_id }} .btn {
-    font-size: {{ $settings->get('fontSizeMedium') }};
-    line-height: {{ $settings->get('fontLineHeightMedium') }};
-    padding: {{ $settings->get('paddingMedium') }};
-    margin: {{ $settings->get('marginMedium') }};
-
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayMedium == 'flex'))
-        flex: {{ $settings->get('flexMedium') }};
-        align-self: {{ $settings->get('alignSelfMedium') }};
-    @endif
-    width: {{ $settings->get('widthMedium') }};
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontSizeMedium') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontLineHeightMedium') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingMedium') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginMedium') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-small')
 .button-{{ $block->unique_id }} .btn {
-    font-size: {{ $settings->get('fontSizeSmall') }};
-    line-height: {{ $settings->get('fontLineHeightSmall') }};
-    padding: {{ $settings->get('paddingSmall') }};
-    margin: {{ $settings->get('marginSmall') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displaySmall == 'flex'))
-        flex: {{ $settings->get('flexSmall') }};
-        align-self: {{ $settings->get('alignSelfSmall') }};
-    @endif
-    width: {{ $settings->get('widthSmall') }};
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontSizeSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontLineHeightSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginSmall') ]) @endcssproperty
 }
 @endpush
 
 @push('content-block-css-extra-small')
 .button-{{ $block->unique_id }} .btn {
-    font-size: {{ $settings->get('fontSizeExtraSmall') }};
-    line-height: {{ $settings->get('fontLineHeightExtraSmall') }};
-    padding: {{ $settings->get('paddingExtraSmall') }};
-    margin: {{ $settings->get('marginExtraSmall') }};
-    @if(isset($parentSettings) && ($parentSettings->display == 'flex' || $parentSettings->displayExtraSmall == 'flex'))
-        flex: {{ $settings->get('flexExtraSmall') }};
-        align-self: {{ $settings->get('alignSelfExtraSmall') }};
-    @endif
-    width: {{ $settings->get('widthExtraSmall') }};
+    @cssproperty([ 'property' => 'line-height', 'value' => $settings->get('fontSizeExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'font-size', 'value' => $settings->get('fontLineHeightExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'padding', 'value' => $settings->get('paddingExtraSmall') ]) @endcssproperty
+    @cssproperty([ 'property' => 'margin', 'value' => $settings->get('marginExtraSmall') ]) @endcssproperty
 }
 @endpush
