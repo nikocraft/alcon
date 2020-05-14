@@ -114,6 +114,8 @@
             textStyles() {
                 let styleObj = {
                     color: this.settings.textColor,
+                    fontSize: this.settings.fontSize,
+                    lineHeight: this.settings.fontLineHeight,
                     padding: this.settings.padding,
                     textShadow: this.settings.textShadow,
                     backgroundColor: this.settings.backgroundColor
