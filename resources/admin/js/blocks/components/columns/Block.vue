@@ -11,6 +11,7 @@
                     :style="{ 'width': column.settings.width, 'margin': '0px ' + settings.columnSpacing }"
                     class="column-item"
                     :type="column.type"
+                    :freshComponent="freshComponent"
                     :uniqueId="column.uniqueId"
                     :settings="column.settings"
                     :show-headers="showBlockHeaders"

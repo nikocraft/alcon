@@ -1,35 +1,9 @@
 <template>
     <div style="position: relative;">
-        <div v-bind:style="vimeoStyles" @click="setVideo">
+        <div v-bind:style="vimeoStyles">
             <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0; position: absolute; left: 0; top: 0;"></iframe>
         </div>
-
-        <v-modal ref="settingsModal"
-            name="settings-modal"
-            :classes="['v--modal', 'modal-content']"
-            :overlay="true"
-            transition="nice-modal-fade"
-            :width="400"
-            :height="300"
-            :adaptive="true"
-            :draggable="'.modal-header'"
-            :widthPadding="15">
-            <div class="modal-header grabbable">
-                <button type="button" class="close" aria-label="Close" @click="$refs.settingsModal.toggle(false)">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title animated">Set Video</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Video Url</label>
-                    <input type="text" class="form-control" v-model="video">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @click="$refs.settingsModal.toggle(false)">Close</button>
-            </div>
-        </v-modal>
+        <input type="text" class="form-control" v-model="video" placeholder="Insert Vimeo Url" style="margin-top: 3px;" :ref="'vimeo-input-'+uniqueId">
     </div>
 </template>
 
@@ -97,6 +71,9 @@
             }
         },
         mounted() {
+            if(this.freshComponent) {
+                this.$refs['vimeo-input-' + this.uniqueId].focus()
+            }
         }
     }
 </script>

@@ -245,8 +245,9 @@ const actions = {
                     replacedIds[object.unique_id] = id
 
                     commit('ADD_ITEM', {
-                        type: object.type,
                         id: id,
+                        freshComponent: false,
+                        type: object.type,
                         content: object.content ? object.content : undefined,
                         settings: object.settings,
                         parentId: replacedIds[object.parent_id] ? replacedIds[object.parent_id] : parentId ? parentId : null
@@ -429,8 +430,9 @@ const actions = {
                         }
 
                         commit('ADD_ITEM', {
-                            type: object.type,
                             id: id,
+                            freshComponent: false,
+                            type: object.type,
                             tId: templateBlockId,
                             content: object.content ? object.content : undefined,
                             settings: object.settings,
@@ -496,12 +498,13 @@ const mutations = {
         state.data.featuredimage = payload
     },
     'ADD_ITEM'(state, payload) {
-        let { type, content = null, settings, parentId, id, tId } = payload
-        let uniqueId = id || +(state.userId+Date.now()+(+_.uniqueId()))
+        let { type, content = null, settings, parentId, id, tId, freshComponent = false } = payload
+        let uniqueId = id || + (state.userId + Date.now() + (+_.uniqueId()))
         let templateBlockId = tId || undefined
 
         let newItem = {
             type: type,
+            freshComponent: freshComponent,
             uniqueId: uniqueId,
             templateBlockId: templateBlockId,
             settings: settings,

@@ -9,6 +9,7 @@
             <template v-for="block in subItems">
                 <component-wrapper
                     :type="block.type"
+                    :freshComponent="freshComponent"
                     :uniqueId="block.uniqueId"
                     :settings="block.settings"
                     :display="settings.display"

@@ -1,6 +1,7 @@
 <template>
     <vue-medium-editor
         v-bind:style="headlineStyles"
+        :ref="'headline-editor-' + uniqueId"
         :class="settings.customClass"
         :text='blockContent'
         :custom-tag='settings.headlineTag'
@@ -46,7 +47,7 @@
                     },
                     buttonLabels: false,
                     placeholder: {
-                        text: 'Headline',
+                        text: '',
                         hideOnClick: true
                     },
                     extensions: {
@@ -95,6 +96,9 @@
             updateBlockContent: function (operation) {
                 this.blockContent = operation.event.target.innerHTML
             }
+        },
+        mounted(){
+            this.$refs['headline-editor-' + this.uniqueId].api.elements[0].focus()
         },
         beforeCreate() {
             this.colorpickerInstance = new Colorpicker()

@@ -1,7 +1,7 @@
 <template>
     <div :style="textStyles">
         <vue-medium-editor
-            :ref="'text-editor-' + uniqueId"
+            :ref="'text-editor-'+uniqueId"
             :class="settings.contentClass"
             :text='blockContent'
             custom-tag='div'
@@ -147,8 +147,10 @@
                 this.blockContent = operation.api.origElements.innerHTML
             }
         },
-        mounted(){
-            this.$refs['text-editor-' + this.uniqueId].api.elements[0].focus()
+        mounted() {
+            if(this.freshComponent) {
+                this.$refs['text-editor-' + this.uniqueId].api.elements[0].focus()
+            }
         },
         beforeCreate() {
             this.colorpickerInstance = new Colorpicker()

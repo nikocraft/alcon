@@ -1,36 +1,9 @@
 <template>
     <div style="position: relative;">
-        <div v-bind:style="youtubeStyles" @click="setVideo">
-            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0; position: absolute; left: 0; top: 0;"></iframe>
-            <!-- <img src="https://img.youtube.com/vi/TBoCOqsEoJQ/0.jpg" > -->
+        <div v-bind:style="youtubeStyles">
+            <iframe v-if="embed" :id="this.uniqueId" width="100%" height="100%" :src="embed" style="border: 0; position: absolute; left: 0px; top: 0px;"></iframe>
         </div>
-
-        <v-modal ref="settingsModal"
-            name="settings-modal"
-            :classes="['v--modal', 'modal-content']"
-            :overlay="true"
-            transition="nice-modal-fade"
-            :width="400"
-            :height="300"
-            :adaptive="true"
-            :draggable="'.modal-header'"
-            :widthPadding="15">
-            <div class="modal-header grabbable">
-                <button type="button" class="close" aria-label="Close" @click="$refs.settingsModal.toggle(false)">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title animated">Set Video</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Video Url</label>
-                    <input type="text" class="form-control" v-model="video">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @click="$refs.settingsModal.toggle(false)">Close</button>
-            </div>
-        </v-modal>
+        <input type="text" class="form-control" v-model="video" placeholder="Insert Youtube Url" style="margin-top: 3px;" :ref="'youtube-input-'+uniqueId">
     </div>
 </template>
 
@@ -41,7 +14,7 @@
     export default {
         mixins: [GeneralMixin],
         props: {
-            overlayed: {type: Boolean, default: false}
+            overlayed: { type: Boolean, default: false }
         },
         data() {
             return {
@@ -52,7 +25,6 @@
             youtubeStyles() {
                 let styleObj = {
                     display: 'block',
-                    cursor: 'pointer',
                     padding: '28.25%',
                     position: 'relative',
                 }
@@ -92,18 +64,13 @@
                 immediate: true
             }
         },
-        methods: {
-            setVideo() {
-                this.$refs['settingsModal'].toggle(true)
-            }
-        },
         mounted() {
-            // this.video = this.content || 'https://www.youtube.com/watch?v=TBoCOqsEoJQ'
+            if(this.freshComponent) {
+                this.$refs['youtube-input-' + this.uniqueId].focus()
+            }
         }
     }
 </script>
-
-
 
 <style scoped lang="scss">
     .video-buttons {

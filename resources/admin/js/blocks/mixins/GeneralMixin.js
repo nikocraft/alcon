@@ -6,6 +6,7 @@ export default {
     storePath: {type: String, default: 'content/editor'},
     uniqueId: {type: Number, default: 0},
     type: {type: String},
+    freshComponent: {type: Boolean, default: true},
     ancestorSettings: {type: Object},
     showHeaders: {type: Boolean, default: false},
     showLabels: {type: Boolean, default: true},

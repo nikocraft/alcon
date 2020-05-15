@@ -10,6 +10,7 @@
                 <component-wrapper
                     :type="block.type"
                     :uniqueId="block.uniqueId"
+                    :freshComponent="freshComponent"
                     :settings="block.settings"
                     :show-headers="showBlockHeaders"
                     :show-labels="showBlockLabels"

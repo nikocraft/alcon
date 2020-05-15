@@ -40,6 +40,7 @@
                                         chosenClass="dragging1">
                                         <component-wrapper-functional v-for="container in containerList"
                                             :mode="mode"
+                                            :freshComponent="container.freshComponent"
                                             :type="container.type"
                                             :uniqueId="container.uniqueId"
                                             :settings="container.settings"
@@ -650,18 +651,28 @@
             },
             addBlock(compName = 'Container') {
                 let comp = getComponentByName(compName)
-
-                if(!comp) {
-                    console.log('Wrong component\'s name')
-                    return false
-                }
-
+                if(!comp) return false
                 let customSettings = processSettingsConfig(compName)
 
                 this.addItem({
                     type: compName,
+                    freshComponent: true,
                     settings: _.mapValues(customSettings, object => (object.default === undefined) ? null : object.default)
                 })
+            },
+            setFocus(component) {
+                switch (component) {
+                    case 'Text':
+                        console.log('we got text component')
+                        this.$refs['text'].api.elements[0].focus()
+                        break;
+                    case 'Youtube':
+                        console.log('we got youtube component')
+                        this.$refs['video'].focus()
+                        break;
+                    default:
+                        break;
+                }
             },
             updateFeaturedImage(image) {
                 this.setFeaturedImage(image)
@@ -867,6 +878,15 @@
             this.$once('hook:beforeDestroy', () => {
                 window.removeEventListener('keydown', this.setKeyShortcuts)
             })
+        },
+        updated() {
+            // this.$nextTick(function () {
+            //     console.log('something has been added')
+            //     console.log(this.$refs)
+            //     if(this.$refs.videoInput) this.$refs.videoInput.focus()
+            // })
+        },
+        mounted() {
         }
     }
 </script>
