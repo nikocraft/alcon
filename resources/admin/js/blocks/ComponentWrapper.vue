@@ -2,18 +2,18 @@
     <div :name="type + 'Component'" :class="containerClassList" ref="wrapper-container" :style="blockStyle">
         <div v-if="showHeaders" class="content-block-header -full">
             <i v-if="allowDraggable" class="lo-icon lo-icon-move" title="Reorder"></i>
-            <i v-if="blockType == 'normal'" class="lo-icon lo-icon-cog" title="Settings" name="openSettingsModal" @click="openSettingsModal"></i>
+            <!-- <i v-if="blockType == 'normal'" class="lo-icon lo-icon-cog" title="Settings" name="openSettingsModal" @click="openSettingsModal"></i> -->
             {{ settings.blockTitle }}
             <div class="pull-right">
-                <template v-if="topToolbar.includes('addComponents')">
+                <!-- <template v-if="topToolbar.includes('addComponents')">
                     <i @click="openComponentsLibModal" class="lo-icon lo-icon-plus" name="addComponent" title="Add"></i>
-                </template>
-                <template v-if="topToolbar.includes('showPreview')">
+                </template> -->
+                <!-- <template v-if="topToolbar.includes('showPreview')">
                     <i v-if="settings.showPreview" class="lo-icon lo-icon-eye" @click="settings.showPreview=false" title="Hide Preview"></i>
                     <i v-if="!settings.showPreview" class="lo-icon lo-icon-eye-off" @click="settings.showPreview=true" title="Show Preview"></i>
-                </template>
-                <i @click="moveUp" class="lo-icon lo-icon-angle-circled-up"></i>
-                <i @click="moveDown" class="lo-icon lo-icon-angle-circled-down"></i>
+                </template> -->
+                <!-- <i @click="moveUp" class="lo-icon lo-icon-angle-circled-up"></i>
+                <i @click="moveDown" class="lo-icon lo-icon-angle-circled-down"></i> -->
                 <!-- <i @click="saveAsTemplate" class="lo-icon lo-icon-floppy" title="Save as Template"></i> -->
                 <i @click="removeBlock" class="lo-icon lo-icon-trash-empty" name="deleteBlock" title="Delete"></i>
             </div>

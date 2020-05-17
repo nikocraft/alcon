@@ -2,18 +2,14 @@
     <div class="tree-menu" :style="indent">
         <div class="content-block-header" style="margin-bottom: 4px; border-radius: 4px;">
             <i v-if="nodes.length" @click="toggleChildren" class="lo-icon" :class="iconClasses"></i>
-
-            <span @click="focusComponent()" style="cursor: pointer;">
-                {{ title }}
-            </span>
-
+            <span>{{ title }}</span>
             <div class="pull-right">
                 <template v-if="topToolbar.includes('addComponents')">
                     <i @click="openComponentsLibModal" class="lo-icon lo-icon-plus" title="Add Component"></i>
                 </template>
                 <i v-if="component != 'ColumnBlock'" class="lo-icon lo-icon-move" title="Move"></i>
-                <i @click="moveUp" class="lo-icon lo-icon-angle-circled-up"></i>
-                <i @click="moveDown" class="lo-icon lo-icon-angle-circled-down"></i>
+                <!-- <i @click="moveUp" class="lo-icon lo-icon-angle-circled-up"></i>
+                <i @click="moveDown" class="lo-icon lo-icon-angle-circled-down"></i> -->
                 <i class="lo-icon lo-icon-cog" @click="showSettings()" title="Settings"></i>
                 <i class="lo-icon lo-icon-trash-empty" @click="deleteComponent()" title="Delete"></i>
             </div>

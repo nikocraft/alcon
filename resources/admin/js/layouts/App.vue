@@ -2,7 +2,7 @@
     <div id="app" class="wrapper">
         <header class="main-header">
             <div class="top-bar">
-                <div class="container top-menu">
+                <!-- <div class="container top-menu">
                     <div class="laraone-logo"><img src="/images/logo.png" class="img-responsive"></div>
                     <div class="notifications-area">
                         <div @mouseover="showUserDropDownMenu = true" @mouseout="showUserDropDownMenu = false" class="user-item menu-item dropdown dropdown-toggle">
@@ -15,36 +15,52 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <nav class="navbar">
                 <div class="container" style="height: 100%;">
-                    <div class="admin-menu">
-                        <template v-for="menuItem in adminMenu">
-                            <div v-if="menuItem.visible && (!menuItem.permission || auth.hasPermission(menuItem.permission))" :key="menuItem.id" @mouseover="showDropDown(menuItem)" @mouseout="hideDropDown" :class="{'menu-item': true, 'dropdown dropdown-toggle': menuItem.children && menuItem.children.length}">
-                                <router-link
-                                    v-if="menuItem.route"
-                                    :to="{
-                                        name: menuItem.route,
-                                        params: menuItem.params ? menuItem.params : {}
-                                    }"
-                                >{{ menuItem.name }}</router-link>
-                                <a v-else>{{ menuItem.name }}</a>
-                                <div class="dropdown-menu" v-show="menuItem.children && menuItem.children.length && (showDropDownMenu && menuItem.id == currentMenuItemId)">
-                                    <template v-for="childItem in menuItem.children">
-                                        <div v-if="childItem.visible && (!childItem.permission || auth.hasPermission(childItem.permission))" @click="clickedItem" class="dropdown-menu-item" :key="childItem.id">
-                                            <router-link
-                                                v-if="childItem.route"
-                                                :to="{
-                                                    name: childItem.route,
-                                                    params: menuItem.params ? menuItem.params : {}
-                                                }"
-                                            >{{ childItem.name }}</router-link>
+                    <div style="display: flex; flex-direction: row; height: 100%">
+                        <div style="flex: 0.1; display: flex; padding: 15px; align-items: center; background: #1b2428; font-size: 18px;"><div class="laraone-logo"><img src="/images/logo.png" class="img-responsive"></div></div>
+                        <div class="admin-menu" style="flex: 1;">
+                            <template v-for="menuItem in adminMenu">
+                                <div v-if="menuItem.visible && (!menuItem.permission || auth.hasPermission(menuItem.permission))" :key="menuItem.id" @mouseover="showDropDown(menuItem)" @mouseout="hideDropDown" :class="{'menu-item': true, 'dropdown dropdown-toggle': menuItem.children && menuItem.children.length}">
+                                    <router-link
+                                        v-if="menuItem.route"
+                                        :to="{
+                                            name: menuItem.route,
+                                            params: menuItem.params ? menuItem.params : {}
+                                        }"
+                                    >{{ menuItem.name }}</router-link>
+                                    <a v-else>{{ menuItem.name }}</a>
+                                    <div class="dropdown-menu" v-show="menuItem.children && menuItem.children.length && (showDropDownMenu && menuItem.id == currentMenuItemId)">
+                                        <template v-for="childItem in menuItem.children">
+                                            <div v-if="childItem.visible && (!childItem.permission || auth.hasPermission(childItem.permission))" @click="clickedItem" class="dropdown-menu-item" :key="childItem.id">
+                                                <router-link
+                                                    v-if="childItem.route"
+                                                    :to="{
+                                                        name: childItem.route,
+                                                        params: menuItem.params ? menuItem.params : {}
+                                                    }"
+                                                >{{ childItem.name }}</router-link>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div style="flex: 0.2; display: flex; padding: 15px; align-items: center; background: #1b2428; font-size: 18px;">
+                            <div class="notifications-area">
+                                <div @mouseover="showUserDropDownMenu = true" @mouseout="showUserDropDownMenu = false" class="user-item menu-item dropdown dropdown-toggle">
+                                    <a v-if="auth.user.firstname && auth.user.lastname" class="user-name">{{ auth.user.firstname }} {{ auth.user.lastname }}</a>
+                                    <a v-else class="user-name">{{ auth.user.username }}</a>
+                                    <div v-show="showUserDropDownMenu" class="dropdown-menu">
+                                        <div class="dropdown-menu-item">
+                                            <a @click="logout">Sign Out</a>
                                         </div>
-                                    </template>
+                                    </div>
                                 </div>
                             </div>
-                        </template>
+                        </div>
                     </div>
                 </div>
             </nav>

@@ -106,7 +106,7 @@
             modalTitle: {
                 get() {
                     if(this.mode=='scene-explorer-all' || this.mode=='scene-explorer-single')
-                        return 'Scene Explorer'
+                        return 'Navigator'
                     else
                         return 'Settings'
                 }

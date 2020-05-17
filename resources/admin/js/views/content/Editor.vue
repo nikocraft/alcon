@@ -1,16 +1,16 @@
 <template>
     <div class="content-editor">
-        <div :class="(editorSettings.wideLayout == true) ? 'col-md-12' : 'col-md-9'">
+        <div :class="(editorSettings.wideLayout == true) ? 'col-md-12' : 'col-md-9 content-editor-content'">
             <div class="box box-primary">
                 <div class="box-header" style="display: flex; justify-content: space-between; width: 100%;">
                     <div style="flex: 1;">
                         <h3 class="box-title">Content Editor</h3>
                     </div>
-                    <div v-if="!editorSettings.wideLayout && previewUrl"><a :href="previewUrl" target="_blank" style="width: auto; padding: 2px 10px;" class="btn btn-primary" type="submit" name="viewPost">View Post</a></div>
-                    <div v-if="editorSettings.wideLayout" style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
-                        <a v-if="previewUrl" :href="previewUrl" target="_blank" style="width: auto; padding: 2px 10px; margin-right: 5px;" class="btn btn-primary" type="submit" name="viewPost">View Post</a>
-                        <i @click="$modal.show('editor-tips-modal')" title="Editor Shortcuts" class="lo-icon lo-icon-info-circled" style="margin-right: 5px;"></i>
-                        <i @click="$modal.show('editor-settings-modal')" title="Settings" class="lo-icon lo-icon-cog" style="margin-right: 5px;"></i>
+                    <!-- <div v-if="!editorSettings.wideLayout && previewUrl"><a :href="previewUrl" target="_blank" style="width: auto; padding: 2px 10px;" class="btn btn-primary" type="submit" name="viewPost">View</a></div> -->
+                    <i @click="$modal.show('editor-tips-modal')" title="Editor Shortcuts" class="lo-icon lo-icon-info-circled" style="margin-right: 5px;"></i>
+                    <i @click="$modal.show('editor-settings-modal')" title="Settings" class="lo-icon lo-icon-cog" style="margin-right: 5px;"></i>
+                    <div v-if="editorSettings.wideLayout" style="flex: 0.1; display: flex; justify-content: flex-end; align-items: center;">
+                        <a v-if="previewUrl" :href="previewUrl" target="_blank" style="width: auto; padding: 2px 10px; margin-right: 5px;" class="btn btn-primary" type="submit" name="viewPost">View</a>
                         <button @click="saveAction()" :disabled='saveBlocks' style="width: 65px; padding: 2px 10px;" class="btn btn-primary" type="submit" name="savePost">{{ saveBtnText }}</button>
                     </div>
                 </div>
@@ -232,16 +232,14 @@
             </div>
         </div>
 
-        <div v-if="!editorSettings.wideLayout" class="col-md-3">
+        <div v-if="!editorSettings.wideLayout" class="content-editor-sidebar col-md-3">
             <div class="box box-primary">
                 <!-- <button @click="changeMode">CHANGE MODE</button> -->
                 <div class="box-header" style="display: flex; justify-content: space-between;">
                     <div style="flex: 1;">
-                        <h3 class="box-title">Post Details</h3>
+                        <a :href="previewUrl" target="_blank" style="width: auto; padding: 2px 10px;" class="btn btn-primary" type="submit" name="viewPost">View</a>
                     </div>
                     <div style="flex: 1; display: flex; justify-content: flex-end; align-items: center;">
-                        <i name="editorShortcuts" @click="$modal.show('editor-tips-modal')" title="Editor Shortcuts" class="lo-icon lo-icon-info-circled" style="margin-right: 5px;"></i>
-                        <i name="editorSettings" @click="$modal.show('editor-settings-modal')" title="Settings" class="lo-icon lo-icon-cog" style="margin-right: 5px;"></i>
                         <button @click="saveAction()" :disabled='saveBlocks' style="width: 65px; padding: 2px 10px;" class="btn btn-primary" type="submit" name="savePost">{{saveBtnText}}</button>
                     </div>
                 </div>
