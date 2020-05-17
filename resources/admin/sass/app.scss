@@ -9,6 +9,8 @@
 @import "./thirdparty/vue-treeselect";
 @import './thirdparty/element-ui/index';
 
+@import "./_variables.scss";
+
 // Admin css
 @import "./includes/medium-editor.scss";
 @import "./includes/content-block.scss";

@@ -4,7 +4,7 @@
             <nav class="navbar">
                 <div class="container" style="height: 100%;">
                     <div style="display: flex; flex-direction: row; height: 100%">
-                        <div style="flex: 0.1; display: flex; padding: 15px; align-items: center; background: #1b2428; font-size: 18px;"><div class="laraone-logo"><img src="/images/logo.png" class="img-responsive"></div></div>
+                        <div style="flex: 0.1; display: flex; padding: 15px; align-items: center; font-size: 18px;"><div class="laraone-logo"><img src="/images/logo.png" class="img-responsive"></div></div>
                         <div class="admin-menu" style="flex: 1;">
                             <template v-for="menuItem in adminMenu">
                                 <div v-if="menuItem.visible && (!menuItem.permission || auth.hasPermission(menuItem.permission))" :key="menuItem.id" @mouseover="showDropDown(menuItem)" @mouseout="hideDropDown" :class="{'menu-item': true, 'dropdown dropdown-toggle': menuItem.children && menuItem.children.length}">
@@ -32,7 +32,7 @@
                                 </div>
                             </template>
                         </div>
-                        <div style="flex: 0.2; display: flex; padding: 15px; align-items: center; background: #1b2428; font-size: 18px;">
+                        <div style="flex: 0.2; display: flex; padding: 15px; align-items: center; font-size: 18px;">
                             <div class="notifications-area">
                                 <div @mouseover="showUserDropDownMenu = true" @mouseout="showUserDropDownMenu = false" class="user-item menu-item dropdown dropdown-toggle">
                                     <a v-if="auth.user.firstname && auth.user.lastname" class="user-name">{{ auth.user.firstname }} {{ auth.user.lastname }}</a>

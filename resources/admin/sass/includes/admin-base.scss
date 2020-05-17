@@ -123,11 +123,10 @@ p {
     }
 }
 .content-wrapper {
-    min-height: 100%;
-    background-color: #ecf0f5;
-    z-index: 800;
-    background-color: #2a3338;
     margin-left: 0;
+    z-index: 800;
+    min-height: 100%;
+    background-color: $backgroundColor;
 }
 
 @media (min-width: 1400px) {
@@ -206,7 +205,7 @@ p {
 }
 
 .wrapper {
-    background-color: #2a3338;
+    background-color: $backgroundColor;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -1104,8 +1103,9 @@ label > input:checked + img{
 }
 
 .main-footer {
-    background: #2a3338;
-    padding: 15px;
+    background: $backgroundColor;
+    padding: 2px;
+    margin-bottom: 20px;
     border-top: 0px;
     color: white;
 }
@@ -1143,12 +1143,11 @@ label > input:checked + img{
     color: #ffffff;
 }
 
-.admin-menu, .user-menu {
+.admin-menu {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     height: 100%;
-    background-color: #1b2428;
 }
 
 .menu-item {
