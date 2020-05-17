@@ -1,22 +1,6 @@
 <template>
     <div id="app" class="wrapper">
         <header class="main-header">
-            <div class="top-bar">
-                <!-- <div class="container top-menu">
-                    <div class="laraone-logo"><img src="/images/logo.png" class="img-responsive"></div>
-                    <div class="notifications-area">
-                        <div @mouseover="showUserDropDownMenu = true" @mouseout="showUserDropDownMenu = false" class="user-item menu-item dropdown dropdown-toggle">
-                            <a v-if="auth.user.firstname && auth.user.lastname" class="user-name">{{ auth.user.firstname }} {{ auth.user.lastname }}</a>
-                            <a v-else class="user-name">{{ auth.user.username }}</a>
-                            <div v-show="showUserDropDownMenu" class="dropdown-menu">
-                                <div class="dropdown-menu-item">
-                                    <a @click="logout">Logout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
             <nav class="navbar">
                 <div class="container" style="height: 100%;">
                     <div style="display: flex; flex-direction: row; height: 100%">

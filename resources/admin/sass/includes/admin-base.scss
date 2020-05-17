@@ -126,12 +126,8 @@ p {
     min-height: 100%;
     background-color: #ecf0f5;
     z-index: 800;
-}
-.main-footer {
-    background: #fff;
-    padding: 15px;
-    color: #444;
-    border-top: 1px solid #d2d6de;
+    background-color: #2a3338;
+    margin-left: 0;
 }
 
 @media (min-width: 1400px) {
@@ -210,7 +206,7 @@ p {
 }
 
 .wrapper {
-    background-color: #2f3a40;
+    background-color: #2a3338;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -271,10 +267,6 @@ p {
     border-radius: 0;
 }
 
-.content-wrapper {
-    background-color: #2F3A40;
-    margin-left: 0;
-}
 
 .form-control {
     color: rgba(159,194,213,0.7);
@@ -398,7 +390,7 @@ p {
 
 .content {
     padding: 0px;
-    margin-top: 5px;
+    margin-top: 15px;
     color: #b8c7ce;
 }
 
@@ -1112,7 +1104,7 @@ label > input:checked + img{
 }
 
 .main-footer {
-    background: #2f3a40;
+    background: #2a3338;
     padding: 15px;
     border-top: 0px;
     color: white;
