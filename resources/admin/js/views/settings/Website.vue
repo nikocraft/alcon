@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header">
-                <h3 class="box-title">Website General Settings</h3>
+                <h3 class="box-title">Website Settings</h3>
                 <div class="header-tools">
                     <button @click="save" name="save" class="btn btn-block btn-primary btn-header">Save</button>
                 </div>
@@ -24,11 +24,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label>What should we show on frontpage?</label>
+                    <label>Frontpage</label>
                     <select name="frontPageType" class="form-control" v-model="settings.frontPageType">
-                        <option value="welcome-page">Welcome Page</option>
-                        <option value="single-page">Single Page</option>
-                        <option value="index-page">Content Index Page</option>
+                        <option value="welcome-page">Welcome</option>
+                        <option value="single-page">Page</option>
+                        <option value="index-page">Content Index</option>
                     </select>
                 </div>
 
