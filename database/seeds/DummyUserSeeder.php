@@ -21,7 +21,7 @@ class DummyUserSeeder extends Seeder
         $admin = Role::where('name', 'admin')->first();
         $member = Role::where('name', 'member')->first();
 
-        $environment = env('APP_ENV', 'production');
+        $environment = config('app.env');
 
         if($environment == 'local') {
             $username = str_replace(".", "", $faker->unique()->username);

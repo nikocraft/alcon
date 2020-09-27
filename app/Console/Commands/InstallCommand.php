@@ -68,9 +68,6 @@ class InstallCommand extends BaseCommand
             });
         }
 
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-
         $this->info('Generating new app key');
         Artisan::call('key:generate', [ '--force' => true ]);
 
@@ -111,7 +108,7 @@ class InstallCommand extends BaseCommand
             $user->attachRole($super);
 
         } else {
-            $environment = env('APP_ENV', 'production');
+            $environment = config('app.env');
             switch ($environment) {
                 case 'local':
                     Artisan::call('db:seed', [

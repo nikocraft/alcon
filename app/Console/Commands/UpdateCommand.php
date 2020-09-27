@@ -46,11 +46,6 @@ class UpdateCommand extends BaseCommand
         $cmsCurrentVersion = get_website_setting('cms.version');
         $lastVersion = $this->updateService->getLastVersion();
 
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-        // $this->info('composer dump-autoload');
-        // exec('composer dump-autoload');
-
         $currentReleaseIndex = $this->updateService->getReleaseIndex($cmsCurrentVersion);
         $lastReleaseIndex = $this->updateService->getLastIndex();
 

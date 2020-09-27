@@ -19,21 +19,18 @@ class MailController extends Controller
     
     public function index()
     {
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-
         $settings = [
-            'maildriver' => env('MAIL_DRIVER', null),
-            'fromaddress' => env('MAIL_FROM_ADDRESS', null),
-            'sendmail' => env('MAIL_SENDMAIL', null),
-            'host' => env('MAIL_HOST', null),
-            'port' => env('MAIL_PORT', null),
-            'username' => env('MAIL_USERNAME', null),
-            'password' => env('MAIL_PASSWORD', null),
-            'encryption' => env('MAIL_ENCRYPTION', null),
-            'mailgundomain' => env('MAILGUN_DOMAIN', null),
-            'mailgunsecret' => env('MAILGUN_SECRET', null),
-            'mailgunendpoint' => env('MAILGUN_ENDPOINT', null),
+            'maildriver' => config('mail.driver'),
+            'fromaddress' => config('mail.from.address'),
+            'sendmail' => config('mail.sendmail'),
+            'host' => config('mail.host'),
+            'port' => config('mail.port'),
+            'username' => config('mail.username'),
+            'password' => config('mail.password'),
+            'encryption' => config('mail.encryption'),
+            'mailgundomain' => config('services.mailgun.domain'),
+            'mailgunsecret' => config('services.mailgun.secret'),
+            'mailgunendpoint' => config('services.mailgun.endpoint'),
         ];
 
         return response()->json([
@@ -82,9 +79,6 @@ class MailController extends Controller
         }
 
         set_env_vars($mailEnvData);
-
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
 
         return response()->json([], 200);
     }

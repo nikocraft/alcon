@@ -49,9 +49,6 @@ class InstallerController extends Controller
 
         $this->saveToEnv($envData);
 
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
-
         $dbTestSuccess = $this->testDbConnection();
 
         Theme::set('admin'); 
@@ -71,9 +68,6 @@ class InstallerController extends Controller
         ];
 
         $this->saveToEnv($envData);
-
-        Artisan::call('config:clear');
-        Artisan::call('config:cache');
 
         $dbTestSuccess = $this->testDbConnection();
 
