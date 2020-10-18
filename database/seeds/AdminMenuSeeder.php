@@ -50,6 +50,19 @@ class AdminMenuSeeder extends Seeder
             ]
         ]);
 
+        // Projects
+        AdminMenu::create([
+            'name' => 'Projects',
+            'unique_id' =>'core.content.projects',
+            'icon' => 'lo-icon lo-icon-edit',
+            'route' => 'content.list',
+            'permission' => 'manage-content',
+            'order' => 25,
+            'params' => [
+                'contentTypeSlug' => 'projects'
+            ]
+        ]);
+
         /** Content Types End */
 
         /** Media Start */

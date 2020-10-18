@@ -30,7 +30,16 @@ class TaxonomiesTableSeeder extends Seeder
             'required' => false
         ];
 
-        $categoriesTaxonomy = App\Models\Core\Taxonomies\Taxonomy::create([
+        $projectTypesSettings = [
+            'allowCreate' => true,
+            'allowFilterable' => true,
+            'allowMultiple' => true,
+            'canHaveChildren' => false,
+            'maxAllowed' => 3,
+            'required' => false
+        ];
+
+        App\Models\Core\Taxonomies\Taxonomy::create([
             'name' => 'Categories',
             'name_singular' => 'Category',
             'slug' => 'categories',
@@ -38,12 +47,20 @@ class TaxonomiesTableSeeder extends Seeder
             'settings' => $categoriesSettings
         ]);
 
-        $tagsTaxonomy = App\Models\Core\Taxonomies\Taxonomy::create([
+        App\Models\Core\Taxonomies\Taxonomy::create([
             'name' => 'Tags',
             'name_singular' => 'Tag',
             'slug' => 'tags',
             'content_type_id' => 2,
             'settings' => $tagsSettings
+        ]);
+
+        App\Models\Core\Taxonomies\Taxonomy::create([
+            'name' => 'Types',
+            'name_singular' => 'Type',
+            'slug' => 'types',
+            'content_type_id' => 3,
+            'settings' => $projectTypesSettings
         ]);
 
     }

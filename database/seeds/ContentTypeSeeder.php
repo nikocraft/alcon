@@ -28,5 +28,14 @@ class ContentTypeSeeder extends Seeder
             'locked' => true,
             'type' => 2
         ]);
+
+        App\Models\Core\Content\ContentType::create([
+            'name' => 'Projects',
+            'name_singular' => 'Post',
+            'slug' => 'projects',
+            'front_slug' => 'projects',
+            'locked' => true,
+            'type' => 2
+        ]);
     }
 }
