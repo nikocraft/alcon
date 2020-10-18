@@ -75,7 +75,7 @@ class InstallCommand extends BaseCommand
         Artisan::call('key:generate', [ '--force' => true ]);
 
         $this->info('About to download default frontend theme.');
-        $this->updateService->fetchDefaultTheme($cmsLastVersion);
+        // $this->updateService->fetchDefaultTheme($cmsLastVersion);
 
         $this->info('Running migrations.');
         Artisan::call('migrate:fresh', [ '--force' => true ]);

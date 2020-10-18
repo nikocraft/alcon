@@ -41,10 +41,12 @@ class ThemeService
                 // delete themes folder, if left over from previous failed install
                 File::deleteDirectory(resource_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
                 File::deleteDirectory(public_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
+                // File::deleteDirectory(database_path("themes" . DIRECTORY_SEPARATOR . $themeFolderName));
 
                 if(!File::isDirectory(resource_path("themes" .DIRECTORY_SEPARATOR. $themeFolderName))) {
                     $errors1 = $zip->extractSubdirTo("views", resource_path('themes'. DIRECTORY_SEPARATOR . $themeFolderName));
                     $errors2 = $zip->extractSubdirTo("assets", public_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
+                    // $errors3 = $zip->extractSubdirTo("seeds", database_path('themes' . DIRECTORY_SEPARATOR . $themeFolderName));
 
                     if(count($errors1) == 0 && count($errors2) == 0) {
                         $theme = new Theme();
@@ -65,6 +67,9 @@ class ThemeService
                         $result->message = "Theme " . $themeData->name . " installed successfully!";
                         $result->id = $theme->id;
                         $result->code = 200;
+
+                        // run seeds
+                        // $this->runSeeds($theme->version);
                     } else {
                         $result->message = "It seems that the themes folder is locked, not possible to update.";
                     }
@@ -79,6 +84,57 @@ class ThemeService
         }
 
         return $result;
+    }
+
+    protected function getSeedFileName($version)
+    {
+        $seedFileName = 'Seed' . preg_replace("/[^a-zA-Z0-9]/", "", $version);
+        return $seedFileName;
+    }
+
+
+    private function getReleaseIndex($releasesData, $version)
+    {
+        $index = 0;
+        foreach($releasesData as $key => $value) {
+            if ($value['version'] == $version) {
+                $index = $value['index'];
+                break;
+            }
+        }
+        return $index;
+    }
+
+    /**
+     * Sort index array in asc order
+     * 
+     * @param $first
+     * @param $second
+     * 
+     * @return mixed
+     */
+    protected function ascSort($first, $second)
+    {
+      return ($first["index"] <= $second["index"]) ? -1 : 1;
+    }
+
+    private function runSeeds($version)
+    {
+        $json = json_decode(file_get_contents("https://github.com/nikocraft/alcon-theme/raw/master/releases.json"), true);
+        $releaseList = $json['releasesData'];
+        usort($releaseList, [$this, 'ascSort']);
+        // $currentReleaseIndex = $this->getReleaseIndex($releaseList, $version);
+        // // echo "currentReleaseIndex" . $currentReleaseIndex;
+        // $updatesData = array_slice($releaseList, $currentReleaseIndex);
+
+        foreach($releaseList as $key => $value) {
+            $seedFile = $this->getSeedFileName($value['version']);
+            if(file_exists(base_path('database/themes/alcon/' . $seedFile . '.php'))) {
+                $class = 'Database\Themes\Alcon\\' . $seedFile;
+                $seeder = new $class();
+                $seeder->run();
+            }
+        }
     }
 
     public function updateTheme($themePath)
@@ -112,6 +168,10 @@ class ThemeService
                         $this->theme = $theme;
                         $this->importThemeSettings($themeData->settings);
                         $result->message = ucfirst($themeData->name) . " theme updated successfully!";
+
+                        // run theme seeds
+                        // $this->
+
                         $result->code = 200;
                     } else {
                         $result->message = "It seems that the themes folder is locked, not possible to update.";

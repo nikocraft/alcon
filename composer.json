@@ -38,7 +38,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Database\\Seeds\\Updates\\": "database/seeds/updates"
+            "Database\\Seeds\\Updates\\": "database/seeds/updates",
+            "Database\\Themes\\": "database/themes"
         },
         "classmap": [
             "database/seeds",
