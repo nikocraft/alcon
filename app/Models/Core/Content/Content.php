@@ -114,7 +114,7 @@ class Content extends Model
         $id = null;
         if(!array_key_exists('id', $term)) {
             $newTerm = Term::firstOrCreate([
-                'name' => strtolower($term['name']),
+                'name' => mb_strtolower($term['name']),
                 'slug' => $this->slugify($term['name']),
                 'taxonomy_id' => $taxonomyId
             ]);
@@ -141,6 +141,7 @@ class Content extends Model
                 }
             }
         }
+        
         $this->terms()->sync($termsIds);
     }
 }
