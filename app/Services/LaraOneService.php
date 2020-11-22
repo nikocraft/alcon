@@ -14,6 +14,15 @@ class LaraOneService
     }
 
     /**
+     * Return release json
+     *
+     * @return array
+     */
+    public function getCMSReleasesData() {
+        return $this->releasesData;
+    }
+
+    /**
      * Load release json object for processing, sort it in asc order by index key
      *
      * @return array

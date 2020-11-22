@@ -43,6 +43,7 @@ class BaseCommand extends Command
     {
         parent::__construct();
         $this->updateService = new LaraOneService;
+        $this->releasesData = $this->updateService->getCMSReleasesData();
     }
 
     /**
