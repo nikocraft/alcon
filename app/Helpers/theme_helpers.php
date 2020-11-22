@@ -258,3 +258,26 @@ function get_gravatar( $email, $s = 100, $d = 'robohash', $r = 'g', $img = false
     }
     return $url;
 }
+
+
+/**
+ * Returns specified theme setting, settings are loaded at Laravel bootup time and kept in memory for quicker access
+ */
+if (!function_exists('get_taxonomy')) {
+    function get_taxonomy($contentTypeId = 3, $taxonomySlug = 'types')
+    {
+        $taxonomy = \App\Models\Core\Taxonomies\Taxonomy::with('terms')->where('content_type_id', $contentTypeId)->where('slug', $taxonomySlug)->first();
+        return $taxonomy ? $taxonomy : null;
+    }
+}
+
+/**
+ * Returns specified theme setting, settings are loaded at Laravel bootup time and kept in memory for quicker access
+ */
+if (!function_exists('get_taxonomy_terms')) {
+    function get_taxonomy_terms($contentTypeId = 3, $taxonomySlug = 'types')
+    {
+        $taxonomy = \App\Models\Core\Taxonomies\Taxonomy::with('terms')->where('content_type_id', $contentTypeId)->where('slug', $taxonomySlug)->first();
+        return $taxonomy ? $taxonomy->terms : null;
+    }
+}

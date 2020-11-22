@@ -1,6 +1,10 @@
 {
     "releasesData": [
       {
+        "index": 9,
+        "version": "1.4.3"
+      },
+      {
         "index": 8,
         "version": "1.4.2"
       },
